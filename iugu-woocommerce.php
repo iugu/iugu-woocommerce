@@ -94,7 +94,7 @@ class WC_Iugu {
 	 * @return void
 	 */
 	private function includes() {
-
+		include_once 'includes/class-wc-iugu-gateway.php';
 	}
 
 	/**
@@ -105,7 +105,7 @@ class WC_Iugu {
 	 * @return  array          Payment methods with Iugu.
 	 */
 	public function add_gateway( $methods ) {
-		// $methods[] = 'WC_Iugu_Gateway';
+		$methods[] = 'WC_Iugu_Gateway';
 
 		return $methods;
 	}
