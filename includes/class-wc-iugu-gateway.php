@@ -52,6 +52,9 @@ class WC_Iugu_Gateway extends WC_Payment_Gateway {
 
 		// Main actions.
 		add_action( 'woocommerce_update_options_payment_gateways_' . $this->id, array( $this, 'process_admin_options' ) );
+
+		// Display admin notices.
+		$this->admin_notices();
 	}
 
 	/**
@@ -61,6 +64,44 @@ class WC_Iugu_Gateway extends WC_Payment_Gateway {
 	 */
 	public function using_supported_currency() {
 		return in_array( get_woocommerce_currency(), array( 'BRL' ) );
+	}
+
+	/**
+	 * Displays notifications when the admin has something wrong with the configuration.
+	 *
+	 * @return void
+	 */
+	protected function admin_notices() {
+		if ( is_admin() ) {
+			// Checks if Account ID is not empty.
+			if ( empty( $this->account_id ) ) {
+				add_action( 'admin_notices', array( $this, 'account_id_missing_message' ) );
+			}
+
+			// Checks if Account API Token is not empty.
+			if ( empty( $this->account_token ) ) {
+				add_action( 'admin_notices', array( $this, 'account_token_missing_message' ) );
+			}
+
+			// Checks that the currency is supported
+			if ( ! $this->using_supported_currency() ) {
+				add_action( 'admin_notices', array( $this, 'currency_not_supported_message' ) );
+			}
+		}
+	}
+
+	/**
+	 * Returns a value indicating the the Gateway is available or not. It's called
+	 * automatically by WooCommerce before allowing customers to use the gateway
+	 * for payment.
+	 *
+	 * @return bool
+	 */
+	public function is_available() {
+		// Test if is valid for use.
+		$available = ( 'yes' == $this->get_option( 'enabled' ) ) && ! empty( $this->account_id ) && ! empty( $this->account_token ) && $this->using_supported_currency();
+
+		return $available;
 	}
 
 	/**
@@ -151,6 +192,46 @@ class WC_Iugu_Gateway extends WC_Payment_Gateway {
 				'description' => sprintf( __( 'Log Iugu events, such as API requests, inside %s', 'iugu-woocommerce' ), '<code>woocommerce/logs/' . esc_attr( $this->id ) . '-' . sanitize_file_name( wp_hash( $this->id ) ) . '.txt</code>' )
 			)
 		);
+	}
+
+	/**
+	 * Gets the admin url.
+	 *
+	 * @return string
+	 */
+	protected function admin_url() {
+		if ( defined( 'WC_VERSION' ) && version_compare( WC_VERSION, '2.1', '>=' ) ) {
+			return admin_url( 'admin.php?page=wc-settings&tab=checkout&section=wc_iugu_gateway' );
+		}
+
+		return admin_url( 'admin.php?page=woocommerce_settings&tab=payment_gateways&section=WC_Iugu_Gateway' );
+	}
+
+	/**
+	 * Adds error message when not configured the Account ID.
+	 *
+	 * @return string Error Mensage.
+	 */
+	public function account_id_missing_message() {
+		echo '<div class="error"><p><strong>' . __( 'Iugu Disabled', 'iugu-woocommerce' ) . '</strong>: ' . sprintf( __( 'You should inform your Account ID. %s', 'iugu-woocommerce' ), '<a href="' . $this->admin_url() . '">' . __( 'Click here to configure!', 'iugu-woocommerce' ) . '</a>' ) . '</p></div>';
+	}
+
+	/**
+	 * Adds error message when not configured the Account API Token.
+	 *
+	 * @return string Error Mensage.
+	 */
+	public function account_token_missing_message() {
+		echo '<div class="error"><p><strong>' . __( 'Iugu Disabled', 'iugu-woocommerce' ) . '</strong>: ' . sprintf( __( 'You should inform your Account API Token. %s', 'iugu-woocommerce' ), '<a href="' . $this->admin_url() . '">' . __( 'Click here to configure!', 'iugu-woocommerce' ) . '</a>' ) . '</p></div>';
+	}
+
+	/**
+	 * Adds error message when an unsupported currency is used.
+	 *
+	 * @return string
+	 */
+	public function currency_not_supported_message() {
+		echo '<div class="error"><p><strong>' . __( 'Iugu Disabled', 'iugu-woocommerce' ) . '</strong>: ' . sprintf( __( 'Currency <code>%s</code> is not supported. Works only with Brazilian Real.', 'iugu-woocommerce' ), get_woocommerce_currency() ) . '</p></div>';
 	}
 
 }
