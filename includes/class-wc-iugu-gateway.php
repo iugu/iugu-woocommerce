@@ -195,6 +195,43 @@ class WC_Iugu_Gateway extends WC_Payment_Gateway {
 	}
 
 	/**
+	 * Payment fields.
+	 *
+	 * @return string
+	 */
+	public function payment_fields() {
+		global $woocommerce;
+
+		wp_enqueue_script( 'wc-credit-card-form' );
+
+		$cart_total = 0;
+		if ( defined( 'WC_VERSION' ) && version_compare( WC_VERSION, '2.1', '>=' ) ) {
+			$order_id = absint( get_query_var( 'order-pay' ) );
+		} else {
+			$order_id = isset( $_GET['order_id'] ) ? absint( $_GET['order_id'] ) : 0;
+		}
+
+		// Gets order total from "pay for order" page.
+		if ( 0 < $order_id ) {
+			$order      = new WC_Order( $order_id );
+			$cart_total = (float) $order->get_total();
+
+		// Gets order total from cart/checkout.
+		} elseif ( 0 < $woocommerce->cart->total ) {
+			$cart_total = (float) $woocommerce->cart->total;
+		}
+
+		if ( $description = $this->get_description() ) {
+			echo wpautop( wptexturize( $description ) );
+		}
+
+		woocommerce_get_template( 'payment-form.php', array(
+			'cart_total' => $cart_total,
+			'methods'    => $this->methods,
+		), 'woocommerce/iugu/', WC_Iugu::get_templates_path() );
+	}
+
+	/**
 	 * Gets the admin url.
 	 *
 	 * @return string
