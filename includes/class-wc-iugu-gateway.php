@@ -50,6 +50,9 @@ class WC_Iugu_Gateway extends WC_Payment_Gateway {
 			}
 		}
 
+		// Set the API.
+		$this->api = new WC_Iugu_API( $this );
+
 		// Main actions.
 		add_action( 'woocommerce_update_options_payment_gateways_' . $this->id, array( $this, 'process_admin_options' ) );
 

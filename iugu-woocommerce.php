@@ -94,6 +94,7 @@ class WC_Iugu {
 	 * @return void
 	 */
 	private function includes() {
+		include_once 'includes/class-wc-iugu-api.php';
 		include_once 'includes/class-wc-iugu-gateway.php';
 	}
 
