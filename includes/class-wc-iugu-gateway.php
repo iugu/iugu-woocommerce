@@ -229,7 +229,7 @@ class WC_Iugu_Gateway extends WC_Payment_Gateway {
 		}
 
 		woocommerce_get_template( 'payment-form.php', array(
-			'cart_total' => $cart_total,
+			'cart_total' => number_format( $cart_total, 2, '.', '' ),
 			'methods'    => $this->methods,
 		), 'woocommerce/iugu/', WC_Iugu::get_templates_path() );
 	}

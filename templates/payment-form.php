@@ -13,7 +13,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 ?>
 
 <fieldset id="iugu-payment-form">
-	<input type="hidden" id="iugu-cart-total" value="<?php echo number_format( $cart_total, 2, '.', '' ); ?>" />
+	<input type="hidden" id="iugu-cart-total" value="<?php echo $cart_total; ?>" />
 
 	<div id="iugu-credit-card-form" class="iugu-method-form">
 		<p class="form-row form-row-first">
