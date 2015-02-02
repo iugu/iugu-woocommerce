@@ -1,0 +1,273 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: WooCommerce Iugu\n"
+"POT-Creation-Date: 2015-01-30 17:14-0300\n"
+"PO-Revision-Date: 2015-01-30 17:22-0300\n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"Language: pt_BR\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: Poedit 1.7.3\n"
+"X-Poedit-Basepath: ..\n"
+"X-Poedit-SourceCharset: UTF-8\n"
+"X-Poedit-KeywordsList: __;_e;_n:1,2;_x:1,2c;_ex:1,2c;_nx:4c,1,2;esc_attr__;"
+"esc_attr_e;esc_attr_x:1,2c;esc_html__;esc_html_e;esc_html_x:1,2c;_n_noop:1,2;"
+"_nx_noop:3c,1,2;__ngettext_noop:1,2\n"
+"Plural-Forms: nplurals=2; plural=(n > 1);\n"
+"X-Poedit-SearchPath-0: .\n"
+"X-Poedit-SearchPathExcluded-0: *.js\n"
+
+#: includes/class-wc-iugu-gateway.php:34
+#: includes/class-wc-iugu-gateway.php:168
+msgid "Iugu"
+msgstr ""
+
+#: includes/class-wc-iugu-gateway.php:158
+msgid "Enable/Disable"
+msgstr "﻿Ativar ou desativar"
+
+#: includes/class-wc-iugu-gateway.php:160
+msgid "Enable Iugu standard"
+msgstr "Habilitar Iugu como padrão"
+
+#: includes/class-wc-iugu-gateway.php:164
+msgid "Title"
+msgstr "Título"
+
+#: includes/class-wc-iugu-gateway.php:166
+msgid "This controls the title which the user sees during checkout."
+msgstr "Isso controla o título que o usuário vê durante o checkout."
+
+#: includes/class-wc-iugu-gateway.php:171
+msgid "Description"
+msgstr "Descrição"
+
+#: includes/class-wc-iugu-gateway.php:173
+msgid "This controls the description which the user sees during checkout."
+msgstr "Isto controla a descrição que o usuário vê durante o checkout."
+
+#: includes/class-wc-iugu-gateway.php:174
+msgid "Pay via Iugu"
+msgstr "Pague via Iugu"
+
+#: includes/class-wc-iugu-gateway.php:177
+msgid "Invoice Prefix"
+msgstr "Prefixo da fatura"
+
+#: includes/class-wc-iugu-gateway.php:179
+msgid ""
+"Please enter a prefix for your invoice numbers. If you use your Iugu account "
+"for multiple stores ensure this prefix is unqiue as Iugu will not allow "
+"orders with the same invoice number."
+msgstr ""
+"Por favor digite um prefixo para seus números de fatura. Se você usa sua "
+"conta Iugu para várias lojas, assegure que este prefixo é único, Iugu não "
+"permitirá compras com mesmo número de fatura"
+
+#: includes/class-wc-iugu-gateway.php:184
+msgid "Payment API"
+msgstr "API de Pagamento"
+
+#: includes/class-wc-iugu-gateway.php:189
+msgid "Iugu Payment API"
+msgstr "API de Pagamento Iugu "
+
+#: includes/class-wc-iugu-gateway.php:191
+msgid "Select the payment methods"
+msgstr "Selecione os métodos de pagamento"
+
+#: includes/class-wc-iugu-gateway.php:194
+msgid "Creditcard Only"
+msgstr "Apenas Cartão de crédito"
+
+#: includes/class-wc-iugu-gateway.php:195
+msgid "Billet only"
+msgstr "Apenas Boleto"
+
+#: includes/class-wc-iugu-gateway.php:196
+msgid "Creditcard And Billet"
+msgstr "Cartão de crédito e boleto"
+
+#: includes/class-wc-iugu-gateway.php:200
+msgid "Maximum Split"
+msgstr "Parcelamento máximo"
+
+#: includes/class-wc-iugu-gateway.php:202
+msgid ""
+"The maximum split allowed for credit cards. Put a number bigger than 1 to "
+"enable the field"
+msgstr ""
+"O parcelamento máximo permitido para cartões de crédito. Colocar um número "
+"maior que 1 para habilitar o campo"
+
+#: includes/class-wc-iugu-gateway.php:207
+msgid "Account ID"
+msgstr "ID da conta"
+
+#: includes/class-wc-iugu-gateway.php:209
+msgid "Please enter your Account ID; this is needed in order to take payment."
+msgstr ""
+"Por favor digite o ID de sua conta; Isto é necessário para ter o meio de "
+"pagamento funcionando."
+
+#: includes/class-wc-iugu-gateway.php:214
+msgid "API Token"
+msgstr "Token"
+
+#: includes/class-wc-iugu-gateway.php:216
+msgid "Please enter your API Token; this is needed in order to take payment."
+msgstr ""
+"Por favor, digite seu Token; Isto é necessário para ter o meio de pagamento "
+"funcionando."
+
+#: includes/class-wc-iugu-gateway.php:221
+msgid "Payment Settings"
+msgstr "Configurações de pagamento"
+
+#: includes/class-wc-iugu-gateway.php:223
+msgid "These options need to be available to you in your Iugu account."
+msgstr ""
+"Essas opções precisam estar disponíveis para você em sua conta do Iugu."
+
+#: includes/class-wc-iugu-gateway.php:226
+msgid "Debug Log"
+msgstr "Depuração"
+
+#: includes/class-wc-iugu-gateway.php:228
+msgid "Enable logging"
+msgstr "Habilitar o log"
+
+#: includes/class-wc-iugu-gateway.php:230
+#, php-format
+msgid "Log Iugu events, such as API requests, inside %s"
+msgstr "Registre eventos do Iugu, como solicitações da API, dentro de %s"
+
+#: includes/class-wc-iugu-gateway.php:233
+msgid "Informations"
+msgstr "Informações"
+
+#: includes/class-wc-iugu-gateway.php:235
+msgid "These options need to be configured in your Iugu account."
+msgstr "Essas opções precisam ser configurados em sua conta do Iugu."
+
+#: includes/class-wc-iugu-gateway.php:238
+msgid "Iugu Trigger URL"
+msgstr "URL para o gatilho do Iugu "
+
+#: includes/class-wc-iugu-gateway.php:241
+msgid "handle Iugu events, such as API posts"
+msgstr ""
+"Manipular eventos do Iugu, tais como informações de pagamento vindas da API"
+
+#: includes/class-wc-iugu-gateway.php:282
+msgid "Holder Name"
+msgstr "Nome do titular"
+
+#: includes/class-wc-iugu-gateway.php:286
+msgid "Card Number"
+msgstr "Número do Cartão"
+
+#: includes/class-wc-iugu-gateway.php:290
+msgid "Expiry (MM/YYYY)"
+msgstr "Data de expiração (MM / AAAA)"
+
+#: includes/class-wc-iugu-gateway.php:291
+msgid "MM / YYYY"
+msgstr "MM/ AAAA"
+
+#: includes/class-wc-iugu-gateway.php:294
+msgid "Card Code"
+msgstr "Código de segurança"
+
+#: includes/class-wc-iugu-gateway.php:295
+msgid "CVC"
+msgstr ""
+
+#: includes/class-wc-iugu-gateway.php:302
+msgid "Splits"
+msgstr "Parcelas"
+
+#: includes/class-wc-iugu-gateway.php:608
+msgid "Iugu: waiting payment."
+msgstr "Iugu: aguardando pagamento."
+
+#: includes/class-wc-iugu-gateway.php:609
+#: includes/class-wc-iugu-gateway.php:646
+msgid "Invoice:"
+msgstr "Fatura:"
+
+#: includes/class-wc-iugu-gateway.php:645
+msgid "Iugu: payment completed."
+msgstr "Iugu: pagamento concluído."
+
+#: includes/class-wc-iugu-gateway.php:687
+msgid "Click here to generate your billet"
+msgstr "Clique aqui para gerar seu boleto"
+
+#: includes/class-wc-iugu-gateway.php:718
+#: includes/class-wc-iugu-gateway.php:727
+msgid "Iugu Disabled"
+msgstr "Iugu Desativado"
+
+#: includes/class-wc-iugu-gateway.php:718
+#, php-format
+msgid "You should inform your Account ID. %s"
+msgstr "Você deve informar o ID de sua conta. %s"
+
+#: includes/class-wc-iugu-gateway.php:718
+#: includes/class-wc-iugu-gateway.php:727
+msgid "Click here to configure!"
+msgstr "Clique aqui para configurar!"
+
+#: includes/class-wc-iugu-gateway.php:727
+#, php-format
+msgid "You should inform your API Token. %s"
+msgstr "Você deve informar seu Token. %s"
+
+#: includes/iugu-checkout-custom-fields.php:22
+#: includes/iugu-checkout-custom-fields.php:33
+msgid "Realty number"
+msgstr "Número da residência"
+
+#: includes/iugu-checkout-custom-fields.php:23
+#: includes/iugu-checkout-custom-fields.php:34
+msgctxt "placeholder"
+msgid "700"
+msgstr ""
+
+#: includes/iugu-checkout-custom-fields.php:44
+msgid "DDD"
+msgstr ""
+
+#: includes/iugu-checkout-custom-fields.php:45
+msgctxt "placeholder"
+msgid "41"
+msgstr ""
+
+#: woocommerce-iugu-update-order.php:89
+msgid "All payment process completed"
+msgstr "Todos os processos de pagamento concluídos"
+
+#: woocommerce-iugu.php:126
+#, php-format
+msgid "WooCommerce Iugu Gateway depends on the last version of %s to work!"
+msgstr ""
+"WooCommerce Iugu Gateway depende da última versão do %s para funcionar!"
+
+#: woocommerce-iugu.php:137
+msgid "Settings"
+msgstr "Configurações"
+
+#~ msgid "Expiry (MM/YY)"
+#~ msgstr "Data de expiração (MM / AA)"
+
+#~ msgid "MM / YY"
+#~ msgstr "MM/AAAA"
+
+#~ msgid ""
+#~ "Please enter your Access Key; this is needed in order to take payment."
+#~ msgstr ""
+#~ "Por favor insira sua chave de acesso; Isto é necessário para ter o "
+#~ "pagamento."
