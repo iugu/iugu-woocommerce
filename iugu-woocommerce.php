@@ -79,8 +79,6 @@ class WC_Iugu {
 
 	/**
 	 * Load the plugin text domain for translation.
-	 *
-	 * @return void
 	 */
 	public function load_plugin_textdomain() {
 		$locale = apply_filters( 'plugin_locale', get_locale(), 'iugu-woocommerce' );
@@ -92,9 +90,9 @@ class WC_Iugu {
 	/**
 	 * Add the gateway to WooCommerce.
 	 *
-	 * @param array $methods WooCommerce payment methods.
+	 * @param  array $methods WooCommerce payment methods.
 	 *
-	 * @return array Payment methods with Iugu.
+	 * @return array          Payment methods with Iugu.
 	 */
 	public function add_gateway( $methods ) {
 		$methods[] = 'WC_Iugu_Gateway';
@@ -114,7 +112,7 @@ class WC_Iugu {
 	/**
 	 * Hooked function to create a link to settings from plugins list.
 	 *
-	 * @param array $links
+	 * @param  array $links
 	 *
 	 * @return array
 	 */
