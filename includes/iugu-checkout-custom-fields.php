@@ -15,49 +15,49 @@ function custom_override_checkout_fields($fields) {
 
 	$billing = $fields ['billing'];
 	$shipping = $fields ['shipping'];
-	
+
 	$field = array (
 			"billing_number" => array (
 					'type' => 'text',
-					'label' => __ ( 'Realty number', 'woocommerce-iugu' ),
-					'placeholder' => _x ( '700', 'placeholder', 'woocommerce-iugu' ), 
+					'label' => __ ( 'Realty number', 'iugu-woocommerce' ),
+					'placeholder' => _x ( '700', 'placeholder', 'iugu-woocommerce' ),
 					'required' => true
-			) 
+			)
 	);
-	
+
 	array_insert ( $billing, "billing_city", $field );
-	
+
 	$field = array (
 			"shipping_number" => array (
 					'type' => 'text',
-					'label' => __ ( 'Realty number', 'woocommerce-iugu' ),
-					'placeholder' => _x ( '700', 'placeholder', 'woocommerce-iugu' ),
+					'label' => __ ( 'Realty number', 'iugu-woocommerce' ),
+					'placeholder' => _x ( '700', 'placeholder', 'iugu-woocommerce' ),
 					'required' => true
-			) 
+			)
 	);
-	
+
 	array_insert ( $shipping, "shipping_city", $field );
-	
+
 	$field = array (
 			"billing_phone_prefix" => array (
 					'type' => 'text',
-					'label' => __ ( 'DDD', 'woocommerce-iugu' ),
-					'placeholder' => _x ( '41', 'placeholder', 'woocommerce-iugu' ),
+					'label' => __ ( 'DDD', 'iugu-woocommerce' ),
+					'placeholder' => _x ( '41', 'placeholder', 'iugu-woocommerce' ),
 					'class' => array ( 'form-row-first'),
-					'required' => true 
-			) 
+					'required' => true
+			)
 	);
-	
+
 	array_insert ( $billing, "billing_phone", $field );
-	
+
 	$billing ['billing_phone'] ['class'] = array_merge ( $billing ['billing_phone'] ['class'], array (
-			'form-row-last' 
+			'form-row-last'
 	) );
 	$billing ['billing_email'] ['class'] = array ();
-	
+
 	$fields ['billing'] = $billing;
 	$fields ['shipping'] = $shipping;
-	
+
 	return $fields;
 }
 

@@ -266,17 +266,17 @@ msgctxt "placeholder"
 msgid "41"
 msgstr ""
 
-#: woocommerce-iugu-update-order.php:89
+#: iugu-woocommerce-update-order.php:89
 msgid "All payment process completed"
 msgstr "Todos os processos de pagamento concluídos"
 
-#: woocommerce-iugu.php:126
+#: iugu-woocommerce.php:126
 #, php-format
 msgid "WooCommerce Iugu Gateway depends on the last version of %s to work!"
 msgstr ""
 "WooCommerce Iugu Gateway depende da última versão do %s para funcionar!"
 
-#: woocommerce-iugu.php:137
+#: iugu-woocommerce.php:137
 msgid "Settings"
 msgstr "Configurações"
 
