@@ -1,8 +1,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: WooCommerce Iugu\n"
-"POT-Creation-Date: 2015-01-30 17:14-0300\n"
-"PO-Revision-Date: 2015-01-30 17:22-0300\n"
+"POT-Creation-Date: 2015-02-03 10:27-0300\n"
+"PO-Revision-Date: 2015-02-03 10:28-0300\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: pt_BR\n"
@@ -165,13 +165,17 @@ msgstr ""
 msgid "Holder Name"
 msgstr "Nome do titular"
 
+#: includes/class-wc-iugu-gateway.php:283
+msgid "The name on creditcard"
+msgstr "O nome no cartão de crédito"
+
 #: includes/class-wc-iugu-gateway.php:286
 msgid "Card Number"
 msgstr "Número do Cartão"
 
 #: includes/class-wc-iugu-gateway.php:290
 msgid "Expiry (MM/YYYY)"
-msgstr "Data de expiração (MM / AAAA)"
+msgstr "Expiração (MM / AAAA)"
 
 #: includes/class-wc-iugu-gateway.php:291
 msgid "MM / YYYY"

@@ -280,7 +280,7 @@ class WC_Iugu_Gateway extends WC_Payment_Gateway {
 		$default_fields = array(
 				'holder-name-field' => '<p class="form-row form-row-wide">
 					<label for="' . esc_attr( $this->id ) . '-holder-name">' . __( 'Holder Name', 'woocommerce-iugu' ) . ' <span class="required">*</span></label>
-					<input id="' . esc_attr( $this->id ) . '-holder-name" class="input-text wc-credit-card-form-holder-name" type="text" maxlength="100" autocomplete="off" placeholder="The name on creditcard" name="' . ( $args['fields_have_names'] ? $this->id . '-holder-name' : '' ) . '" />
+					<input id="' . esc_attr( $this->id ) . '-holder-name" class="input-text wc-credit-card-form-holder-name" type="text" maxlength="100" autocomplete="off" placeholder="'.__('The name on creditcard','woocommerce-iugu').'" name="' . ( $args['fields_have_names'] ? $this->id . '-holder-name' : '' ) . '" />
 				</p>',
 				'card-number-field' => '<p class="form-row form-row-wide">
 					<label for="' . esc_attr( $this->id ) . '-card-number">' . __( 'Card Number', 'woocommerce-iugu' ) . ' <span class="required">*</span></label>
