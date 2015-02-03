@@ -312,11 +312,11 @@ class WC_Iugu_Gateway extends WC_Payment_Gateway {
 		<div id="iugu-checkout-customform">
 			<div id="iugu-checkout-customform-navbar">
 				<ul>
-					<?php echo ( ($this->api == 'creditcard') ? '<li><a id="iugu-creditcard-navbutton" class="ui-btn-active creditcard-only form-row-wide" href="#">Payment with Creditcard</a></li>' : '' );?>
-					<?php echo ( ($this->api == 'full') ? '<li><a id="iugu-creditcard-navbutton" class="ui-btn-active form-row-first" href="#">Creditcard</a></li>' : '' );?>
+					<?php echo ( ($this->api == 'creditcard') ? '<li><a id="iugu-creditcard-navbutton" class="ui-btn-active creditcard-only form-row-wide" href="#">'.__('Payment with Creditcard','woocommerce-iugu').'</a></li>' : '' );?>
+					<?php echo ( ($this->api == 'full') ? '<li><a id="iugu-creditcard-navbutton" class="ui-btn-active form-row-first" href="#">'.__('Creditcard','woocommerce-iugu').'</a></li>' : '' );?>
 					
-					<?php echo ( ($this->api == 'billet') ? '<li><a id="iugu-billet-navbutton" class="ui-btn-active billet-only form-row-wide" href="#">Payment with Billet</a></li>' : '' );?>
-					<?php echo ( ($this->api == 'full') ? '<li><a id="iugu-billet-navbutton" class="form-row-last" href="#">Billet</a></li>' : '' );?>
+					<?php echo ( ($this->api == 'billet') ? '<li><a id="iugu-billet-navbutton" class="ui-btn-active billet-only form-row-wide" href="#">'.__('Payment with Billet','woocommerce-iugu').'</a></li>' : '' );?>
+					<?php echo ( ($this->api == 'full') ? '<li><a id="iugu-billet-navbutton" class="form-row-last" href="#">'.__('Billet','woocommerce-iugu').'</a></li>' : '' );?>
 				</ul>
 			</div>
 		

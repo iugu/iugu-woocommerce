@@ -1,8 +1,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: WooCommerce Iugu\n"
-"POT-Creation-Date: 2015-02-03 10:27-0300\n"
-"PO-Revision-Date: 2015-02-03 10:28-0300\n"
+"POT-Creation-Date: 2015-02-03 10:37-0300\n"
+"PO-Revision-Date: 2015-02-03 10:39-0300\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: pt_BR\n"
@@ -192,6 +192,22 @@ msgstr ""
 #: includes/class-wc-iugu-gateway.php:302
 msgid "Splits"
 msgstr "Parcelas"
+
+#: includes/class-wc-iugu-gateway.php:315
+msgid "Payment with Creditcard"
+msgstr "Pagamento com cartão de crédito"
+
+#: includes/class-wc-iugu-gateway.php:316
+msgid "Creditcard"
+msgstr "Cartão de crédito"
+
+#: includes/class-wc-iugu-gateway.php:318
+msgid "Payment with Billet"
+msgstr "Pagamento com boleto"
+
+#: includes/class-wc-iugu-gateway.php:319
+msgid "Billet"
+msgstr "Boleto"
 
 #: includes/class-wc-iugu-gateway.php:608
 msgid "Iugu: waiting payment."
