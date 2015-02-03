@@ -41,10 +41,10 @@ class WC_Iugu_Gateway extends WC_Payment_Gateway {
 		$this->invoice_prefix = $this->get_option( 'invoice_prefix', 'WC-' );
 
 		// API options.
-		$this->accid            = $this->get_option( 'accid' );
-		$this->key              = $this->get_option( 'key' );
-		$this->api              = $this->get_option( 'api','full' );
-		$this->cc_maximum_split = $this->get_option( 'cc_maximum_split' );
+		$this->accid        = $this->get_option( 'accid' );
+		$this->key          = $this->get_option( 'key' );
+		$this->methods      = $this->get_option( 'methods', 'all' );
+		$this->installments = $this->get_option( 'installments' );
 
 		// Debug options.
 		$this->debug = $this->get_option( 'debug' );
@@ -142,21 +142,21 @@ class WC_Iugu_Gateway extends WC_Payment_Gateway {
 				'type'        => 'title',
 				'description' => ''
 			),
-			'api' => array(
-				'title'       => __( 'Iugu Payment API', 'woocommerce-moip' ),
+			'methods' => array(
+				'title'       => __( 'Iugu Payment Methods', 'woocommerce-moip' ),
 				'type'        => 'select',
 				'description' => __( 'Select the payment methods', 'iugu-woocommerce' ),
-				'default'     => 'form', // @TODO
+				'default'     => 'all',
 				'options'     => array(
-					'creditcard' => __( 'Creditcard Only', 'iugu-woocommerce' ),
-					'billet'     => __( 'Billet only', 'iugu-woocommerce' ),
-					'full'       => __( 'Creditcard And Billet', 'iugu-woocommerce' )
+					'all'         => __( 'Credit Card and Billet', 'iugu-woocommerce' ),
+					'credit_card' => __( 'Credit Card only', 'iugu-woocommerce' ),
+					'billet'      => __( 'Billet only', 'iugu-woocommerce' ),
 				)
 			),
-			'cc_maximum_split' => array(
-				'title'       => __( 'Maximum Split', 'iugu-woocommerce' ),
+			'installments' => array(
+				'title'       => __( 'Number of Installments', 'iugu-woocommerce' ),
 				'type'        => 'text',
-				'description' => __( 'The maximum split allowed for credit cards. Put a number bigger than 1 to enable the field', 'iugu-woocommerce' ),
+				'description' => __( 'The maximum number of installments allowed for credit cards. Put a number bigger than 1 to enable the field', 'iugu-woocommerce' ),
 				'desc_tip'    => true,
 				'default'     => '0'
 			),
@@ -201,93 +201,19 @@ class WC_Iugu_Gateway extends WC_Payment_Gateway {
 	}
 
 	/**
-	 * Fields of the payment form
-	 *
-	 * @return multitype:string
+	 * Payment fields.
 	 */
 	public function payment_fields() {
-
 		wp_enqueue_script( 'wc-credit-card-form' );
 
-		$default_args = array(
-				'fields_have_names' => true, // Some gateways like stripe don't need names as the form is tokenized
-		);
-
-		$args = wp_parse_args( $args, apply_filters( 'woocommerce_credit_card_form_args', $default_args, $this->id ) );
-
-
-		$options="";
-		for ($i = 1; $i <= $this->cc_maximum_split; $i++) {
-			$options .= '<option value="'.$i.'" '.(($i == 1)? "selected": '').'>'.$i.'x</option>';
+		if ( $description = $this->get_description() ) {
+			echo wpautop( wptexturize( $description ) );
 		}
 
-		$default_fields = array(
-				'holder-name-field' => '<p class="form-row form-row-wide">
-					<label for="' . esc_attr( $this->id ) . '-holder-name">' . __( 'Holder Name', 'iugu-woocommerce' ) . ' <span class="required">*</span></label>
-					<input id="' . esc_attr( $this->id ) . '-holder-name" class="input-text wc-credit-card-form-holder-name" type="text" maxlength="100" autocomplete="off" placeholder="'.__('The name on creditcard','iugu-woocommerce').'" name="' . ( $args['fields_have_names'] ? $this->id . '-holder-name' : '' ) . '" />
-				</p>',
-				'card-number-field' => '<p class="form-row form-row-wide">
-					<label for="' . esc_attr( $this->id ) . '-card-number">' . __( 'Card Number', 'iugu-woocommerce' ) . ' <span class="required">*</span></label>
-					<input id="' . esc_attr( $this->id ) . '-card-number" class="input-text wc-credit-card-form-card-number" type="text" maxlength="20" autocomplete="off" placeholder="•••• •••• •••• ••••" name="' . ( $args['fields_have_names'] ? $this->id . '-card-number' : '' ) . '" />
-				</p>',
-				'card-expiry-field' => '<p class="form-row form-row-first">
-					<label for="' . esc_attr( $this->id ) . '-card-expiry">' . __( 'Expiry (MM/YYYY)', 'iugu-woocommerce' ) . ' <span class="required">*</span></label>
-					<input id="' . esc_attr( $this->id ) . '-card-expiry" class="input-text wc-credit-card-form-card-expiry" type="text" autocomplete="off" placeholder="' . __( 'MM / YYYY', 'iugu-woocommerce' ) . '" name="' . ( $args['fields_have_names'] ? $this->id . '-card-expiry' : '' ) . '" />
-				</p>',
-				'card-cvc-field' => '<p class="form-row form-row-last">
-					<label for="' . esc_attr( $this->id ) . '-card-cvc">' . __( 'Card Code', 'iugu-woocommerce' ) . ' <span class="required">*</span></label>
-					<input id="' . esc_attr( $this->id ) . '-card-cvc" class="input-text wc-credit-card-form-card-cvc" type="text" autocomplete="off" placeholder="' . __( 'CVC', 'iugu-woocommerce' ) . '" name="' . ( $args['fields_have_names'] ? $this->id . '-card-cvc' : '' ) . '" />
-				</p>',
-		);
-
-
-		if($this->cc_maximum_split > 1){
-			$fields['cc-split-field'] = '<p class="form-row form-row-first">
-				<label for="' . esc_attr( $this->id ) . '-cc-split">' . __( 'Splits', 'iugu-woocommerce' ) . '</label>
-				<select id="' . esc_attr( $this->id ) . '-cc-split" class="iugu-select-split wc-credit-card-form-cc-split" name="' . ( $args['fields_have_names'] ? $this->id . '-cc-split' : '' ) . '" >
-					'.$options.'
-				</select>
-			</p>';
-		}
-
-		$fields = wp_parse_args( $fields, apply_filters( 'woocommerce_credit_card_form_fields', $default_fields, $this->id ) );
-
-		?>
-		<div id="iugu-checkout-customform">
-			<div id="iugu-checkout-customform-navbar">
-				<ul>
-					<?php echo ( ($this->api == 'creditcard') ? '<li><a id="iugu-creditcard-navbutton" class="ui-btn-active creditcard-only form-row-wide" href="#">'.__('Payment with Creditcard','iugu-woocommerce').'</a></li>' : '' );?>
-					<?php echo ( ($this->api == 'full') ? '<li><a id="iugu-creditcard-navbutton" class="ui-btn-active form-row-first" href="#">'.__('Creditcard','iugu-woocommerce').'</a></li>' : '' );?>
-
-					<?php echo ( ($this->api == 'billet') ? '<li><a id="iugu-billet-navbutton" class="ui-btn-active billet-only form-row-wide" href="#">'.__('Payment with Billet','iugu-woocommerce').'</a></li>' : '' );?>
-					<?php echo ( ($this->api == 'full') ? '<li><a id="iugu-billet-navbutton" class="form-row-last" href="#">'.__('Billet','iugu-woocommerce').'</a></li>' : '' );?>
-				</ul>
-			</div>
-
-			<div id="iugu-creditcard-fieldset" <?php echo ( ($this->api == 'billet') ? 'style="display: none;"':'' );?>>
-				<fieldset id="<?php echo $this->id; ?>-cc-form">
-					<?php do_action( 'woocommerce_credit_card_form_start', $this->id ); ?>
-					<?php
-						foreach ( $fields as $field ) {
-							echo $field;
-						}
-					?>
-					<?php do_action( 'woocommerce_credit_card_form_end', $this->id ); ?>
-					<div class="clear"></div>
-				</fieldset>
-			</div>
-			<div id="iugu-billet-fieldset" <?php echo ( ($this->api == 'creditcard' || $this->api == 'full') ? 'style="display: none;"':'' );?>>
-				<fieldset>
-					<?php
-					if ( $description = $this->get_description() ) {
-						echo wpautop( wptexturize( $description ) );
-					}
-					?>
-					<input id="iugu-payment-type" type="hidden" name="iugu-payment-type" value="<?php echo ( ($this->api != 'full') ? $this->api : 'creditcard' );?>">
-				</fieldset>
-			</div>
-		</div>
-		<?php
+		woocommerce_get_template( 'payment-form.php', array(
+			'methods'      => $this->methods,
+			'installments' => $this->installments
+		), 'woocommerce/iugu/', WC_Iugu::get_templates_path() );
 	}
 
 	/**
@@ -520,9 +446,8 @@ class WC_Iugu_Gateway extends WC_Payment_Gateway {
 		$result = null;
 		$this->iugu_payment_type = $_POST['iugu-payment-type'];
 
-
 		// creditcard
-		if ($this->iugu_payment_type == "creditcard") {
+		if ($this->iugu_payment_type == "credit_card") {
 
 			$result = $this->create_payment_token ( $order );
 			$result = $this->pay_with_creditcard ( $result, $order );

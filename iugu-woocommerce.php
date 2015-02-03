@@ -76,6 +76,15 @@ class WC_Iugu {
 	}
 
 	/**
+	 * Get templates path.
+	 *
+	 * @return string
+	 */
+	public static function get_templates_path() {
+		return plugin_dir_path( __FILE__ ) . 'templates/';
+	}
+
+	/**
 	 * Load the plugin text domain for translation.
 	 */
 	public function load_plugin_textdomain() {
