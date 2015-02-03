@@ -40,26 +40,24 @@ class WC_Iugu {
 	 * Initialize the plugin actions.
 	 */
 	public function __construct() {
-		// Load plugin text domain
+		// Load plugin text domain.
 		add_action( 'init', array( $this, 'load_plugin_textdomain' ) );
 
-		// Checks with WooCommerce is installed.
-		if ( class_exists( 'WC_Payment_Gateway' ) ) {
+		// Links for reach the setting page from plugin list.
+		add_filter( 'plugin_action_links_' . plugin_basename( __FILE__ ), array( $this, 'plugin_action_links' ) );
+
+		// Checks with WooCommerce and WooCommerce Extra Checkout Fields for Brazil is installed.
+		if ( class_exists( 'WC_Payment_Gateway' ) && class_exists( 'Extra_Checkout_Fields_For_Brazil' ) ) {
 
 			// Include the WC_Iugu_Gateway class.
 			include_once 'includes/iuguApi/lib/Iugu.php';
 			include_once 'includes/class-wc-iugu-gateway.php';
-			include_once 'includes/iugu-checkout-custom-fields.php';
 
-			// Links for reach the setting page from plugin list
-			add_filter( 'plugin_action_links_' . plugin_basename( __FILE__ ), array( $this, 'plugin_action_links' ) );
-
-			//Hook to add Iugu Gateway to WooCommerce
+			// Hook to add Iugu Gateway to WooCommerce.
 			add_filter( 'woocommerce_payment_gateways', array( $this, 'add_gateway' ) );
 
 		} else {
-			// Notifications
-			add_action( 'admin_notices', array( $this, 'woocommerce_missing_notice' ) );
+			add_action( 'admin_notices', array( $this, 'dependencies_notices' ) );
 		}
 	}
 
@@ -101,12 +99,16 @@ class WC_Iugu {
 	}
 
 	/**
-	 * WooCommerce fallback notice.
-	 *
-	 * @return string
+	 * Dependencies notices.
 	 */
-	public function woocommerce_missing_notice() {
-		echo '<div class="error"><p>' . sprintf( __( 'WooCommerce Iugu Gateway depends on the last version of %s to work!', 'iugu-woocommerce' ), '<a href="http://wordpress.org/extend/plugins/woocommerce/">WooCommerce</a>' ) . '</p></div>';
+	public function dependencies_notices() {
+		if ( ! class_exists( 'WC_Payment_Gateway' ) ) {
+			include_once 'includes/views/html-notice-woocommerce-missing.php';
+		}
+
+		if ( ! class_exists( 'Extra_Checkout_Fields_For_Brazil' ) ) {
+			include_once 'includes/views/html-notice-ecfb-missing.php';
+		}
 	}
 
 	/**
@@ -117,9 +119,13 @@ class WC_Iugu {
 	 * @return array
 	 */
 	public function plugin_action_links( $links ) {
-		$links[] = '<a href="' . admin_url( 'admin.php?page=wc-settings&tab=checkout&section=wc_iugu_gateway' ) . '">' . __( 'Settings', 'iugu-woocommerce' ) . '</a>';
+		$plugin_links = array();
 
-		return $links;
+		if ( class_exists( 'WC_Payment_Gateway' ) ) {
+			$plugin_links[] = '<a href="' . admin_url( 'admin.php?page=wc-settings&tab=checkout&section=wc_iugu_gateway' ) . '">' . __( 'Settings', 'iugu-woocommerce' ) . '</a>';
+		}
+
+		return array_merge( $plugin_links, $links );
 	}
 }
 

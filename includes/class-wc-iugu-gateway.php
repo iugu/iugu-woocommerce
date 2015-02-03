@@ -114,7 +114,7 @@ class WC_Iugu_Gateway extends WC_Payment_Gateway {
 			'enabled' => array(
 				'title'   => __( 'Enable/Disable', 'iugu-woocommerce' ),
 				'type'    => 'checkbox',
-				'label'   => __( 'Enable Iugu standard', 'iugu-woocommerce' ),
+				'label'   => __( 'Enable Iugu', 'iugu-woocommerce' ),
 				'default' => 'yes'
 			),
 			'title' => array(
@@ -358,6 +358,22 @@ class WC_Iugu_Gateway extends WC_Payment_Gateway {
 	}
 
 	/**
+	 * Get phone number
+	 *
+	 * @param  WC_Order $order
+	 *
+	 * @return string
+	 */
+	public function get_phone_number( $order ) {
+		$phone_number = preg_replace( '([^0-9])', '', $order->billing_phone );
+
+		return array(
+			'area_code' => substr( $phone_number, 0, 2 ),
+			'number'    => substr( $phone_number, 2 )
+		);
+	}
+
+	/**
 	 * Make a first request to validate the credit card
 	 *
 	 * @param WC_Order $order Woocommerce order
@@ -409,99 +425,93 @@ class WC_Iugu_Gateway extends WC_Payment_Gateway {
 	 *
 	 * @param stdClass $result Result of Iugu first request
 	 * @param WC_Order $order Woocommerce order
+	 *
 	 * @return stdClass Result of Iugu payment request
 	 */
-	public function pay_with_creditcard($result, $order) {
+	public function pay_with_creditcard( $result, $order ) {
 
-		$split;
-		$holder_name;
-
-		try {
-
-			$split = $_POST [$this->id . '-cc-split'];
-			$holder_name = $_POST [$this->id . '-holder-name'];
-
-		} catch (Exception $e) {
-
-		}
-
-		$order_items = $order->get_items ();
-		$items = array();
-
+		$split       = isset( $_POST[ $this->id . '-cc-split' ] ) ? $_POST[ $this->id . '-cc-split' ] : '';
+		$holder_name = isset( $_POST[ $this->id . '-holder-name' ] ) ? $_POST[ $this->id . '-holder-name' ] : '';
+		$order_items = $order->get_items();
+		$items       = array();
 
 		foreach ( $order_items as $items_key => $item ) {
-			$items [] = Array (
-					"description" => $item ['name'],
-					"quantity" => $item ['qty'],
-					"price_cents" => $this->price_cents_format ( $item ['line_total']/$item ['qty'] )
+			$items[] = array(
+				'description' => $item['name'],
+				'quantity'    => $item['qty'],
+				'price_cents' => $this->price_cents_format( $item['line_total'] / $item['qty'] )
 			);
 		}
 
-		$chargeToSend = Array (
-				"token" => $result->id,
-				"email" => $order->billing_email,
-				"months" => $split,
-				"items" => $items,
-				"payer" => Array (
-						"name" => $holder_name,
-						"phone_prefix" => $order->billing_phone_prefix,
-						"phone" => $order->billing_phone,
-						"email" => $order->billing_email,
-						"address" => Array (
-								"street" => $order->billing_address_1,
-								"number" => $order->billing_number,
-								"city" => $order->billing_city,
-								"state" => $order->billing_state,
-								"country" => "Brasil",
-								"zip_code" => $order->shipping_postcode
-						)
+		$phone_number = $this->get_phone_number( $order );
+
+		$chargeToSend = array(
+			'token'  => $result->id,
+			'email'  => $order->billing_email,
+			'months' => $split,
+			'items'  => $items,
+			'payer'  => array(
+				'name'         => $holder_name,
+				'phone_prefix' => $phone_number['area_code'],
+				'phone'        => $phone_number['number'],
+				'email'        => $order->billing_email,
+				'address'      => array(
+					'street'   => $order->billing_address_1,
+					'number'   => $order->billing_number,
+					'city'     => $order->billing_city,
+					'state'    => $order->billing_state,
+					'country'  => 'Brasil',
+					'zip_code' => $order->shipping_postcode
 				)
+			)
 		);
 
-		return Iugu_Charge::create ( $chargeToSend );
+		return Iugu_Charge::create( $chargeToSend );
 	}
 
 	/**
 	 *  Handle function to call Iugu APi and pay with billet
 	 *
 	 * @param WC_Order $order Woocommerce order
+	 *
 	 * @return stdClass Result of Iugu payment request
 	 */
-	public function pay_with_billet($order) {
+	public function pay_with_billet( $order ) {
 
-		$order_items = $order->get_items ();
-
-		$items = array();
+		$order_items = $order->get_items();
+		$items       = array();
 
 		foreach ( $order_items as $items_key => $item ) {
-			$items [] = Array (
-					"description" => $item ['name'],
-					"quantity" => $item ['qty'],
-					"price_cents" => $this->price_cents_format ( $item ['line_total']/$item ['qty'] )
+			$items[] = array(
+				'description' => $item['name'],
+				'quantity'    => $item['qty'],
+				'price_cents' => $this->price_cents_format( $item['line_total'] / $item['qty'] )
 			);
 		}
 
-		$chargeToSend = Array (
-				"method" => "bank_slip",
-				"email" => $order->billing_email,
-				"items" => $items,
-				"payer" => Array (
-						"name" => $order->billing_first_name . " " . $order->billing_last_name,
-						"phone_prefix" => $order->billing_phone_prefix,
-						"phone" => $order->billing_phone,
-						"email" => $order->billing_email,
-						"address" => Array (
-								"street" => $order->billing_address_1,
-								"number" => $order->billing_number,
-								"city" => $order->billing_city,
-								"state" => $order->billing_state,
-								"country" => "Brasil",
-								"zip_code" => $order->shipping_postcode
-						)
+		$phone_number = $this->get_phone_number( $order );
+
+		$chargeToSend = array(
+			'method' => 'bank_slip',
+			'email'  => $order->billing_email,
+			'items'  => $items,
+			'payer'  => array(
+				'name'         => $order->billing_first_name . ' ' . $order->billing_last_name,
+				'phone_prefix' => $phone_number['area_code'],
+				'phone'        => $phone_number['number'],
+				'email'        => $order->billing_email,
+				'address'      => array(
+					'street'   => $order->billing_address_1,
+					'number'   => $order->billing_number,
+					'city'     => $order->billing_city,
+					'state'    => $order->billing_state,
+					'country'  => 'Brasil',
+					'zip_code' => $order->shipping_postcode
 				)
+			)
 		);
 
-		return Iugu_Charge::create ( $chargeToSend );
+		return Iugu_Charge::create( $chargeToSend );
 	}
 
 	/**
@@ -513,11 +523,11 @@ class WC_Iugu_Gateway extends WC_Payment_Gateway {
 	 */
 	public function process_payment($order_id) {
 
-		Iugu::setApiKey ( $this->key );
+		Iugu::setApiKey( $this->key );
 
 		// Get this Order's information so that we know
 		// who to charge and how much
-		$order = new WC_Order ( $order_id );
+		$order = new WC_Order( $order_id );
 
 		// payment result
 		$result = null;
