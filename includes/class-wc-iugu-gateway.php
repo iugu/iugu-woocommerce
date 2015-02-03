@@ -201,19 +201,6 @@ class WC_Iugu_Gateway extends WC_Payment_Gateway {
 	}
 
 	/**
-	 * Some gateways like stripe don't need names as the form is tokenized
-	 *
-	 * @return array
-	 */
-	public function custom_credit_card_form_args() {
-		$default_args = array(
-			'fields_have_names' => true,
-		);
-
-		return $default_args;
-	}
-
-	/**
 	 * Fields of the payment form
 	 *
 	 * @return multitype:string
