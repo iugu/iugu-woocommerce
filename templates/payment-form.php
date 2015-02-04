@@ -14,10 +14,15 @@ if ( ! defined( 'ABSPATH' ) ) {
 
 <fieldset id="iugu-payment-fields">
 	<?php if ( 'all' == $methods ) : ?>
-		<p class="form-row form-row-wide">
-			<label><input id="iugu-payment-method-credit-cart" type="radio" name="iugu_payment_method" value="credit-card" checked="checked" /> <?php _e( 'Credit Card', 'woocommerce-iugu' ); ?></label>
-			<label><input id="iugu-payment-method-banking-ticket" type="radio" name="iugu_payment_method" value="billet" /> <?php _e( 'Billet', 'woocommerce-iugu' ); ?></label>
-		</p>
+		<ul id="iugu-select-payment">
+			<li>
+				<label><input id="iugu-payment-method-credit-cart" type="radio" name="iugu_payment_method" value="credit-card" checked="checked" /> <?php _e( 'Credit Card', 'woocommerce-iugu' ); ?></label>
+			</li>
+			<li>
+				<label><input id="iugu-payment-method-banking-ticket" type="radio" name="iugu_payment_method" value="billet" /> <?php _e( 'Billet', 'woocommerce-iugu' ); ?></label>
+			</li>
+		</ul>
+		<div class="clear"></div>
 	<?php else : ?>
 		<input id="iugu-payment-method-credit-cart" type="hidden" name="iugu_payment_method" value="<?php echo ( 'credit_card' == $methods ) ? 'credit-card' : 'billet'; ?>" />
 	<?php endif; ?>
@@ -41,6 +46,16 @@ if ( ! defined( 'ABSPATH' ) ) {
 				<label for="iugu-card-cvc"><?php _e( 'Security Code', 'iugu-woocommerce' ); ?> <span class="required">*</span></label>
 				<input id="iugu-card-cvc" class="input-text wc-credit-card-form-card-cvc" type="text" autocomplete="off" placeholder="<?php _e( 'CVC', 'iugu-woocommerce' ); ?>" style="font-size: 1.5em; padding: 8px;" />
 			</p>
+			<?php if ( 1 < $installments ) : ?>
+				<p class="form-row form-row-wide">
+					<label for="iugu-card-installments"><?php _e( 'Installments', 'iugu-woocommerce' ); ?> <span class="required">*</span></label>
+					<select id="iugu-card-installments" name="iugu_card_installments" style="font-size: 1.5em; padding: 4px; width: 100%;">
+						<?php for ( $i = 1; $i <= $installments; $i++ ) : ?>
+							<option value="<?php echo $i; ?>"><?php echo esc_attr( sprintf( __( '%d x', 'iugu-woocommerce' ), $i ) ); ?></option>
+						<?php endfor; ?>
+					</select>
+				</p>
+			<?php endif; ?>
 			<div class="clear"></div>
 		</div>
 	<?php endif; ?>

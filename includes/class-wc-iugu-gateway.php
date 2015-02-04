@@ -83,15 +83,15 @@ class WC_Iugu_Gateway extends WC_Payment_Gateway {
 		return $available;
 	}
 
-
 	/**
 	 * Call plugin scripts in front-end.
 	 */
 	public function scripts() {
 		if ( is_checkout() ) {
-			wp_enqueue_style( 'iugu-woocommerce-checkout-css', plugins_url( 'assets/css/iugu-checkout-customform.css', plugin_dir_path( __FILE__ ) ) );
-			wp_enqueue_script( 'jquery' );
-			wp_enqueue_script( 'iugu-woocommerce-checkout-js', plugins_url( 'assets/js/iugu-checkout-customform.js', plugin_dir_path( __FILE__ ) ), array( 'jquery','wc-checkout'), WC_Iugu::VERSION, true );
+			$suffix = defined( 'SCRIPT_DEBUG' ) && SCRIPT_DEBUG ? '' : '.min';
+
+			wp_enqueue_style( 'iugu-woocommerce-checkout-css', plugins_url( 'assets/css/checkout' . $suffix . '.css', plugin_dir_path( __FILE__ ) ) );
+			wp_enqueue_script( 'iugu-woocommerce-checkout-js', plugins_url( 'assets/js/checkout' . $suffix . '.js', plugin_dir_path( __FILE__ ) ), array( 'jquery' ), WC_Iugu::VERSION, true );
 		}
 	}
 
@@ -306,7 +306,7 @@ class WC_Iugu_Gateway extends WC_Payment_Gateway {
 
 		try {
 
-			$holder_name = trim($_POST [$this->id . '-holder-name']);
+			$holder_name = trim($_POST ['iugu_card_holder_name']);
 			$first_name = trim(substr($holder_name, 0, strpos($holder_name, ' ')));
 			$last_name = trim(substr($holder_name,  strrpos($holder_name, ' '), strlen($holder_name)));
 
@@ -344,7 +344,7 @@ class WC_Iugu_Gateway extends WC_Payment_Gateway {
 	public function pay_with_creditcard( $result, $order ) {
 
 		$split       = isset( $_POST[ $this->id . '-cc-split' ] ) ? $_POST[ $this->id . '-cc-split' ] : '';
-		$holder_name = isset( $_POST[ $this->id . '-holder-name' ] ) ? $_POST[ $this->id . '-holder-name' ] : '';
+		$holder_name = isset( $_POST[ 'iugu_card_holder_name' ] ) ? $_POST[ 'iugu_card_holder_name' ] : '';
 		$order_items = $order->get_items();
 		$items       = array();
 
@@ -444,7 +444,7 @@ class WC_Iugu_Gateway extends WC_Payment_Gateway {
 
 		// payment result
 		$result = null;
-		$this->iugu_payment_type = $_POST['iugu-payment-type'];
+		$this->iugu_payment_type = $_POST['iugu_payment_method'];
 
 		// creditcard
 		if ($this->iugu_payment_type == "credit_card") {
