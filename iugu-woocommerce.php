@@ -51,6 +51,7 @@ class WC_Iugu {
 
 			// Include the WC_Iugu_Gateway class.
 			include_once 'includes/iuguApi/lib/Iugu.php';
+			include_once 'includes/class-wc-iugu-api.php';
 			include_once 'includes/class-wc-iugu-gateway.php';
 
 			// Hook to add Iugu Gateway to WooCommerce.
