@@ -26,6 +26,7 @@ class WC_Iugu_Gateway extends WC_Payment_Gateway {
 		$this->method_title       = __( 'Iugu', 'iugu-woocommerce' );
 		$this->method_description = __( 'Accept payments by credit card or banking ticket using the Iugu.', 'iugu-woocommerce' );
 		$this->has_fields         = true;
+		$this->view_transaction_url = 'https://iugu.com/a/invoices/%s';
 
 		// Load the form fields.
 		$this->init_form_fields();
@@ -33,21 +34,15 @@ class WC_Iugu_Gateway extends WC_Payment_Gateway {
 		// Load the settings.
 		$this->init_settings();
 
-		// Display options.
-		$this->title       = $this->get_option( 'title' );
-		$this->description = $this->get_option( 'description' );
-
-		// Gateway options.
-		$this->invoice_prefix = $this->get_option( 'invoice_prefix', 'WC-' );
-
-		// API options.
-		$this->account_id   = $this->get_option( 'account_id' );
-		$this->api_key      = $this->get_option( 'api_key' );
-		$this->methods      = $this->get_option( 'methods', 'all' );
-		$this->installments = $this->get_option( 'installments' );
-
-		// Debug options.
-		$this->debug = $this->get_option( 'debug' );
+		// Optins.
+		$this->title           = $this->get_option( 'title' );
+		$this->description     = $this->get_option( 'description' );
+		$this->account_id      = $this->get_option( 'account_id' );
+		$this->api_key         = $this->get_option( 'api_key' );
+		$this->methods         = $this->get_option( 'methods', 'all' );
+		$this->installments    = $this->get_option( 'installments' );
+		$this->send_only_total = $this->get_option( 'send_only_total', 'no' );
+		$this->debug           = $this->get_option( 'debug' );
 
 		// Active logs.
 		if ( 'yes' == $this->debug ) {
@@ -148,35 +143,10 @@ class WC_Iugu_Gateway extends WC_Payment_Gateway {
 				'description' => __( 'This controls the description which the user sees during checkout.', 'iugu-woocommerce' ),
 				'default'     => __( 'Pay via Iugu', 'iugu-woocommerce' )
 			),
-			'invoice_prefix' => array(
-				'title'       => __( 'Invoice Prefix', 'iugu-woocommerce' ),
-				'type'        => 'text',
-				'description' => __( 'Please enter a prefix for your invoice numbers. If you use your Iugu account for multiple stores ensure this prefix is unqiue as Iugu will not allow orders with the same invoice number.', 'iugu-woocommerce' ),
-				'desc_tip'    => true,
-				'default'     => 'WC-'
-			),
-			'api_section' => array(
-				'title'       => __( 'Payment API', 'iugu-woocommerce' ),
+			'integration' => array(
+				'title'       => __( 'Integration Settings', 'iugu-woocommerce' ),
 				'type'        => 'title',
 				'description' => ''
-			),
-			'methods' => array(
-				'title'       => __( 'Iugu Payment Methods', 'woocommerce-moip' ),
-				'type'        => 'select',
-				'description' => __( 'Select the payment methods', 'iugu-woocommerce' ),
-				'default'     => 'all',
-				'options'     => array(
-					'all'         => __( 'Credit Card and Billet', 'iugu-woocommerce' ),
-					'credit_card' => __( 'Credit Card only', 'iugu-woocommerce' ),
-					'billet'      => __( 'Billet only', 'iugu-woocommerce' ),
-				)
-			),
-			'installments' => array(
-				'title'       => __( 'Number of Installments', 'iugu-woocommerce' ),
-				'type'        => 'text',
-				'description' => __( 'The maximum number of installments allowed for credit cards. Put a number bigger than 1 to enable the field', 'iugu-woocommerce' ),
-				'desc_tip'    => true,
-				'default'     => '0'
 			),
 			'account_id' => array(
 				'title'       => __( 'Account ID', 'iugu-woocommerce' ),
@@ -192,10 +162,46 @@ class WC_Iugu_Gateway extends WC_Payment_Gateway {
 				'desc_tip'    => true,
 				'default'     => ''
 			),
-			'payment_section' => array(
-				'title'       => __( 'Payment Settings', 'iugu-woocommerce' ),
+			'payment' => array(
+				'title'       => __( 'Payment Options', 'iugu-woocommerce' ),
 				'type'        => 'title',
-				'description' => __( 'These options need to be available to you in your Iugu account.', 'iugu-woocommerce' )
+				'description' => ''
+			),
+			'methods' => array(
+				'title'       => __( 'Payment Methods', 'woocommerce-moip' ),
+				'type'        => 'select',
+				'description' => __( 'Select the payment methods', 'iugu-woocommerce' ),
+				'default'     => 'all',
+				'desc_tip'    => true,
+				'class'       => 'wc-enhanced-select',
+				'options'     => array(
+					'all'         => __( 'Credit Card and Billet', 'iugu-woocommerce' ),
+					'credit_card' => __( 'Credit Card only', 'iugu-woocommerce' ),
+					'billet'      => __( 'Billet only', 'iugu-woocommerce' ),
+				)
+			),
+			'installments' => array(
+				'title'       => __( 'Number of Installments', 'iugu-woocommerce' ),
+				'type'        => 'text',
+				'description' => __( 'The maximum number of installments allowed for credit cards. Put a number bigger than 1 to enable the field', 'iugu-woocommerce' ),
+				'desc_tip'    => true,
+				'default'     => '0'
+			),
+			'behavior' => array(
+				'title'       => __( 'Integration Behavior', 'iugu-woocommerce' ),
+				'type'        => 'title',
+				'description' => ''
+			),
+			'send_only_total' => array(
+				'title'   => __( 'Send only the order total', 'iugu-woocommerce' ),
+				'type'    => 'checkbox',
+				'label'   => __( 'If this option is enabled will only send the order total, not the list of items.', 'iugu-woocommerce' ),
+				'default' => 'no'
+			),
+			'testing' => array(
+				'title'       => __( 'Gateway Testing', 'iugu-woocommerce' ),
+				'type'        => 'title',
+				'description' => ''
 			),
 			'debug' => array(
 				'title'       => __( 'Debug Log', 'iugu-woocommerce' ),
@@ -203,17 +209,6 @@ class WC_Iugu_Gateway extends WC_Payment_Gateway {
 				'label'       => __( 'Enable logging', 'iugu-woocommerce' ),
 				'default'     => 'no',
 				'description' => sprintf( __( 'Log Iugu events, such as API requests, inside %s', 'iugu-woocommerce' ), '<code>woocommerce/logs/iugu-' . sanitize_file_name( wp_hash( 'iugu' ) ) . '.txt</code>' )
-			),
-			'information_section' => array(
-				'title'       => __( 'Informations', 'iugu-woocommerce' ),
-				'type'        => 'title',
-				'description' => __( 'These options need to be configured in your Iugu account.', 'iugu-woocommerce' )
-			),
-			'iugu_update_order' => array(
-				'title'       => __( 'Iugu Trigger URL', 'iugu-woocommerce' ),
-				'type'        => 'text',
-				'default'     => plugins_url() . '/iugu-woocommerce/woocommerce-iugu-update-order.php',
-				'description' => __( 'Handle Iugu events, such as API posts', 'iugu-woocommerce' )
 			)
 		);
 	}
@@ -274,248 +269,70 @@ class WC_Iugu_Gateway extends WC_Payment_Gateway {
 		}
 	}
 
-
-	/**
-	 * Convert the price value into cents format
-	 *
-	 * @param  float $number Product price
-	 *
-	 * @return int           Formated price
-	 */
-	public function price_cents_format( $number ) {
-		$number = number_format( $number, 2, '', '' );
-
-		return $number;
-	}
-
-	/**
-	 * Get phone number
-	 *
-	 * @param  WC_Order $order
-	 *
-	 * @return string
-	 */
-	public function get_phone_number( $order ) {
-		$phone_number = preg_replace( '([^0-9])', '', $order->billing_phone );
-
-		return array(
-			'area_code' => substr( $phone_number, 0, 2 ),
-			'number'    => substr( $phone_number, 2 )
-		);
-	}
-
-	/**
-	 * Handle function to call Iugu APi and pay with creditcard
-	 *
-	 * @param string   $token
-	 * @param WC_Order $order Woocommerce order
-	 *
-	 * @return stdClass Result of Iugu payment request
-	 */
-	public function pay_with_creditcard( $token, $order ) {
-
-		$split       = isset( $_POST[ $this->id . '-cc-split' ] ) ? $_POST[ $this->id . '-cc-split' ] : '';
-		$holder_name = isset( $_POST[ 'iugu_card_holder_name' ] ) ? $_POST[ 'iugu_card_holder_name' ] : '';
-		$order_items = $order->get_items();
-		$items       = array();
-
-		foreach ( $order_items as $items_key => $item ) {
-			$items[] = array(
-				'description' => $item['name'],
-				'quantity'    => $item['qty'],
-				'price_cents' => $this->price_cents_format( $item['line_total'] / $item['qty'] )
-			);
-		}
-
-		$phone_number = $this->get_phone_number( $order );
-
-		$chargeToSend = array(
-			'token'  => $token,
-			'email'  => $order->billing_email,
-			'months' => $split,
-			'items'  => $items,
-			'payer'  => array(
-				'name'         => $holder_name,
-				'phone_prefix' => $phone_number['area_code'],
-				'phone'        => $phone_number['number'],
-				'email'        => $order->billing_email,
-				'address'      => array(
-					'street'   => $order->billing_address_1,
-					'number'   => $order->billing_number,
-					'city'     => $order->billing_city,
-					'state'    => $order->billing_state,
-					'country'  => 'Brasil',
-					'zip_code' => $order->shipping_postcode
-				)
-			)
-		);
-
-		return Iugu_Charge::create( $chargeToSend );
-	}
-
-	/**
-	 *  Handle function to call Iugu APi and pay with billet
-	 *
-	 * @param WC_Order $order Woocommerce order
-	 *
-	 * @return stdClass Result of Iugu payment request
-	 */
-	public function pay_with_billet( $order ) {
-
-		$order_items = $order->get_items();
-		$items       = array();
-
-		foreach ( $order_items as $items_key => $item ) {
-			$items[] = array(
-				'description' => $item['name'],
-				'quantity'    => $item['qty'],
-				'price_cents' => $this->price_cents_format( $item['line_total'] / $item['qty'] )
-			);
-		}
-
-		$phone_number = $this->get_phone_number( $order );
-
-		$chargeToSend = array(
-			'method' => 'bank_slip',
-			'email'  => $order->billing_email,
-			'items'  => $items,
-			'payer'  => array(
-				'name'         => $order->billing_first_name . ' ' . $order->billing_last_name,
-				'phone_prefix' => $phone_number['area_code'],
-				'phone'        => $phone_number['number'],
-				'email'        => $order->billing_email,
-				'address'      => array(
-					'street'   => $order->billing_address_1,
-					'number'   => $order->billing_number,
-					'city'     => $order->billing_city,
-					'state'    => $order->billing_state,
-					'country'  => 'Brasil',
-					'zip_code' => $order->shipping_postcode
-				)
-			)
-		);
-
-		return Iugu_Charge::create( $chargeToSend );
-	}
-
 	/**
 	 * Process the payment and return the result.
 	 *
-	 * @param int $order_id Order ID.
+	 * @param  int $order_id Order ID.
 	 *
-	 * @return array Redirect.
+	 * @return array         Redirect.
 	 */
 	public function process_payment( $order_id ) {
-		$credit_card_token = isset( $_POST['iugu_token'] ) ? $_POST['iugu_token'] : '';
+		$order  = new WC_Order( $order_id );
+		$charge = $this->api->do_charge( $order, $_POST );
 
-		Iugu::setApiKey( $this->api_key );
+		if ( isset( $charge['errors'] ) && ! empty( $charge['errors'] ) ) {
+			$errors = is_array( $charge['errors'] ) ? $charge['errors'] : array( $charge['errors'] );
 
-		// Get this Order's information so that we know
-		// who to charge and how much
-		$order = new WC_Order( $order_id );
-
-		// payment result
-		$result = null;
-		$payment_type = $_POST['iugu_payment_method'];
-
-		// creditcard
-		if ($payment_type == "credit-card") {
-
-			$result = $this->pay_with_creditcard ( $credit_card_token, $order );
-			$result = $this->credit_order_complete( $result, $order );
-
-			if(!is_null($result)){
-				return $result;
+			foreach ( $charge['errors'] as $error ) {
+				if ( is_array( $error ) ) {
+					foreach ( $error as $_error ) {
+						$this->add_error( '<strong>' . esc_attr( $this->gateway->title ) . '</strong>: ' . $_error );
+					}
+				} else {
+					$this->add_error( '<strong>' . esc_attr( $this->gateway->title ) . '</strong>: ' . $error );
+				}
 			}
 
-		// billet
-		} elseif ($payment_type == "billet") {
+			error_log( print_r( 'deu errado', true ) );
 
-			$result = $this->pay_with_billet ( $order );
-			$result = $this->billet_order_complete($result,$order);
-
-			if(!is_null($result)){
-				return $result;
-			}
+			return array(
+				'result'   => 'fail',
+				'redirect' => ''
+			);
 		}
-	}
 
-	/**
-	 * Recieve the Iugu result for a payment with billet card and finish the woocommerce payment process
-	 *
-	 * @param stdClass $result
-	 * @return multitype:string NULL
-	 */
-	public function billet_order_complete($result,$order){
-		global $woocommerce;
+		$payment_method = isset( $_POST['iugu_payment_method'] ) ? sanitize_text_field( $_POST['iugu_payment_method'] ) : '';
+		$installments   = isset( $_POST['iugu_card_installments'] ) ? sanitize_text_field( $_POST['iugu_card_installments'] ) : '';
 
-		// Test the code to know if the transaction went through or not.
-		if ($result->__get ( "success" ) == "1") {
-			// Payment has been successful
-			$order->add_order_note ( __( 'Iugu: waiting payment.', 'iugu-woocommerce' ) );
-			$order->add_order_note ( __( 'Invoice:' . $result->__get ( "invoice_id" ), 'iugu-woocommerce' ) );
+		// Save transaction data.
+		$payment_data = array_map(
+			'sanitize_text_field',
+			array(
+				'payment_method' => $payment_method,
+				'installments'   => $installments,
+				'pdf'            => $charge['pdf']
+			)
+		);
+		update_post_meta( $order->id, '_iugu_wc_transaction_data', $payment_data );
+		update_post_meta( $order->id, '_transaction_id', intval( $charge['invoice_id'] ) );
 
+		// Save only in old versions.
+		if ( defined( 'WC_VERSION' ) && version_compare( WC_VERSION, '2.1.12', '<=' ) ) {
+			update_post_meta( $order->id, __( 'Iugu Transaction details', 'iugu-woocommerce' ), 'https://iugu.com/a/invoices/' . intval( $charge['invoice_id'] ) );
+		}
 
-			// Empty the cart (Very important step)
+		// Empty cart.
+		if ( defined( 'WC_VERSION' ) && version_compare( WC_VERSION, '2.1', '>=' ) ) {
+			WC()->cart->empty_cart();
+		} else {
 			$woocommerce->cart->empty_cart();
-
-			//Billet link ( may have a better way to pass this link to the tankyou page )
-			session_start();
-			$_SESSION['billet_result'] = $result;
-
-			// Redirect to thank you page
-			return array(
-					'result' => 'success',
-					'redirect' => $this->get_return_url ( $order )
-			);
-		} else {
-			// Transaction was not succesful
-			// Add notice to the cart
-			wc_add_notice ( json_encode($result->__get ( "errors" )), 'error' );
-			// Add note to the order for your reference
-			$order->add_order_note ( 'Error: ' . json_encode($result->__get ( "errors" )) );
-
-			return null;
 		}
 
+		return array(
+			'result'   => 'success',
+			'redirect' => $this->get_return_url( $order )
+		);
 	}
-	/**
-	 * Recieve the Iugu result for a payment with credit card and finish the woocommerce payment process
-	 * @param stdClass $result
-	 * @return multitype:string NULL
-	 */
-	public function credit_order_complete($result,$order){
-		global $woocommerce;
-
-		// Test the code to know if the transaction went through or not.
-		if ($result->__get ( "success" ) == "1") {
-			// Payment has been successful
-			$order->add_order_note ( __( 'Iugu: payment completed.', 'iugu-woocommerce' ) );
-			$order->add_order_note ( __( 'Invoice:' . $result->__get ( "invoice_id" ), 'iugu-woocommerce' ) );
-
-			// Mark order as Paid
-			$order->payment_complete ();
-
-			// Empty the cart (Very important step)
-			$woocommerce->cart->empty_cart ();
-
-			// Redirect to thank you page
-			return array(
-					'result' => 'success',
-					'redirect' => $this->get_return_url ( $order )
-			);
-		} else {
-			// Transaction was not succesful
-			// Add notice to the cart
-			wc_add_notice ( json_encode($result->__get ( "errors" )), 'error' );
-			// Add note to the order for your reference
-			$order->add_order_note ( 'Error: ' . json_encode($result->__get ( "errors" )) );
-
-			return null;
-		}
-
-	}
-
 
 	/**
 	 * Transparent billet checkout custom Thank You message.
@@ -540,7 +357,6 @@ class WC_Iugu_Gateway extends WC_Payment_Gateway {
 			unset($_SESSION['billet_result']);
 		}
 	}
-
 
 	/**
 	 * Gets the admin url.
