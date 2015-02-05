@@ -42,6 +42,7 @@ class WC_Iugu_Gateway extends WC_Payment_Gateway {
 		$this->methods         = $this->get_option( 'methods', 'all' );
 		$this->installments    = $this->get_option( 'installments' );
 		$this->send_only_total = $this->get_option( 'send_only_total', 'no' );
+		$this->sandbox         = $this->get_option( 'sandbox', 'no' );
 		$this->debug           = $this->get_option( 'debug' );
 
 		// Active logs.
@@ -80,34 +81,6 @@ class WC_Iugu_Gateway extends WC_Payment_Gateway {
 		$available = 'yes' == $this->get_option( 'enabled' ) && $api && $this->using_supported_currency();
 
 		return $available;
-	}
-
-	/**
-	 * Call plugin scripts in front-end.
-	 */
-	public function frontend_scripts() {
-		if ( is_checkout() ) {
-			$suffix = defined( 'SCRIPT_DEBUG' ) && SCRIPT_DEBUG ? '' : '.min';
-
-			wp_enqueue_style( 'iugu-woocommerce-checkout-css', plugins_url( 'assets/css/checkout' . $suffix . '.css', plugin_dir_path( __FILE__ ) ) );
-
-			wp_enqueue_script( 'iugu-js', $this->api->get_js_url(), array(), null, true );
-			wp_enqueue_script( 'iugu-woocommerce-checkout-js', plugins_url( 'assets/js/checkout' . $suffix . '.js', plugin_dir_path( __FILE__ ) ), array( 'jquery', 'wc-credit-card-form' ), WC_Iugu::VERSION, true );
-
-			wp_localize_script(
-				'iugu-woocommerce-checkout-js',
-				'iugu_wc_checkout_params',
-				array(
-					'account_id'                    => $this->account_id,
-					'i18n_number_field'             => __( 'Card Number', 'iugu-woocommerce' ),
-					'i18n_verification_value_field' => __( 'Security Code', 'iugu-woocommerce' ),
-					'i18n_expiration_field'         => __( 'Card Expiry Date', 'iugu-woocommerce' ),
-					'i18n_first_name_field'         => __( 'First Name', 'iugu-woocommerce' ),
-					'i18n_last_name_field'          => __( 'Last Name', 'iugu-woocommerce' ),
-					'i18n_is_invalid'               => __( 'is invalid', 'iugu-woocommerce' )
-				)
-			);
-		}
 	}
 
 	/**
@@ -205,6 +178,13 @@ class WC_Iugu_Gateway extends WC_Payment_Gateway {
 				'type'        => 'title',
 				'description' => ''
 			),
+			'sandbox' => array(
+				'title'       => __( 'Iugu Sandbox', 'iugu-woocommerce' ),
+				'type'        => 'checkbox',
+				'label'       => __( 'Enable Iugu Sandbox', 'iugu-woocommerce' ),
+				'default'     => 'no',
+				'description' => sprintf( __( 'Iugu Sandbox can be used to test the payments. <strong>Note:</strong> you must use the development API Token that can be created in %s.', 'iugu-woocommerce' ), '<a href="https://iugu.com/settings/account" target="_blank">' . __( 'Iugu Account Settings', 'iugu-woocommerce' ) .'</a>' )
+			),
 			'debug' => array(
 				'title'       => __( 'Debug Log', 'iugu-woocommerce' ),
 				'type'        => 'checkbox',
@@ -229,6 +209,35 @@ class WC_Iugu_Gateway extends WC_Payment_Gateway {
 
 		if ( ! $this->using_supported_currency() && ! class_exists( 'woocommerce_wpml' ) ) {
 			include 'views/html-notice-currency-not-supported.php';
+		}
+	}
+
+	/**
+	 * Call plugin scripts in front-end.
+	 */
+	public function frontend_scripts() {
+		if ( is_checkout() ) {
+			$suffix = defined( 'SCRIPT_DEBUG' ) && SCRIPT_DEBUG ? '' : '.min';
+
+			wp_enqueue_style( 'iugu-woocommerce-checkout-css', plugins_url( 'assets/css/checkout' . $suffix . '.css', plugin_dir_path( __FILE__ ) ) );
+
+			wp_enqueue_script( 'iugu-js', $this->api->get_js_url(), array(), null, true );
+			wp_enqueue_script( 'iugu-woocommerce-checkout-js', plugins_url( 'assets/js/checkout' . $suffix . '.js', plugin_dir_path( __FILE__ ) ), array( 'jquery', 'wc-credit-card-form' ), WC_Iugu::VERSION, true );
+
+			wp_localize_script(
+				'iugu-woocommerce-checkout-js',
+				'iugu_wc_checkout_params',
+				array(
+					'account_id'                    => $this->account_id,
+					'is_sandbox'                    => $this->sandbox,
+					'i18n_number_field'             => __( 'Card Number', 'iugu-woocommerce' ),
+					'i18n_verification_value_field' => __( 'Security Code', 'iugu-woocommerce' ),
+					'i18n_expiration_field'         => __( 'Card Expiry Date', 'iugu-woocommerce' ),
+					'i18n_first_name_field'         => __( 'First Name', 'iugu-woocommerce' ),
+					'i18n_last_name_field'          => __( 'Last Name', 'iugu-woocommerce' ),
+					'i18n_is_invalid'               => __( 'is invalid', 'iugu-woocommerce' )
+				)
+			);
 		}
 	}
 

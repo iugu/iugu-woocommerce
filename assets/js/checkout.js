@@ -58,7 +58,10 @@
 		 * Process the credit card data when submit the checkout form.
 		 */
 		Iugu.setAccountID( iugu_wc_checkout_params.account_id );
-		Iugu.setTestMode( true );
+
+		if ( 'yes' === iugu_wc_checkout_params.is_sandbox ) {
+			Iugu.setTestMode( true );
+		}
 
 		$( 'form.checkout' ).on( 'checkout_place_order_iugu', function() {
 			return formHandler( this );
