@@ -126,15 +126,13 @@ class WC_Iugu_Gateway extends WC_Payment_Gateway {
 			'account_id' => array(
 				'title'       => __( 'Account ID', 'iugu-woocommerce' ),
 				'type'        => 'text',
-				'description' => __( 'Please enter your Account ID; this is needed in order to take payment.', 'iugu-woocommerce' ),
-				'desc_tip'    => true,
+				'description' => sprintf( __( 'Please enter your Account ID. This is needed in order to take payment. Is possible found the Account ID in %s.', 'iugu-woocommerce' ), '<a href="https://iugu.com/settings/account" target="_blank">' . __( 'Iugu Account Settings', 'iugu-woocommerce' ) . '</a>' ),
 				'default'     => ''
 			),
 			'api_token' => array(
 				'title'       => __( 'API Token', 'iugu-woocommerce' ),
 				'type'        => 'text',
-				'description' => __( 'Please enter your API Token; this is needed in order to take payment.', 'iugu-woocommerce' ),
-				'desc_tip'    => true,
+				'description' => sprintf( __( 'Please enter your API Token. This is needed in order to take payment. Is possible generate a new API Token in %s.', 'iugu-woocommerce' ), '<a href="https://iugu.com/settings/account" target="_blank">' . __( 'Iugu Account Settings', 'iugu-woocommerce' ) . '</a>' ),
 				'default'     => ''
 			),
 			'payment' => array(
@@ -183,7 +181,7 @@ class WC_Iugu_Gateway extends WC_Payment_Gateway {
 				'type'        => 'checkbox',
 				'label'       => __( 'Enable Iugu Sandbox', 'iugu-woocommerce' ),
 				'default'     => 'no',
-				'description' => sprintf( __( 'Iugu Sandbox can be used to test the payments. <strong>Note:</strong> you must use the development API Token that can be created in %s.', 'iugu-woocommerce' ), '<a href="https://iugu.com/settings/account" target="_blank">' . __( 'Iugu Account Settings', 'iugu-woocommerce' ) .'</a>' )
+				'description' => sprintf( __( 'Iugu Sandbox can be used to test the payments. <strong>Note:</strong> you must use the development API Token that can be created in %s.', 'iugu-woocommerce' ), '<a href="https://iugu.com/settings/account" target="_blank">' . __( 'Iugu Account Settings', 'iugu-woocommerce' ) . '</a>' )
 			),
 			'debug' => array(
 				'title'       => __( 'Debug Log', 'iugu-woocommerce' ),
