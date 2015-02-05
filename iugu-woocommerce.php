@@ -48,11 +48,7 @@ class WC_Iugu {
 
 		// Checks with WooCommerce and WooCommerce Extra Checkout Fields for Brazil is installed.
 		if ( class_exists( 'WC_Payment_Gateway' ) && class_exists( 'Extra_Checkout_Fields_For_Brazil' ) ) {
-
-			// Include the WC_Iugu_Gateway class.
-			include_once 'includes/iuguApi/lib/Iugu.php';
-			include_once 'includes/class-wc-iugu-api.php';
-			include_once 'includes/class-wc-iugu-gateway.php';
+			$this->includes();
 
 			// Hook to add Iugu Gateway to WooCommerce.
 			add_filter( 'woocommerce_payment_gateways', array( $this, 'add_gateway' ) );
@@ -93,6 +89,14 @@ class WC_Iugu {
 
 		load_textdomain( 'iugu-woocommerce', trailingslashit( WP_LANG_DIR ) . 'iugu-woocommerce/iugu-woocommerce-' . $locale . '.mo' );
 		load_plugin_textdomain( 'iugu-woocommerce', false, dirname( plugin_basename( __FILE__ ) ) . '/languages/' );
+	}
+
+	/**
+	 * Includes.
+	 */
+	private function includes() {
+		include_once 'includes/class-wc-iugu-api.php';
+		include_once 'includes/class-wc-iugu-gateway.php';
 	}
 
 	/**
