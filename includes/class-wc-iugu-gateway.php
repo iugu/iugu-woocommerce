@@ -93,6 +93,19 @@ class WC_Iugu_Gateway extends WC_Payment_Gateway {
 	}
 
 	/**
+	 * Get log.
+	 *
+	 * @return string
+	 */
+	protected function get_log_view() {
+		if ( defined( 'WC_VERSION' ) && version_compare( WC_VERSION, '2.2', '>=' ) ) {
+			return '<a href="' . esc_url( admin_url( 'admin.php?page=wc-status&tab=logs&log_file=' . esc_attr( $this->id ) . '-' . sanitize_file_name( wp_hash( $this->id ) ) . '.log' ) ) . '">' . __( 'System Status &gt; Logs', 'iugu-woocommerce' ) . '</a>';
+		}
+
+		return '<code>woocommerce/logs/' . esc_attr( $this->id ) . '-' . sanitize_file_name( wp_hash( $this->id ) ) . '.txt</code>';
+	}
+
+	/**
 	 * Initialise Gateway Settings Form Fields.
 	 *
 	 * @return void
@@ -188,7 +201,7 @@ class WC_Iugu_Gateway extends WC_Payment_Gateway {
 				'type'        => 'checkbox',
 				'label'       => __( 'Enable logging', 'iugu-woocommerce' ),
 				'default'     => 'no',
-				'description' => sprintf( __( 'Log Iugu events, such as API requests, inside %s', 'iugu-woocommerce' ), '<code>woocommerce/logs/iugu-' . sanitize_file_name( wp_hash( 'iugu' ) ) . '.txt</code>' )
+				'description' => sprintf( __( 'Log Iugu events, such as API requests, in %s', 'iugu-woocommerce' ), $this->get_log_view() )
 			)
 		);
 	}
