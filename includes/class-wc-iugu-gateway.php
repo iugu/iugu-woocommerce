@@ -21,11 +21,11 @@ class WC_Iugu_Gateway extends WC_Payment_Gateway {
 	public function __construct() {
 		global $woocommerce;
 
-		$this->id                 = 'iugu';
-		$this->icon               = apply_filters( 'iugu_woocommerce_icon', plugins_url( 'assets/images/iugu.png', plugin_dir_path( __FILE__ ) ) );
-		$this->method_title       = __( 'Iugu', 'iugu-woocommerce' );
-		$this->method_description = __( 'Accept payments by credit card or banking ticket using the Iugu.', 'iugu-woocommerce' );
-		$this->has_fields         = true;
+		$this->id                   = 'iugu';
+		$this->icon                 = apply_filters( 'iugu_woocommerce_icon', plugins_url( 'assets/images/iugu.png', plugin_dir_path( __FILE__ ) ) );
+		$this->method_title         = __( 'Iugu', 'iugu-woocommerce' );
+		$this->method_description   = __( 'Accept payments by credit card or banking ticket using the Iugu.', 'iugu-woocommerce' );
+		$this->has_fields           = true;
 		$this->view_transaction_url = 'https://iugu.com/a/invoices/%s';
 
 		// Load the form fields.
@@ -38,7 +38,7 @@ class WC_Iugu_Gateway extends WC_Payment_Gateway {
 		$this->title           = $this->get_option( 'title' );
 		$this->description     = $this->get_option( 'description' );
 		$this->account_id      = $this->get_option( 'account_id' );
-		$this->api_key         = $this->get_option( 'api_key' );
+		$this->api_token       = $this->get_option( 'api_token' );
 		$this->methods         = $this->get_option( 'methods', 'all' );
 		$this->installments    = $this->get_option( 'installments' );
 		$this->send_only_total = $this->get_option( 'send_only_total', 'no' );
@@ -61,7 +61,9 @@ class WC_Iugu_Gateway extends WC_Payment_Gateway {
 		add_action( 'wp_enqueue_scripts', array( $this, 'frontend_scripts' ), 9999 );
 
 		// Display admin notices.
-		$this->admin_notices();
+		if ( is_admin() ) {
+			add_action( 'admin_notices', array( $this, 'admin_notices' ) );
+		}
 	}
 
 	/**
@@ -73,9 +75,9 @@ class WC_Iugu_Gateway extends WC_Payment_Gateway {
 	 */
 	public function is_available() {
 		// Test if is valid for use.
-		$api = ( ! empty( $this->account_id ) && ! empty( $this->api_key ) );
+		$api = ! empty( $this->account_id ) && ! empty( $this->api_token );
 
-		$available = ( 'yes' == $this->settings['enabled'] ) && $api && $this->using_supported_currency();
+		$available = 'yes' == $this->get_option( 'enabled' ) && $api && $this->using_supported_currency();
 
 		return $available;
 	}
@@ -114,7 +116,7 @@ class WC_Iugu_Gateway extends WC_Payment_Gateway {
 	 * @return bool
 	 */
 	public function using_supported_currency() {
-		return ( 'BRL' == get_woocommerce_currency() );
+		return 'BRL' == get_woocommerce_currency();
 	}
 
 	/**
@@ -155,7 +157,7 @@ class WC_Iugu_Gateway extends WC_Payment_Gateway {
 				'desc_tip'    => true,
 				'default'     => ''
 			),
-			'api_key' => array(
+			'api_token' => array(
 				'title'       => __( 'API Token', 'iugu-woocommerce' ),
 				'type'        => 'text',
 				'description' => __( 'Please enter your API Token; this is needed in order to take payment.', 'iugu-woocommerce' ),
@@ -214,41 +216,19 @@ class WC_Iugu_Gateway extends WC_Payment_Gateway {
 	}
 
 	/**
-	 * Payment fields.
-	 */
-	public function payment_fields() {
-		wp_enqueue_script( 'wc-credit-card-form' );
-
-		if ( $description = $this->get_description() ) {
-			echo wpautop( wptexturize( $description ) );
-		}
-
-		woocommerce_get_template( 'payment-form.php', array(
-			'methods'      => $this->methods,
-			'installments' => $this->installments
-		), 'woocommerce/iugu/', WC_Iugu::get_templates_path() );
-	}
-
-	/**
 	 * Displays notifications when the admin has something wrong with the configuration.
 	 */
-	protected function admin_notices() {
-		if ( is_admin() ) {
+	public function admin_notices() {
+		if ( empty( $this->account_id ) ) {
+			include 'views/html-notice-account-id-missing.php';
+		}
 
-			// Checks if token is not empty.
-			if ( empty( $this->account_id ) ) {
-				add_action( 'admin_notices', array( $this, 'account_id_missing_message' ) );
-			}
+		if ( empty( $this->api_token ) ) {
+			include 'views/html-notice-account-id-missing.php';
+		}
 
-			// Checks if key is not empty.
-			if ( empty( $this->api_key ) ) {
-				add_action( 'admin_notices', array( $this, 'key_missing_message'  ) );
-			}
-
-			// Checks that the currency is supported
-			if ( ! $this->using_supported_currency() ) {
-				add_action( 'admin_notices', array( $this, 'currency_not_supported_message'  ) );
-			}
+		if ( ! $this->using_supported_currency() && ! class_exists( 'woocommerce_wpml' ) ) {
+			include 'views/html-notice-currency-not-supported.php';
 		}
 	}
 
@@ -267,6 +247,22 @@ class WC_Iugu_Gateway extends WC_Payment_Gateway {
 		} else {
 			$woocommerce->add_error( $message );
 		}
+	}
+
+	/**
+	 * Payment fields.
+	 */
+	public function payment_fields() {
+		wp_enqueue_script( 'wc-credit-card-form' );
+
+		if ( $description = $this->get_description() ) {
+			echo wpautop( wptexturize( $description ) );
+		}
+
+		woocommerce_get_template( 'payment-form.php', array(
+			'methods'      => $this->methods,
+			'installments' => $this->installments
+		), 'woocommerce/iugu/', WC_Iugu::get_templates_path() );
 	}
 
 	/**
@@ -292,8 +288,6 @@ class WC_Iugu_Gateway extends WC_Payment_Gateway {
 					$this->add_error( '<strong>' . esc_attr( $this->gateway->title ) . '</strong>: ' . $error );
 				}
 			}
-
-			error_log( print_r( 'deu errado', true ) );
 
 			return array(
 				'result'   => 'fail',
@@ -356,23 +350,5 @@ class WC_Iugu_Gateway extends WC_Payment_Gateway {
 			<?php
 			unset($_SESSION['billet_result']);
 		}
-	}
-
-	/**
-	 * Adds error message when not configured the token.
-	 *
-	 * @return string Error Mensage.
-	 */
-	public function account_id_missing_message() {
-		echo '<div class="error"><p><strong>' . __( 'Iugu Disabled', 'iugu-woocommerce' ) . '</strong>: ' . sprintf( __( 'You should inform your Account ID. %s', 'iugu-woocommerce' ), '<a href="' . esc_attr( WC_Iugu::get_settings_url() ) . '">' . __( 'Click here to configure!', 'iugu-woocommerce' ) . '</a>' ) . '</p></div>';
-	}
-
-	/**
-	 * Adds error message when not configured the key.
-	 *
-	 * @return string Error Mensage.
-	 */
-	public function key_missing_message() {
-		echo '<div class="error"><p><strong>' . __( 'Iugu Disabled', 'iugu-woocommerce' ) . '</strong>: ' . sprintf( __( 'You should inform your API Token. %s', 'iugu-woocommerce' ), '<a href="' . esc_attr( WC_Iugu::get_settings_url() ) . '">' . __( 'Click here to configure!', 'iugu-woocommerce' ) . '</a>' ) . '</p></div>';
 	}
 }

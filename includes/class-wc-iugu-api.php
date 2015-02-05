@@ -79,7 +79,7 @@ class WC_Iugu_API {
 	}
 
 	/**
-	 * Do requests in the Pagar.me API.
+	 * Do requests in the Iugu API.
 	 *
 	 * @param  string $endpoint API Endpoint.
 	 * @param  string $method   Request method.
@@ -95,7 +95,7 @@ class WC_Iugu_API {
 			'timeout'   => 60,
 			'headers'    => array(
 				'Content-Type' => 'application/x-www-form-urlencoded;charset=UTF-8',
-				'Authorization' => 'Basic ' . base64_encode( $this->gateway->api_key . ':x' )
+				'Authorization' => 'Basic ' . base64_encode( $this->gateway->api_token . ':x' )
 			)
 		);
 
