@@ -359,25 +359,12 @@ class WC_Iugu_Gateway extends WC_Payment_Gateway {
 	}
 
 	/**
-	 * Gets the admin url.
-	 *
-	 * @return string
-	 */
-	protected function admin_url() {
-		if ( version_compare( WOOCOMMERCE_VERSION, '2.1', '>=' ) ) {
-			return admin_url( 'admin.php?page=wc-settings&tab=checkout&section=wc_iugu_gateway' );
-		}
-
-		return admin_url( 'admin.php?page=woocommerce_settings&tab=payment_gateways&section=WC_Iugu_Gateway' );
-	}
-
-	/**
 	 * Adds error message when not configured the token.
 	 *
 	 * @return string Error Mensage.
 	 */
 	public function account_id_missing_message() {
-		echo '<div class="error"><p><strong>' . __( 'Iugu Disabled', 'iugu-woocommerce' ) . '</strong>: ' . sprintf( __( 'You should inform your Account ID. %s', 'iugu-woocommerce' ), '<a href="' . $this->admin_url() . '">' . __( 'Click here to configure!', 'iugu-woocommerce' ) . '</a>' ) . '</p></div>';
+		echo '<div class="error"><p><strong>' . __( 'Iugu Disabled', 'iugu-woocommerce' ) . '</strong>: ' . sprintf( __( 'You should inform your Account ID. %s', 'iugu-woocommerce' ), '<a href="' . esc_attr( WC_Iugu::get_settings_url() ) . '">' . __( 'Click here to configure!', 'iugu-woocommerce' ) . '</a>' ) . '</p></div>';
 	}
 
 	/**
@@ -386,6 +373,6 @@ class WC_Iugu_Gateway extends WC_Payment_Gateway {
 	 * @return string Error Mensage.
 	 */
 	public function key_missing_message() {
-		echo '<div class="error"><p><strong>' . __( 'Iugu Disabled', 'iugu-woocommerce' ) . '</strong>: ' . sprintf( __( 'You should inform your API Token. %s', 'iugu-woocommerce' ), '<a href="' . $this->admin_url() . '">' . __( 'Click here to configure!', 'iugu-woocommerce' ) . '</a>' ) . '</p></div>';
+		echo '<div class="error"><p><strong>' . __( 'Iugu Disabled', 'iugu-woocommerce' ) . '</strong>: ' . sprintf( __( 'You should inform your API Token. %s', 'iugu-woocommerce' ), '<a href="' . esc_attr( WC_Iugu::get_settings_url() ) . '">' . __( 'Click here to configure!', 'iugu-woocommerce' ) . '</a>' ) . '</p></div>';
 	}
 }

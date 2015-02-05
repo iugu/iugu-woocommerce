@@ -122,6 +122,19 @@ class WC_Iugu {
 	}
 
 	/**
+	 * Get the settings URL.
+	 *
+	 * @return string
+	 */
+	public static function get_settings_url() {
+		if ( version_compare( WOOCOMMERCE_VERSION, '2.1', '>=' ) ) {
+			return admin_url( 'admin.php?page=wc-settings&tab=checkout&section=wc_iugu_gateway' );
+		}
+
+		return admin_url( 'admin.php?page=woocommerce_settings&tab=payment_gateways&section=WC_Iugu_Gateway' );
+	}
+
+	/**
 	 * Hooked function to create a link to settings from plugins list.
 	 *
 	 * @param  array $links
@@ -132,7 +145,7 @@ class WC_Iugu {
 		$plugin_links = array();
 
 		if ( class_exists( 'WC_Payment_Gateway' ) ) {
-			$plugin_links[] = '<a href="' . admin_url( 'admin.php?page=wc-settings&tab=checkout&section=wc_iugu_gateway' ) . '">' . __( 'Settings', 'iugu-woocommerce' ) . '</a>';
+			$plugin_links[] = '<a href="' . esc_attr( self::get_settings_url() ) . '">' . __( 'Settings', 'iugu-woocommerce' ) . '</a>';
 		}
 
 		return array_merge( $plugin_links, $links );
