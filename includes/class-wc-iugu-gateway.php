@@ -68,6 +68,25 @@ class WC_Iugu_Gateway extends WC_Payment_Gateway {
 	}
 
 	/**
+	 * Displays notifications when the admin has something wrong with the configuration.
+	 */
+	public function admin_notices() {
+		if ( 'yes' == $this->get_option( 'enabled' ) ) {
+			if ( empty( $this->account_id ) ) {
+				include 'views/html-notice-account-id-missing.php';
+			}
+
+			if ( empty( $this->api_token ) ) {
+				include 'views/html-notice-account-id-missing.php';
+			}
+
+			if ( ! $this->using_supported_currency() && ! class_exists( 'woocommerce_wpml' ) ) {
+				include 'views/html-notice-currency-not-supported.php';
+			}
+		}
+	}
+
+	/**
 	 * Returns a value indicating the the Gateway is available or not. It's called
 	 * automatically by WooCommerce before allowing customers to use the gateway
 	 * for payment.
@@ -204,23 +223,6 @@ class WC_Iugu_Gateway extends WC_Payment_Gateway {
 				'description' => sprintf( __( 'Log Iugu events, such as API requests, in %s', 'iugu-woocommerce' ), $this->get_log_view() )
 			)
 		);
-	}
-
-	/**
-	 * Displays notifications when the admin has something wrong with the configuration.
-	 */
-	public function admin_notices() {
-		if ( empty( $this->account_id ) ) {
-			include 'views/html-notice-account-id-missing.php';
-		}
-
-		if ( empty( $this->api_token ) ) {
-			include 'views/html-notice-account-id-missing.php';
-		}
-
-		if ( ! $this->using_supported_currency() && ! class_exists( 'woocommerce_wpml' ) ) {
-			include 'views/html-notice-currency-not-supported.php';
-		}
 	}
 
 	/**
