@@ -185,7 +185,7 @@ class WC_Iugu_API {
 					if ( $order_item['qty'] ) {
 						$item_total = $order->get_item_total( $order_item, false ) * 100;
 
-						if ( 0 < $item_total ) {
+						if ( 0 > $item_total ) {
 							continue;
 						}
 
@@ -210,7 +210,7 @@ class WC_Iugu_API {
 				foreach ( $order->get_fees() as $fee ) {
 					$fee_total = $fee['line_total'] * 100;
 
-					if ( 0 < $fee_total ) {
+					if ( 0 > $fee_total ) {
 						continue;
 					}
 
@@ -227,7 +227,7 @@ class WC_Iugu_API {
 				foreach ( $order->get_taxes() as $tax ) {
 					$tax_total = ( $tax['tax_amount'] + $tax['shipping_tax_amount'] ) * 100;
 
-					if ( 0 < $tax_total ) {
+					if ( 0 > $tax_total ) {
 						continue;
 					}
 
