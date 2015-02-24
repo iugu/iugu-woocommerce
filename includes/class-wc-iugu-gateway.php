@@ -24,7 +24,7 @@ class WC_Iugu_Gateway extends WC_Payment_Gateway {
 		$this->id                   = 'iugu';
 		$this->icon                 = apply_filters( 'iugu_woocommerce_icon', plugins_url( 'assets/images/iugu.png', plugin_dir_path( __FILE__ ) ) );
 		$this->method_title         = __( 'Iugu', 'iugu-woocommerce' );
-		$this->method_description   = __( 'Accept payments by credit card or banking ticket using the Iugu.', 'iugu-woocommerce' );
+		$this->method_description   = __( 'Accept payments by credit card or banking billet using the Iugu.', 'iugu-woocommerce' );
 		$this->has_fields           = true;
 		$this->view_transaction_url = 'https://iugu.com/a/invoices/%s';
 
@@ -58,7 +58,8 @@ class WC_Iugu_Gateway extends WC_Payment_Gateway {
 
 		// Actions.
 		add_action( 'woocommerce_update_options_payment_gateways_' . $this->id, array( $this, 'process_admin_options' ) );
-		add_action( 'woocommerce_thankyou_' . $this->id, array( $this, 'transparent_checkout_billet_thankyou_page' ) );
+		add_action( 'woocommerce_thankyou_' . $this->id, array( $this, 'thankyou_page' ) );
+		add_action( 'woocommerce_email_after_order_table', array( $this, 'email_instructions' ), 10, 3 );
 		add_action( 'wp_enqueue_scripts', array( $this, 'frontend_scripts' ), 9999 );
 
 		// Display admin notices.
@@ -281,10 +282,15 @@ class WC_Iugu_Gateway extends WC_Payment_Gateway {
 			echo wpautop( wptexturize( $description ) );
 		}
 
-		woocommerce_get_template( 'payment-form.php', array(
-			'methods'      => $this->methods,
-			'installments' => $this->installments
-		), 'woocommerce/iugu/', WC_Iugu::get_templates_path() );
+		woocommerce_get_template(
+			'payment-form.php',
+			array(
+				'methods'      => $this->methods,
+				'installments' => $this->installments
+			),
+			'woocommerce/iugu/',
+			WC_Iugu::get_templates_path()
+		);
 	}
 
 	/**
@@ -351,26 +357,69 @@ class WC_Iugu_Gateway extends WC_Payment_Gateway {
 	}
 
 	/**
-	 * Transparent billet checkout custom Thank You message.
+	 * Thank You page message.
 	 *
-	 * @return void
+	 * @param  int    $order_id Order ID.
+	 *
+	 * @return string
 	 */
-	public function transparent_checkout_billet_thankyou_page(){
+	public function thankyou_page( $order_id ) {
+		$data = get_post_meta( $order_id, '_iugu_wc_transaction_data', true );
 
-		session_start();
-		$result = $_SESSION['billet_result'];
+		if ( isset( $data['payment_method'] ) ) {
+			woocommerce_get_template(
+				'payment-instructions.php',
+				array(
+					'payment_method' => $data['payment_method'],
+					'installments'   => $data['installments'],
+					'pdf'            => $data['pdf']
+				),
+				'woocommerce/iugu/',
+				WC_Iugu::get_templates_path()
+			);
+		}
+	}
 
-		if(!empty($result)){
-			?>
+	/**
+	 * Add content to the WC emails.
+	 *
+	 * @param  object $order         Order object.
+	 * @param  bool   $sent_to_admin Send to admin.
+	 * @param  bool   $plain_text    Plain text or HTML.
+	 *
+	 * @return string                Payment instructions.
+	 */
+	public function email_instructions( $order, $sent_to_admin, $plain_text = false ) {
+		if ( $sent_to_admin || ! in_array( $order->status, array( 'processing', 'on-hold' ) ) || $this->id !== $order->payment_method ) {
+			return;
+		}
 
-			<div>
-				<a href="<?php echo $result->__get('pdf'); ?>" target="_blank">
-					<button type="button"><?php _e("Click here to generate your billet");?></button>
-				</a>
-			</div>
+		$data = get_post_meta( $order->id, '_iugu_wc_transaction_data', true );
 
-			<?php
-			unset($_SESSION['billet_result']);
+		if ( isset( $data['payment_method'] ) ) {
+			if ( $plain_text ) {
+				woocommerce_get_template(
+					'emails/plain-instructions.php',
+					array(
+						'payment_method' => $data['payment_method'],
+						'installments'   => $data['installments'],
+						'pdf'            => $data['pdf']
+					),
+					'woocommerce/iugu/',
+					WC_Iugu::get_templates_path()
+				);
+			} else {
+				woocommerce_get_template(
+					'emails/html-instructions.php',
+					array(
+						'payment_method' => $data['payment_method'],
+						'installments'   => $data['installments'],
+						'pdf'            => $data['pdf']
+					),
+					'woocommerce/iugu/',
+					WC_Iugu::get_templates_path()
+				);
+			}
 		}
 	}
 }

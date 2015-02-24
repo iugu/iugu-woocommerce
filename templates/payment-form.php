@@ -3,7 +3,7 @@
  * Checkout form.
  *
  * @author  Iugu
- * @package WooCommerce_Iugu/Templates
+ * @package Iugu_WooCommerce/Templates
  * @version 1.0.0
  */
 
@@ -19,7 +19,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 				<label><input id="iugu-payment-method-credit-cart" type="radio" name="iugu_payment_method" value="credit-card" checked="checked" /> <?php _e( 'Credit Card', 'woocommerce-iugu' ); ?></label>
 			</li>
 			<li>
-				<label><input id="iugu-payment-method-banking-ticket" type="radio" name="iugu_payment_method" value="billet" /> <?php _e( 'Billet', 'woocommerce-iugu' ); ?></label>
+				<label><input id="iugu-payment-method-banking-billet" type="radio" name="iugu_payment_method" value="billet" /> <?php _e( 'Billet', 'woocommerce-iugu' ); ?></label>
 			</li>
 		</ul>
 		<div class="clear"></div>
@@ -62,7 +62,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 
 	<?php if ( in_array( $methods, array( 'all', 'billet' ) ) ) : ?>
 		<div id="iugu-billet-fields" class="iugu-method-fields">
-			<p><?php _e( 'After clicking "Proceed to payment" you will have access to banking ticket which you can print and pay in your internet banking or in a lottery retailer.', 'iugu-woocommerce' ); ?><br /><?php _e( 'Note: The order will be confirmed only after the payment approval.', 'iugu-woocommerce' ); ?></p>
+			<p><?php _e( 'After clicking "Proceed to payment" you will have access to banking billet which you can print and pay in your internet banking or in a lottery retailer.', 'iugu-woocommerce' ); ?><br /><?php _e( 'Note: The order will be confirmed only after the payment approval.', 'iugu-woocommerce' ); ?></p>
 		</div>
 	<?php endif; ?>
 </fieldset>
