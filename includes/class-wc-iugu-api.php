@@ -147,6 +147,45 @@ class WC_Iugu_API {
 	}
 
 	/**
+	 * Get phone number
+	 *
+	 * @param  WC_Order $order
+	 *
+	 * @return string
+	 */
+	protected function get_phone_number( $order ) {
+		$phone_number = $this->only_numbers( $order->billing_phone );
+
+		return array(
+			'area_code' => substr( $phone_number, 0, 2 ),
+			'number'    => substr( $phone_number, 2 )
+		);
+	}
+
+	/**
+	 * Get CPF or CNPJ.
+	 *
+	 * @param  WC_Order $order
+	 *
+	 * @return string
+	 */
+	protected function get_cpf_cnpj( $order ) {
+		$wcbcf_settings = get_option( 'wcbcf_settings' );
+
+		if ( 0 != $wcbcf_settings['person_type'] ) {
+			if ( ( 1 == $wcbcf_settings['person_type'] && 1 == $order->billing_persontype ) || 2 == $wcbcf_settings['person_type'] ) {
+				return $this->only_numbers( $order->billing_cpf );
+			}
+
+			if ( ( 1 == $wcbcf_settings['person_type'] && 2 == $order->billing_persontype ) || 3 == $wcbcf_settings['person_type'] ) {
+				return $this->only_numbers( $order->billing_cnpj );
+			}
+		}
+
+		return '';
+	}
+
+	/**
 	 * Get the invoice data.
 	 *
 	 * @param  WC_Order $order
@@ -270,13 +309,13 @@ class WC_Iugu_API {
 	}
 
 	/**
-	 * Get the invoice ID.
+	 * Create an invoice.
 	 *
-	 * @param  WC_Order $order
+	 * @param  WC_Order $order Order data.
 	 *
-	 * @return string
+	 * @return string          Invoice ID.
 	 */
-	protected function get_invoice_id( $order ) {
+	protected function create_invoice( $order ) {
 		$invoice_data = $this->get_invoice_data( $order );
 
 		if ( 'yes' == $this->gateway->debug ) {
@@ -308,39 +347,35 @@ class WC_Iugu_API {
 	}
 
 	/**
-	 * Get phone number
+	 * Get invoice status.
 	 *
-	 * @param  WC_Order $order
-	 *
-	 * @return string
-	 */
-	protected function get_phone_number( $order ) {
-		$phone_number = $this->only_numbers( $order->billing_phone );
-
-		return array(
-			'area_code' => substr( $phone_number, 0, 2 ),
-			'number'    => substr( $phone_number, 2 )
-		);
-	}
-
-	/**
-	 * Get CPF or CNPJ.
-	 *
-	 * @param  WC_Order $order
+	 * @param  string $invoice_id
 	 *
 	 * @return string
 	 */
-	protected function get_cpf_cnpj( $order ) {
-		$wcbcf_settings = get_option( 'wcbcf_settings' );
+	public function get_invoice_status( $invoice_id ) {
+		if ( 'yes' == $this->gateway->debug ) {
+			$this->gateway->log->add( $this->gateway->id, 'Getting invoice status from Iugu. Invoice ID: ' . $invoice_id );
+		}
 
-		if ( 0 != $wcbcf_settings['person_type'] ) {
-			if ( ( 1 == $wcbcf_settings['person_type'] && 1 == $order->billing_persontype ) || 2 == $wcbcf_settings['person_type'] ) {
-				return $this->only_numbers( $order->billing_cpf );
+		$response = $this->do_request( 'invoices/' . $invoice_id, 'GET' );
+
+		if ( is_wp_error( $response ) ) {
+			if ( 'yes' == $this->gateway->debug ) {
+				$this->gateway->log->add( $this->gateway->id, 'WP_Error while trying to get an invoice status: ' . $response->get_error_message() );
+			}
+		} elseif ( 200 == $response['response']['code'] && 'OK' == $response['response']['message'] ) {
+			$invoice = json_decode( $response['body'], true );
+
+			if ( 'yes' == $this->gateway->debug ) {
+				$this->gateway->log->add( $this->gateway->id, 'Invoice status recovered successfully!' );
 			}
 
-			if ( ( 1 == $wcbcf_settings['person_type'] && 2 == $order->billing_persontype ) || 3 == $wcbcf_settings['person_type'] ) {
-				return $this->only_numbers( $order->billing_cnpj );
-			}
+			return sanitize_text_field( $invoice['status'] );
+		}
+
+		if ( 'yes' == $this->gateway->debug ) {
+			$this->gateway->log->add( $this->gateway->id, 'Error while getting the invoice status. Invoice ID: ' . $invoice_id . '. Response: ' . print_r( $response, true ) );
 		}
 
 		return '';
@@ -355,7 +390,7 @@ class WC_Iugu_API {
 	 * @return array
 	 */
 	protected function get_charge_data( $order, $posted ) {
-		$invoice_id = $this->get_invoice_id( $order );
+		$invoice_id = $this->create_invoice( $order );
 
 		if ( '' == $invoice_id ) {
 			if ( 'yes' == $this->gateway->debug ) {
@@ -414,14 +449,14 @@ class WC_Iugu_API {
 	}
 
 	/**
-	 * Do Charge.
+	 * Create Charge.
 	 *
 	 * @param  WC_Order $order
 	 * @param  array    $posted
 	 *
 	 * @return array
 	 */
-	public function do_charge( $order, $posted ) {
+	public function create_charge( $order, $posted ) {
 		if ( 'yes' == $this->gateway->debug ) {
 			$this->gateway->log->add( $this->gateway->id, 'Doing charge for order ' . $order->get_order_number() . '...' );
 		}
