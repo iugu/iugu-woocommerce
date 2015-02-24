@@ -183,6 +183,12 @@ class WC_Iugu_API {
 			if ( 0 < sizeof( $order->get_items() ) ) {
 				foreach ( $order->get_items() as $order_item ) {
 					if ( $order_item['qty'] ) {
+						$item_total = $order->get_item_total( $order_item, false ) * 100;
+
+						if ( 0 < $item_total ) {
+							continue;
+						}
+
 						$item_name = $order_item['name'];
 						$item_meta = new WC_Order_Item_Meta( $order_item['item_meta'] );
 
@@ -192,7 +198,7 @@ class WC_Iugu_API {
 
 						$items[] = array(
 							'description' => $item_name,
-							'price_cents' => $order->get_item_total( $order_item, false ) * 100,
+							'price_cents' => $item_total,
 							'quantity'    => $order_item['qty']
 						);
 					}
@@ -202,9 +208,15 @@ class WC_Iugu_API {
 			// Fees.
 			if ( 0 < sizeof( $order->get_fees() ) ) {
 				foreach ( $order->get_fees() as $fee ) {
+					$fee_total = $fee['line_total'] * 100;
+
+					if ( 0 < $fee_total ) {
+						continue;
+					}
+
 					$items[] = array(
 						'description' => $fee['name'],
-						'price_cents' => $fee['line_total'] * 100,
+						'price_cents' => $fee_total,
 						'quantity'    => 1
 					);
 				}
@@ -213,25 +225,31 @@ class WC_Iugu_API {
 			// Taxes.
 			if ( 0 < sizeof( $order->get_taxes() ) ) {
 				foreach ( $order->get_taxes() as $tax ) {
+					$tax_total = ( $tax['tax_amount'] + $tax['shipping_tax_amount'] ) * 100;
+
+					if ( 0 < $tax_total ) {
+						continue;
+					}
+
 					$items[] = array(
 						'description' => $tax['label'],
-						'price_cents' => ( $tax['tax_amount'] + $tax['shipping_tax_amount'] ) * 100,
+						'price_cents' => $tax_total,
 						'quantity'    => 1
 					);
 				}
 			}
 
 			// Shipping Cost.
-			if ( defined( 'WC_VERSION' ) && version_compare( WC_VERSION, '2.1', '>=' ) ) {
-				$items[] = array(
-					'description' => __( 'Shipping', 'iugu-woocommerce' ),
-					'price_cents' => $order->get_total_shipping() * 100,
-					'quantity'    => 1
-				);
+			if ( method_exists( $order, 'get_total_shipping' ) ) {
+				$shipping_cost = $order->get_total_shipping() * 100;
 			} else {
+				$shipping_cost = $order->get_shipping() * 100;
+			}
+
+			if ( 0 < $shipping_cost ) {
 				$items[] = array(
-					'description' => __( 'Shipping', 'iugu-woocommerce' ),
-					'price_cents' => $order->get_shipping() * 100,
+					'description' => sprintf( __( 'Shipping via %s', 'iugu-woocommerce' ), $order->get_shipping_method() ),
+					'price_cents' => $shipping_cost,
 					'quantity'    => 1
 				);
 			}
