@@ -371,6 +371,12 @@ class WC_Iugu_Gateway extends WC_Payment_Gateway {
 			$woocommerce->cart->empty_cart();
 		}
 
+		if ( 'billet' == $payment_method ) {
+			$order->update_status( 'on-hold', __( 'Iugu: The customer generated a billet and we are awaiting payment.', 'iugu-woocommerce' ) );
+		} else {
+			$order->update_status( 'on-hold', __( 'Iugu: Invoice paid by credit card, waiting for operator confirmation.', 'iugu-woocommerce' ) );
+		}
+
 		return array(
 			'result'   => 'success',
 			'redirect' => $this->get_return_url( $order )
@@ -450,9 +456,9 @@ class WC_Iugu_Gateway extends WC_Payment_Gateway {
 	public function notification_handler() {
 		@ob_clean();
 
-		global $wpdb;
+		if ( isset( $_REQUEST['event'] ) && isset( $_REQUEST['data']['id'] ) && 'invoice.status_changed' == $_REQUEST['event'] ) {
+			global $wpdb;
 
-		if ( isset( $_REQUEST['event'] ) && isset( $_REQUEST['data']['id'] ) && in_array( $_REQUEST['event'], array( 'invoice.created', 'invoice.status_changed' ) ) ) {
 			header( 'HTTP/1.1 200 OK' );
 
 			$invoice_id = sanitize_text_field( $_REQUEST['data']['id'] );
@@ -475,8 +481,8 @@ class WC_Iugu_Gateway extends WC_Payment_Gateway {
 	/**
 	 * Update order status.
 	 *
-	 * @param  int    $order_id
-	 * @param  string $invoice_status
+	 * @param int    $order_id
+	 * @param string $invoice_status
 	 */
 	protected function update_order_status( $order_id, $invoice_status ) {
 		$order          = new WC_Order( $order_id );
@@ -489,16 +495,14 @@ class WC_Iugu_Gateway extends WC_Payment_Gateway {
 
 		switch ( $invoice_status ) {
 			case 'pending' :
-				if ( 'on-hold' != $order_status ) {
+				if ( ! in_array( $order_status, array( 'on-hold', 'processing', 'completed' ) ) ) {
 					$payment_data = get_post_meta( $order->id, '_iugu_wc_transaction_data', true );
 
 					if ( 'billet' == $payment_data['payment_method'] ) {
-						$message = __( 'Iugu: The customer generated a billet and we are awaiting payment.', 'iugu-woocommerce' );
+						$order->update_status( 'on-hold', __( 'Iugu: The customer generated a billet and we are awaiting payment.', 'iugu-woocommerce' ) );
 					} else {
-						$message = __( 'Iugu: Invoice paid by credit card, waiting for operator confirmation..', 'iugu-woocommerce' );
+						$order->update_status( 'on-hold', __( 'Iugu: Invoice paid by credit card, waiting for operator confirmation.', 'iugu-woocommerce' ) );
 					}
-
-					$order->update_status( 'on-hold', $message );
 				}
 
 				break;
