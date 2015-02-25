@@ -1,0 +1,422 @@
+# Copyright (C) 2015 Iugu
+# This file is distributed under the GPLv2 or later.
+# Translators:
+msgid ""
+msgstr ""
+"Project-Id-Version: Iugu WooCommerce\n"
+"Report-Msgid-Bugs-To: http://wordpress.org/support/plugin/iugu-woocommerce/\n"
+"POT-Creation-Date: 2015-02-25 02:15:18+00:00\n"
+"PO-Revision-Date: 2015-02-25 02:18+0000\n"
+"Last-Translator: Claudio Sanches <contato@claudiosmweb.com>\n"
+"Language-Team: Portuguese (Brazil) (http://www.transifex.com/projects/p/iugu-woocommerce/language/pt_BR/)\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: pt_BR\n"
+"Plural-Forms: nplurals=2; plural=(n > 1);\n"
+"X-Generator: grunt-wp-i18n 0.4.9\n"
+
+#: includes/class-wc-iugu-api.php:227
+msgid "Order %s"
+msgstr "Pedido %s"
+
+#: includes/class-wc-iugu-api.php:301
+msgid "Shipping via %s"
+msgstr "Entrega via %s"
+
+#: includes/class-wc-iugu-api.php:478 includes/class-wc-iugu-api.php:502
+msgid ""
+"An error has occurred while processing your payment, please try again. Or "
+"contact us for assistance."
+msgstr "Um erro ocorreu ao processar o seu pagamento, por favor, tente novamente ou entre em contato para obter ajuda."
+
+#. Author of the plugin/theme
+msgid "Iugu"
+msgstr "Iugu"
+
+#: includes/class-wc-iugu-gateway.php:27
+msgid "Accept payments by credit card or banking billet using the Iugu."
+msgstr "Aceite pagamentos por cartão de crédito e boleto bancário com o Iugu."
+
+#: includes/class-wc-iugu-gateway.php:125
+msgid "System Status &gt; Logs"
+msgstr "Status do Sistema &gt; Logs"
+
+#: includes/class-wc-iugu-gateway.php:139
+msgid "Enable/Disable"
+msgstr "Habilita/Desabilita"
+
+#: includes/class-wc-iugu-gateway.php:141
+msgid "Enable Iugu"
+msgstr "Ativar o Iugu"
+
+#: includes/class-wc-iugu-gateway.php:145
+msgid "Title"
+msgstr "Título"
+
+#: includes/class-wc-iugu-gateway.php:147
+msgid "This controls the title which the user sees during checkout."
+msgstr "Isto controla o título que o usuário vê durante o checkout."
+
+#: includes/class-wc-iugu-gateway.php:152
+msgid "Description"
+msgstr "Descrição"
+
+#: includes/class-wc-iugu-gateway.php:154
+msgid "This controls the description which the user sees during checkout."
+msgstr "Isso controla a descrição que o usuário vê durante o checkout."
+
+#: includes/class-wc-iugu-gateway.php:155
+msgid "Pay with credit card or banking billet."
+msgstr "Pagar com cartão de crédito ou boleto bancário."
+
+#: includes/class-wc-iugu-gateway.php:158
+msgid "Integration Settings"
+msgstr "Configurações da integração"
+
+#: includes/class-wc-iugu-gateway.php:163
+msgid "Account ID"
+msgstr "ID da conta "
+
+#: includes/class-wc-iugu-gateway.php:165
+msgid ""
+"Please enter your Account ID. This is needed in order to take payment. Is "
+"possible found the Account ID in %s."
+msgstr "Por favor, digite o ID da sua conta. Isto é necessário para receber pagamentos. É possível encontrar o seu ID de conta nas %s."
+
+#: includes/class-wc-iugu-gateway.php:165
+#: includes/class-wc-iugu-gateway.php:174
+#: includes/class-wc-iugu-gateway.php:241
+msgid "Iugu Account Settings"
+msgstr "Configurações da sua conta no Iugu"
+
+#: includes/class-wc-iugu-gateway.php:172
+msgid "API Token"
+msgstr "API Token"
+
+#: includes/class-wc-iugu-gateway.php:174
+msgid ""
+"Please enter your API Token. This is needed in order to take payment. Is "
+"possible generate a new API Token in %s."
+msgstr "Por favor, digite o seu API Token. Isto é necessário para receber pagamentos. É possível gerar um novo API Token nas %s."
+
+#: includes/class-wc-iugu-gateway.php:181
+msgid "Payment Options"
+msgstr "Opções de pagamento"
+
+#: includes/class-wc-iugu-gateway.php:186
+msgid "Payment Methods"
+msgstr "Métodos de pagamento"
+
+#: includes/class-wc-iugu-gateway.php:188
+msgid "Select the payment methods that are available to customers."
+msgstr "Selecione os métodos de pagamento que estarão disponíveis para os clientes."
+
+#: includes/class-wc-iugu-gateway.php:193
+msgid "Credit Card and Billet"
+msgstr "Cartão de crédito e boleto bancário"
+
+#: includes/class-wc-iugu-gateway.php:194
+msgid "Credit Card only"
+msgstr "Apenas cartão de crédito"
+
+#: includes/class-wc-iugu-gateway.php:195
+msgid "Billet only"
+msgstr "Apenas boleto bancário"
+
+#: includes/class-wc-iugu-gateway.php:199
+msgid "Number of credit card Installments"
+msgstr "Número de parcelas do cartão de crédito"
+
+#: includes/class-wc-iugu-gateway.php:201
+msgid ""
+"The maximum number of installments allowed for credit cards. Put a number "
+"bigger than 1 to enable the field. This cannot be greater than the number "
+"allowed in your Iugu account."
+msgstr "O número maximo de parcelas que serão aceitas para cartão de crédito. Digite um número maior do que 1. Este número não pode ser maior que o número permitido na sua conta no Iugu."
+
+#: includes/class-wc-iugu-gateway.php:210
+msgid "Deadline to pay the billet"
+msgstr "Prazo para pagar o boleto bancário"
+
+#: includes/class-wc-iugu-gateway.php:212
+msgid "Number of days the customer will have to pay the billet."
+msgstr "Número de dias que o cliente terá para pagar o boleto bancário."
+
+#: includes/class-wc-iugu-gateway.php:221
+msgid "Integration Behavior"
+msgstr "Comportamento da integração"
+
+#: includes/class-wc-iugu-gateway.php:226
+msgid "Send only the order total"
+msgstr "Enviar apenas o total do pedido"
+
+#: includes/class-wc-iugu-gateway.php:228
+msgid ""
+"If this option is enabled will only send the order total, not the list of "
+"items."
+msgstr "Caso esta opção esteja ativada será enviado apenas o total do pedido e não a lista de itens."
+
+#: includes/class-wc-iugu-gateway.php:232
+msgid "Gateway Testing"
+msgstr "Testes"
+
+#: includes/class-wc-iugu-gateway.php:237
+msgid "Iugu Sandbox"
+msgstr "Sandbox do Iugu"
+
+#: includes/class-wc-iugu-gateway.php:239
+msgid "Enable Iugu Sandbox"
+msgstr "Ativar o Sandbox do Iugu"
+
+#: includes/class-wc-iugu-gateway.php:241
+msgid ""
+"Iugu Sandbox can be used to test the payments. <strong>Note:</strong> you "
+"must use the development API Token that can be created in %s."
+msgstr "O Sandbox do Iugu pode ser utilizado para testar pagamentos. <strong>Nota:</strong> você deve utilizar um API Token de testes que pode ser gerado nas %s."
+
+#: includes/class-wc-iugu-gateway.php:244
+msgid "Debug Log"
+msgstr "Log de depuração"
+
+#: includes/class-wc-iugu-gateway.php:246
+msgid "Enable logging"
+msgstr "Habilitar log"
+
+#: includes/class-wc-iugu-gateway.php:248
+msgid "Log Iugu events, such as API requests, you can check this log in %s."
+msgstr "Registra eventos do Iugu, como requisições na API, você pode conferir esse arquivo de log em %s."
+
+#: includes/class-wc-iugu-gateway.php:271 templates/payment-form.php:37
+msgid "Card Number"
+msgstr "Número do cartão"
+
+#: includes/class-wc-iugu-gateway.php:272 templates/payment-form.php:46
+msgid "Security Code"
+msgstr "Código de segurança"
+
+#: includes/class-wc-iugu-gateway.php:273
+msgid "Card Expiry Date"
+msgstr "Data de vencimento do cartão"
+
+#: includes/class-wc-iugu-gateway.php:274
+msgid "First Name"
+msgstr "Nome"
+
+#: includes/class-wc-iugu-gateway.php:275
+msgid "Last Name"
+msgstr "Sobrenome"
+
+#: includes/class-wc-iugu-gateway.php:276
+msgid "is invalid"
+msgstr "é inválido"
+
+#: includes/class-wc-iugu-gateway.php:400
+msgid "Iugu Transaction details"
+msgstr "Detalhes da transação no Iugu"
+
+#: includes/class-wc-iugu-gateway.php:411
+msgid "Iugu: The customer generated a billet, awaiting payment confirmation."
+msgstr "Iugu: O cliente gerou um boleto bancário, aguardando confirmação do pagamento."
+
+#: includes/class-wc-iugu-gateway.php:413
+#: includes/class-wc-iugu-gateway.php:540
+msgid "Iugu: Invoice paid by credit card, waiting for operator confirmation."
+msgstr "Iugu: A fatura foi paga com cartão de credito, aguardando a confirmação da operadora do cartão."
+
+#: includes/class-wc-iugu-gateway.php:514
+msgid "The request failed!"
+msgstr "A requisição falhou!"
+
+#: includes/class-wc-iugu-gateway.php:538
+msgid "Iugu: The customer generated a billet and we are awaiting payment."
+msgstr "Iugu: O cliente gerou um boleto bancário e estamos aguardando "
+
+#: includes/class-wc-iugu-gateway.php:547
+msgid "Iugu: Invoice paid successfully."
+msgstr "Iugu: Fatura paga com sucesso."
+
+#: includes/class-wc-iugu-gateway.php:556
+msgid "Iugu: Invoice canceled."
+msgstr "Iugu: Fatura cancelada."
+
+#: includes/class-wc-iugu-gateway.php:561
+msgid "Iugu: Invoice partially paid."
+msgstr "Iugu: Fatura paga parcialmente."
+
+#: includes/class-wc-iugu-gateway.php:566
+msgid "Iugu: Invoice refunded."
+msgstr "Iugu: Fatura reembolsada."
+
+#: includes/class-wc-iugu-gateway.php:568
+msgid "Invoice for order %s was refunded"
+msgstr "A fatura do pedido %s foi reembolsada"
+
+#: includes/class-wc-iugu-gateway.php:569
+msgid "Invoice refunded"
+msgstr "Fatura reembolsada"
+
+#: includes/class-wc-iugu-gateway.php:570
+msgid "Order %s has been marked as refunded by Iugu."
+msgstr "O pedido %s foi marcado como reembolsado pelo Iugu."
+
+#: includes/class-wc-iugu-gateway.php:577
+msgid "Iugu: Invoice expired."
+msgstr "Iugu: Fatura expirada."
+
+#: includes/views/html-notice-account-id-missing.php:13
+#: includes/views/html-notice-api-token-missing.php:13
+#: includes/views/html-notice-currency-not-supported.php:13
+#: includes/views/html-notice-ecfb-missing.php:20
+#: includes/views/html-notice-woocommerce-missing.php:20
+msgid "Iugu Disabled"
+msgstr "Iugu esta desabilitado"
+
+#: includes/views/html-notice-account-id-missing.php:13
+msgid "You should inform your API Token. %s"
+msgstr "Você deve informar o seu API Token. %s"
+
+#: includes/views/html-notice-account-id-missing.php:13
+#: includes/views/html-notice-api-token-missing.php:13
+msgid "Click here to configure!"
+msgstr "Clique aqui para configurar!"
+
+#: includes/views/html-notice-api-token-missing.php:13
+msgid "You should inform your Account ID. %s"
+msgstr "Você deve informar o ID da sua conta. %s"
+
+#: includes/views/html-notice-currency-not-supported.php:13
+msgid ""
+"Currency <code>%s</code> is not supported. Works only with Brazilian Real."
+msgstr "A moeda <code>%s</code> não é suportada. Funciona apenas com Real (BRL)."
+
+#: includes/views/html-notice-ecfb-missing.php:20
+msgid "Iugu WooCommerce requires the latest version of the %s to works."
+msgstr "Iugu WooCommerce requer a última versão do %s para funcionar."
+
+#: includes/views/html-notice-ecfb-missing.php:20
+msgid "WooCommerce Extra Checkout Fields for Brazil"
+msgstr "WooCommerce Extra Checkout Fields for Brazil"
+
+#: includes/views/html-notice-woocommerce-missing.php:20
+msgid "Iugu WooCommerce depends on the last version of %s to work!"
+msgstr "Iugu WooCommerce depende da última versão do %s para funcionar!"
+
+#: includes/views/html-notice-woocommerce-missing.php:20
+msgid "WooCommerce"
+msgstr "WooCommerce"
+
+#: iugu-woocommerce.php:149
+msgid "Settings"
+msgstr "Configurações"
+
+#: templates/emails/html-instructions.php:15
+#: templates/emails/plain-instructions.php:14
+msgid "Payment"
+msgstr "Pagamento"
+
+#: templates/emails/html-instructions.php:19
+#: templates/emails/plain-instructions.php:20
+msgid ""
+"Please use the link below to view your banking billet, you can print and pay"
+" in your internet banking or in a lottery retailer:"
+msgstr "Por favor, utilize o link abaixo para ver o seu boleto bancário, você pode imprimi-lo e fazer o pagamento pelo site do seu banco ou por uma casa lotérica:"
+
+#: templates/emails/html-instructions.php:19
+#: templates/payment-instructions.php:18
+msgid "Pay the banking billet"
+msgstr "Pagar boleto bancário"
+
+#: templates/emails/html-instructions.php:19
+#: templates/emails/plain-instructions.php:28
+#: templates/payment-instructions.php:18
+msgid ""
+"After we receive the billet payment confirmation, your order will be "
+"processed."
+msgstr "O seu pedido será processando assim que recebermos a confirmação do pagamento do seu boleto."
+
+#: templates/emails/html-instructions.php:23
+#: templates/emails/plain-instructions.php:32
+#: templates/payment-instructions.php:24
+msgid "You just made the payment in %s by credit card."
+msgstr "Você acabou de fazer o pagamento em %s com cartão de crédito."
+
+#: templates/emails/html-instructions.php:23
+#: templates/emails/plain-instructions.php:36
+#: templates/payment-instructions.php:24
+msgid ""
+"As soon as the credit card operator confirm the payment, your order will be "
+"processed."
+msgstr "O seu pedido será processado assim que a operadora do seu cartão de crédito confirmar o pagamento."
+
+#: templates/payment-form.php:19
+msgid "Credit Card"
+msgstr "Cartão de crédito"
+
+#: templates/payment-form.php:22
+msgid "Billet"
+msgstr "Boleto bancário"
+
+#: templates/payment-form.php:33
+msgid "Card Holder Name"
+msgstr "Nome do portador"
+
+#: templates/payment-form.php:33
+msgid "as recorded on the card"
+msgstr "como gravado no cartão"
+
+#: templates/payment-form.php:42
+msgid "Expiry (MM/YYYY)"
+msgstr "Validade (MM/AAAA)"
+
+#: templates/payment-form.php:43
+msgid "MM / YYYY"
+msgstr "MM / AAAA"
+
+#: templates/payment-form.php:47
+msgid "CVC"
+msgstr "CVV"
+
+#: templates/payment-form.php:51
+msgid "Installments"
+msgstr "Parcelar em"
+
+#: templates/payment-form.php:54
+msgid "%d x"
+msgstr "%d x"
+
+#: templates/payment-form.php:65
+msgid ""
+"After clicking \"Proceed to payment\" you will have access to banking billet"
+" which you can print and pay in your internet banking or in a lottery "
+"retailer."
+msgstr "Após clicar em \\\"Realizar pagamento\\\" você receberá o seu boleto bancário, é possível imprimi-lo e pagar pelo site do seu banco ou por uma casa lotérica."
+
+#: templates/payment-form.php:65
+msgid "Note: The order will be confirmed only after the payment approval."
+msgstr "Nota: O pedido será confirmado apenas após a confirmação do pagamento."
+
+#: templates/payment-instructions.php:18
+msgid "Please click in the following button to view your banking billet."
+msgstr "Por favor, click no botão a seguir para visualizar o seu boleto bancário."
+
+#: templates/payment-instructions.php:18
+msgid ""
+"You can print and pay in your internet banking or in a lottery retailer."
+msgstr "Você pode imprimi-lo e fazer o pagamento pelo site do seu banco ou por uma casa lotérica."
+
+#. Plugin Name of the plugin/theme
+msgid "Iugu WooCommerce"
+msgstr "Iugu WooCommerce"
+
+#. Plugin URI of the plugin/theme
+msgid "https://github.com/iugu/iugu-woocommerce"
+msgstr "https://github.com/iugu/iugu-woocommerce"
+
+#. Description of the plugin/theme
+msgid "Iugu payment gateway for WooCommerce."
+msgstr "Gateway de pagamento Iugu para WooCommerce."
+
+#. Author URI of the plugin/theme
+msgid "http://iugu.com/"
+msgstr "http://iugu.com/"

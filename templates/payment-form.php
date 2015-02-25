@@ -16,10 +16,10 @@ if ( ! defined( 'ABSPATH' ) ) {
 	<?php if ( 'all' == $methods ) : ?>
 		<ul id="iugu-select-payment">
 			<li>
-				<label><input id="iugu-payment-method-credit-cart" type="radio" name="iugu_payment_method" value="credit-card" checked="checked" /> <?php _e( 'Credit Card', 'woocommerce-iugu' ); ?></label>
+				<label><input id="iugu-payment-method-credit-cart" type="radio" name="iugu_payment_method" value="credit-card" checked="checked" /> <?php _e( 'Credit Card', 'iugu-woocommerce' ); ?></label>
 			</li>
 			<li>
-				<label><input id="iugu-payment-method-banking-billet" type="radio" name="iugu_payment_method" value="billet" /> <?php _e( 'Billet', 'woocommerce-iugu' ); ?></label>
+				<label><input id="iugu-payment-method-banking-billet" type="radio" name="iugu_payment_method" value="billet" /> <?php _e( 'Billet', 'iugu-woocommerce' ); ?></label>
 			</li>
 		</ul>
 		<div class="clear"></div>

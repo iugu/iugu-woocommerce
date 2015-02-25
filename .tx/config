@@ -1,0 +1,8 @@
+[main]
+host = https://www.transifex.com
+
+[iugu-woocommerce.iugu-woocommerce]
+file_filter = languages/iugu-woocommerce-<lang>.po
+source_file = languages/iugu-woocommerce.pot
+source_lang = en
+type = PO

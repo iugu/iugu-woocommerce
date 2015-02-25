@@ -152,7 +152,7 @@ class WC_Iugu_Gateway extends WC_Payment_Gateway {
 				'title'       => __( 'Description', 'iugu-woocommerce' ),
 				'type'        => 'textarea',
 				'description' => __( 'This controls the description which the user sees during checkout.', 'iugu-woocommerce' ),
-				'default'     => __( 'Pay via Iugu', 'iugu-woocommerce' )
+				'default'     => __( 'Pay with credit card or banking billet.', 'iugu-woocommerce' )
 			),
 			'integration' => array(
 				'title'       => __( 'Integration Settings', 'iugu-woocommerce' ),
@@ -183,9 +183,9 @@ class WC_Iugu_Gateway extends WC_Payment_Gateway {
 				'description' => ''
 			),
 			'methods' => array(
-				'title'       => __( 'Payment Methods', 'woocommerce-moip' ),
+				'title'       => __( 'Payment Methods', 'iugu-woocommerce' ),
 				'type'        => 'select',
-				'description' => __( 'Select the payment methods', 'iugu-woocommerce' ),
+				'description' => __( 'Select the payment methods that are available to customers.', 'iugu-woocommerce' ),
 				'default'     => 'all',
 				'desc_tip'    => true,
 				'class'       => 'wc-enhanced-select',
@@ -196,7 +196,7 @@ class WC_Iugu_Gateway extends WC_Payment_Gateway {
 				)
 			),
 			'installments' => array(
-				'title'             => __( 'Number of Installments', 'iugu-woocommerce' ),
+				'title'             => __( 'Number of credit card Installments', 'iugu-woocommerce' ),
 				'type'              => 'number',
 				'description'       => __( 'The maximum number of installments allowed for credit cards. Put a number bigger than 1 to enable the field. This cannot be greater than the number allowed in your Iugu account.', 'iugu-woocommerce' ),
 				'desc_tip'          => true,
@@ -245,7 +245,7 @@ class WC_Iugu_Gateway extends WC_Payment_Gateway {
 				'type'        => 'checkbox',
 				'label'       => __( 'Enable logging', 'iugu-woocommerce' ),
 				'default'     => 'no',
-				'description' => sprintf( __( 'Log Iugu events, such as API requests, in %s', 'iugu-woocommerce' ), $this->get_log_view() )
+				'description' => sprintf( __( 'Log Iugu events, such as API requests, you can check this log in %s.', 'iugu-woocommerce' ), $this->get_log_view() )
 			)
 		);
 	}
@@ -408,7 +408,7 @@ class WC_Iugu_Gateway extends WC_Payment_Gateway {
 		}
 
 		if ( 'billet' == $payment_method ) {
-			$order->update_status( 'on-hold', __( 'Iugu: The customer generated a billet and we are awaiting payment.', 'iugu-woocommerce' ) );
+			$order->update_status( 'on-hold', __( 'Iugu: The customer generated a billet, awaiting payment confirmation.', 'iugu-woocommerce' ) );
 		} else {
 			$order->update_status( 'on-hold', __( 'Iugu: Invoice paid by credit card, waiting for operator confirmation.', 'iugu-woocommerce' ) );
 		}

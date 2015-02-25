@@ -2,13 +2,13 @@
 /**
  * Plugin Name: Iugu WooCommerce
  * Plugin URI: https://github.com/iugu/iugu-woocommerce
- * Description: Gateway de pagamento Iugu para WooCommerce.
+ * Description: Iugu payment gateway for WooCommerce.
  * Author: Iugu
  * Author URI: http://iugu.com/
  * Version: 1.0.0
  * License: GPLv2 or later
  * Text Domain: iugu-woocommerce
- * Domain Path: /languages/
+ * Domain Path: languages/
  */
 
 if ( ! defined( 'ABSPATH' ) ) {
@@ -85,9 +85,6 @@ class WC_Iugu {
 	 * Load the plugin text domain for translation.
 	 */
 	public function load_plugin_textdomain() {
-		$locale = apply_filters( 'plugin_locale', get_locale(), 'iugu-woocommerce' );
-
-		load_textdomain( 'iugu-woocommerce', trailingslashit( WP_LANG_DIR ) . 'iugu-woocommerce/iugu-woocommerce-' . $locale . '.mo' );
 		load_plugin_textdomain( 'iugu-woocommerce', false, dirname( plugin_basename( __FILE__ ) ) . '/languages/' );
 	}
 
