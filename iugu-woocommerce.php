@@ -52,7 +52,6 @@ class WC_Iugu {
 
 			// Hook to add Iugu Gateway to WooCommerce.
 			add_filter( 'woocommerce_payment_gateways', array( $this, 'add_gateway' ) );
-
 		} else {
 			add_action( 'admin_notices', array( $this, 'dependencies_notices' ) );
 		}
@@ -93,7 +92,8 @@ class WC_Iugu {
 	 */
 	private function includes() {
 		include_once 'includes/class-wc-iugu-api.php';
-		include_once 'includes/class-wc-iugu-gateway.php';
+		include_once 'includes/class-wc-iugu-credit-card-gateway.php';
+		include_once 'includes/class-wc-iugu-bank-slip-gateway.php';
 	}
 
 	/**
@@ -104,7 +104,8 @@ class WC_Iugu {
 	 * @return array          Payment methods with Iugu.
 	 */
 	public function add_gateway( $methods ) {
-		$methods[] = 'WC_Iugu_Gateway';
+		$methods[] = 'WC_Iugu_Credit_Card_Gateway';
+		$methods[] = 'WC_Iugu_Bank_Slip_Gateway';
 
 		return $methods;
 	}
@@ -133,6 +134,19 @@ class WC_Iugu {
 		}
 
 		return admin_url( 'admin.php?page=woocommerce_settings&tab=payment_gateways&section=WC_Iugu_Gateway' );
+	}
+
+	/**
+	 * Get log.
+	 *
+	 * @return string
+	 */
+	public static function get_log_view( $gateway_id ) {
+		if ( defined( 'WC_VERSION' ) && version_compare( WC_VERSION, '2.2', '>=' ) ) {
+			return '<a href="' . esc_url( admin_url( 'admin.php?page=wc-status&tab=logs&log_file=' . esc_attr( $gateway_id ) . '-' . sanitize_file_name( wp_hash( $gateway_id ) ) . '.log' ) ) . '">' . __( 'System Status &gt; Logs', 'iugu-woocommerce' ) . '</a>';
+		}
+
+		return '<code>woocommerce/logs/' . esc_attr( $gateway_id ) . '-' . sanitize_file_name( wp_hash( $gateway_id ) ) . '.txt</code>';
 	}
 
 	/**
