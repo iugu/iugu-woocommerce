@@ -186,6 +186,17 @@ class WC_Iugu_API {
 	}
 
 	/**
+	 * Get the invoice due date.
+	 *
+	 * @return string
+	 */
+	protected function get_invoice_due_date() {
+		$days = ( 'credit_card' != $this->gateway->methods ) ? intval( $this->gateway->billet_deadline ) : 1;
+
+		return date( 'd-m-Y', strtotime( '+' . $days . ' day' ) );
+	}
+
+	/**
 	 * Get the invoice data.
 	 *
 	 * @param  WC_Order $order
@@ -197,7 +208,7 @@ class WC_Iugu_API {
 
 		$data = array(
 			'email'            => $order->billing_email,
-			'due_date'         => date( 'd-m-Y', strtotime( '+1 day' ) ),
+			'due_date'         => $this->get_invoice_due_date(),
 			'return_url'       => $this->gateway->get_return_url( $order ),
 			'expired_url'      => $order->get_cancel_order_url(),
 			'notification_url' => $this->get_wc_request_url(),

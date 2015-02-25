@@ -41,6 +41,7 @@ class WC_Iugu_Gateway extends WC_Payment_Gateway {
 		$this->api_token       = $this->get_option( 'api_token' );
 		$this->methods         = $this->get_option( 'methods', 'all' );
 		$this->installments    = $this->get_option( 'installments' );
+		$this->billet_deadline = $this->get_option( 'billet_deadline' );
 		$this->send_only_total = $this->get_option( 'send_only_total', 'no' );
 		$this->sandbox         = $this->get_option( 'sandbox', 'no' );
 		$this->debug           = $this->get_option( 'debug' );
@@ -65,6 +66,7 @@ class WC_Iugu_Gateway extends WC_Payment_Gateway {
 
 		// Display admin notices.
 		if ( is_admin() ) {
+			add_action( 'admin_enqueue_scripts', array( $this, 'admin_scripts' ) );
 			add_action( 'admin_notices', array( $this, 'admin_notices' ) );
 		}
 	}
@@ -188,11 +190,26 @@ class WC_Iugu_Gateway extends WC_Payment_Gateway {
 				)
 			),
 			'installments' => array(
-				'title'       => __( 'Number of Installments', 'iugu-woocommerce' ),
-				'type'        => 'text',
-				'description' => __( 'The maximum number of installments allowed for credit cards. Put a number bigger than 1 to enable the field', 'iugu-woocommerce' ),
-				'desc_tip'    => true,
-				'default'     => '0'
+				'title'             => __( 'Number of Installments', 'iugu-woocommerce' ),
+				'type'              => 'number',
+				'description'       => __( 'The maximum number of installments allowed for credit cards. Put a number bigger than 1 to enable the field. This cannot be greater than the number allowed in your Iugu account.', 'iugu-woocommerce' ),
+				'desc_tip'          => true,
+				'default'           => '1',
+				'custom_attributes' => array(
+					'step' => '1',
+					'min'  => '1'
+				)
+			),
+			'billet_deadline' => array(
+				'title'             => __( 'Deadline to pay the billet', 'iugu-woocommerce' ),
+				'type'              => 'number',
+				'description'       => __( 'Number of days the customer will have to pay the billet.', 'iugu-woocommerce' ),
+				'desc_tip'          => true,
+				'default'           => '5',
+				'custom_attributes' => array(
+					'step' => '1',
+					'min'  => '1'
+				)
 			),
 			'behavior' => array(
 				'title'       => __( 'Integration Behavior', 'iugu-woocommerce' ),
@@ -257,6 +274,19 @@ class WC_Iugu_Gateway extends WC_Payment_Gateway {
 	}
 
 	/**
+	 * Admin scripts.
+	 *
+	 * @param string $hook Page slug.
+	 */
+	public function admin_scripts( $hook ) {
+		if ( in_array( $hook, array( 'woocommerce_page_wc-settings', 'woocommerce_page_woocommerce_settings' ) ) && ( isset( $_GET['section'] ) && 'wc_iugu_gateway' == strtolower( $_GET['section'] ) ) ) {
+			$suffix = defined( 'SCRIPT_DEBUG' ) && SCRIPT_DEBUG ? '' : '.min';
+
+			wp_enqueue_script( 'iugu-admin', plugins_url( 'assets/js/admin' . $suffix . '.js', plugin_dir_path( __FILE__ ) ), array( 'jquery' ), WC_Iugu::VERSION, true );
+		}
+	}
+
+	/**
 	 * Add error message in checkout.
 	 *
 	 * @param  string $message Error message.
@@ -306,7 +336,7 @@ class WC_Iugu_Gateway extends WC_Payment_Gateway {
 			'payment-form.php',
 			array(
 				'methods'      => $this->methods,
-				'installments' => $this->installments
+				'installments' => intval( $this->installments )
 			),
 			'woocommerce/iugu/',
 			WC_Iugu::get_templates_path()
