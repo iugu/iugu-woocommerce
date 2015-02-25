@@ -40,7 +40,6 @@ class WC_Iugu_Credit_Card_Gateway extends WC_Payment_Gateway {
 		$this->account_id      = $this->get_option( 'account_id' );
 		$this->api_token       = $this->get_option( 'api_token' );
 		$this->installments    = $this->get_option( 'installments' );
-		$this->deadline        = '1';
 		$this->send_only_total = $this->get_option( 'send_only_total', 'no' );
 		$this->sandbox         = $this->get_option( 'sandbox', 'no' );
 		$this->debug           = $this->get_option( 'debug' );

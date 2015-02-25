@@ -244,7 +244,7 @@ class WC_Iugu_API {
 	 * @return string
 	 */
 	protected function get_invoice_due_date() {
-		$days = ( 'credit_card' != $this->method ) ? intval( $this->gateway->deadline ) : 1;
+		$days = ( 'credit-card' != $this->method ) ? intval( $this->gateway->deadline ) : 1;
 
 		return date( 'd-m-Y', strtotime( '+' . $days . ' day' ) );
 	}
