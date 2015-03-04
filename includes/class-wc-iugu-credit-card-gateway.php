@@ -68,7 +68,7 @@ class WC_Iugu_Credit_Card_Gateway extends WC_Payment_Gateway {
 		$this->api = new WC_Iugu_API( $this, 'credit-card' );
 
 		// Actions.
-		add_action( 'woocommerce_api_wc_iugu_credit_card_gateway', array( $this->api, 'notification_handler' ) );
+		add_action( 'woocommerce_api_wc_iugu_credit_card_gateway', array( $this, 'notification_handler' ) );
 		add_action( 'woocommerce_update_options_payment_gateways_' . $this->id, array( $this, 'process_admin_options' ) );
 		add_action( 'woocommerce_thankyou_' . $this->id, array( $this, 'thankyou_page' ) );
 		add_action( 'woocommerce_email_after_order_table', array( $this, 'email_instructions' ), 10, 3 );
@@ -323,5 +323,12 @@ class WC_Iugu_Credit_Card_Gateway extends WC_Payment_Gateway {
 				);
 			}
 		}
+	}
+
+	/**
+	 * Notification handler.
+	 */
+	public function notification_handler() {
+		$this->api->notification_handler();
 	}
 }
