@@ -105,7 +105,7 @@ class WC_Iugu_API {
 	public function add_error( $message ) {
 		global $woocommerce;
 
-		if ( version_compare( WOOCOMMERCE_VERSION, '2.1', '>=' ) ) {
+		if ( function_exists( 'wc_add_notice' ) ) {
 			wc_add_notice( $message, 'error' );
 		} else {
 			$woocommerce->add_error( $message );
@@ -129,6 +129,20 @@ class WC_Iugu_API {
 		}
 
 		$mailer->send( get_option( 'admin_email' ), $subject, $mailer->wrap_message( $title, $message ) );
+	}
+
+	/**
+	 * Empty card.
+	 */
+	public function empty_card() {
+		global $woocommerce;
+
+		// Empty cart.
+		if ( defined( 'WC_VERSION' ) && version_compare( WC_VERSION, '2.1', '>=' ) ) {
+			WC()->cart->empty_cart();
+		} else {
+			$woocommerce->cart->empty_cart();
+		}
 	}
 
 	/**
@@ -489,20 +503,19 @@ class WC_Iugu_API {
 
 		// Credit Card.
 		if ( 'credit-card' == $this->method ) {
-			if ( ! isset( $posted['iugu_token'] ) ) {
-				if ( 'yes' == $this->gateway->debug ) {
-					$this->gateway->log->add( $this->gateway->id, 'Error doing the charge for order ' . $order->get_order_number() . ': Missing the "iugu_token".' );
-				}
+			if ( isset( $posted['iugu_token'] ) ) {
+				// Credit card token.
+				$data['token'] = sanitize_text_field( $posted['iugu_token'] );
 
-				return array();
+				// Installments.
+				if ( isset( $posted['iugu_card_installments'] ) && 1 < $posted['iugu_card_installments'] ) {
+					$data['months'] = absint( $posted['iugu_card_installments'] );
+				}
 			}
 
-			// Credit card token.
-			$data['token'] = sanitize_text_field( $posted['iugu_token'] );
-
-			// Installments.
-			if ( isset( $posted['iugu_card_installments'] ) && 1 < $posted['iugu_card_installments'] ) {
-				$data['months'] = absint( $posted['iugu_card_installments'] );
+			// Payment method ID.
+			if ( isset( $posted['customer_payment_method_id'] ) ) {
+				$data['customer_payment_method_id'] = $posted['customer_payment_method_id'];
 			}
 		}
 
@@ -560,6 +573,128 @@ class WC_Iugu_API {
 	}
 
 	/**
+	 * Create customer in Iugu API.
+	 *
+	 * @param  WC_Order $order Order data.
+	 *
+	 * @return string          Customer ID.
+	 */
+	protected function create_customer( $order ) {
+		if ( 'yes' == $this->gateway->debug ) {
+			$this->gateway->log->add( $this->gateway->id, 'Creating customer...' );
+		}
+
+		$data = array(
+			'email' => $order->billing_email,
+			'name'  => trim( $order->billing_first_name . ' ' . $order->billing_last_name )
+		);
+
+		if ( $cpf_cnpj = $this->get_cpf_cnpj( $order ) ) {
+			$data['cpf_cnpj'] = $cpf_cnpj;
+		}
+
+		$data          = apply_filters( 'iugu_woocommerce_customer_data', $data, $order );
+		$customer_data = $this->build_api_params( $data );
+		$response      = $this->do_request( 'customers', 'POST', $customer_data );
+
+		if ( is_wp_error( $response ) ) {
+			if ( 'yes' == $this->gateway->debug ) {
+				$this->gateway->log->add( $this->gateway->id, 'WP_Error while trying create a customer: ' . $response->get_error_message() );
+			}
+		} elseif ( isset( $response['body'] ) && ! empty( $response['body'] ) ) {
+			$customer = json_decode( $response['body'], true );
+
+			if ( 'yes' == $this->gateway->debug && isset( $customer['id'] ) ) {
+				$this->gateway->log->add( $this->gateway->id, 'Customer created successfully!' );
+			}
+
+			return $customer['id'];
+		}
+
+		if ( 'yes' == $this->gateway->debug ) {
+			$this->gateway->log->add( $this->gateway->id, 'Error while creating the customer for order ' . $order->get_order_number() . ': ' . print_r( $response, true ) );
+		}
+
+		return '';
+	}
+
+	/**
+	 * Get customer ID.
+	 *
+	 * @param  WC_Order $order Order data.
+	 *
+	 * @return string          Customer ID.
+	 */
+	public function get_customer_id( $order ) {
+		$user_id = $order->get_user_id();
+
+		// Try get a saved customer ID.
+		if ( 0 < $user_id ) {
+			$customer_id = get_user_meta( $user_id, '_iugu_customer_id', true );
+
+			if ( $customer_id ) {
+				return $customer_id;
+			}
+		}
+
+		// Create customer in Iugu.
+		$customer_id = $this->create_customer( $order );
+
+		// Save the customer ID.
+		if ( 0 < $user_id ) {
+			update_user_meta( $user_id, '_iugu_customer_id', $customer_id );
+		}
+
+		return $customer_id;
+	}
+
+	/**
+	 * Create a custom payment method.
+	 *
+	 * @param  WC_Order $order      Order data.
+	 * @param  string   $card_token Credit card token.
+	 *
+	 * @return string               Payment method ID.
+	 */
+	public function create_customer_payment_method( $order, $card_token ) {
+		if ( 'yes' == $this->gateway->debug ) {
+			$this->gateway->log->add( $this->gateway->id, 'Creating customer payment method for order ' . $order->get_order_number() . '...' );
+		}
+
+		$customer_id = $this->get_customer_id( $order );
+
+		$data = array(
+			'customer_id' => $customer_id,
+			'description' => sprintf( __( 'Payment method created for order %s', 'iugu-woocommerce' ), $order->get_order_number() ),
+			'token'       => $card_token
+		);
+
+		$data         = apply_filters( 'iugu_woocommerce_customer_payment_method_data', $data, $customer_id, $order );
+		$payment_data = $this->build_api_params( $data );
+		$response     = $this->do_request( 'customers/' . $customer_id . '/payment_methods', 'POST', $payment_data );
+
+		if ( is_wp_error( $response ) ) {
+			if ( 'yes' == $this->gateway->debug ) {
+				$this->gateway->log->add( $this->gateway->id, 'WP_Error while trying create a customer payment method: ' . $response->get_error_message() );
+			}
+		} elseif ( isset( $response['body'] ) && ! empty( $response['body'] ) ) {
+			$payment_method = json_decode( $response['body'], true );
+
+			if ( 'yes' == $this->gateway->debug && isset( $payment_method['id'] ) ) {
+				$this->gateway->log->add( $this->gateway->id, 'Customer payment method created successfully!' );
+			}
+
+			return $payment_method['id'];
+		}
+
+		if ( 'yes' == $this->gateway->debug ) {
+			$this->gateway->log->add( $this->gateway->id, 'Error while creating the customer payment method for order ' . $order->get_order_number() . ': ' . print_r( $response, true ) );
+		}
+
+		return '';
+	}
+
+	/**
 	 * Process the payment.
 	 *
 	 * @param  int $order_id
@@ -614,12 +749,7 @@ class WC_Iugu_API {
 			update_post_meta( $order->id, __( 'Iugu Transaction details', 'iugu-woocommerce' ), 'https://iugu.com/a/invoices/' . sanitize_text_field( $charge['invoice_id'] ) );
 		}
 
-		// Empty cart.
-		if ( defined( 'WC_VERSION' ) && version_compare( WC_VERSION, '2.1', '>=' ) ) {
-			WC()->cart->empty_cart();
-		} else {
-			$woocommerce->cart->empty_cart();
-		}
+		$this->empty_card();
 
 		if ( 'bank-slip' == $this->method ) {
 			$order->update_status( 'on-hold', __( 'Iugu: The customer generated a bank slip, awaiting payment confirmation.', 'iugu-woocommerce' ) );

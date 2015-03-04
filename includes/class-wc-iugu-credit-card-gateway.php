@@ -27,6 +27,18 @@ class WC_Iugu_Credit_Card_Gateway extends WC_Payment_Gateway {
 		$this->method_description   = __( 'Accept payments by credit card using the Iugu.', 'iugu-woocommerce' );
 		$this->has_fields           = true;
 		$this->view_transaction_url = 'https://iugu.com/a/invoices/%s';
+		$this->supports             = array(
+			'subscriptions',
+			'products',
+			'subscription_cancellation',
+			'subscription_reactivation',
+			'subscription_suspension',
+			'subscription_amount_changes',
+			'subscription_payment_method_change',
+			'subscription_date_changes',
+			'refunds',
+			'pre-orders'
+		);
 
 		// Load the form fields.
 		$this->init_form_fields();
@@ -234,6 +246,21 @@ class WC_Iugu_Credit_Card_Gateway extends WC_Payment_Gateway {
 	 * @return array         Redirect.
 	 */
 	public function process_payment( $order_id ) {
+		if ( ! isset( $_POST['iugu_token'] ) ) {
+			$order = new WC_Order( $order_id );
+
+			if ( 'yes' == $this->gateway->debug ) {
+				$this->gateway->log->add( $this->gateway->id, 'Error doing the charge for order ' . $order->get_order_number() . ': Missing the "iugu_token".' );
+			}
+
+			$this->api->add_error( '<strong>' . esc_attr( $this->title ) . '</strong>: ' . __( 'Please make sure your card details have been entered correctly and that your browser supports JavaScript.', 'iugu-woocommerce' ) );
+
+			return array(
+				'result'   => 'fail',
+				'redirect' => ''
+			);
+		}
+
 		return $this->api->process_payment( $order_id );
 	}
 
