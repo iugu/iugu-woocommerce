@@ -23,6 +23,11 @@ Compatível com as versões 2.1.x e 2.2.x e 2.3.x do WooCommerce.
 
 Este plugin funciona integrado com o [WooCommerce Extra Checkout Fields for Brazil](http://wordpress.org/plugins/woocommerce-extra-checkout-fields-for-brazil/), desta forma é possível enviar documentos do cliente como "CPF" ou "CNPJ", além dos campos "número" e "bairro" do endereço.
 
+Também é compatível com os seguintes plugins:
+
+* [WooCommerce Subscriptions](http://www.woothemes.com/products/woocommerce-subscriptions/) - Para pagamentos recorrentes/assinaturas.
+* [WooCommerce Pre-orders](http://www.woothemes.com/products/woocommerce-pre-orders/) - Para pré venda de produtos.
+
 = Instalação =
 
 Confira o nosso guia de instalação e configuração do Iugu na aba [Installation](http://wordpress.org/extend/plugins/iugu-woocommerce/installation/).
@@ -79,9 +84,13 @@ Este plugin esta licenciado como GPL.
 * Pegar o seu **ID de conta** e gerar um **API Token** na página de [sua conta no Iugu](https://iugu.com/settings/account).
 * Desativar a opção **Manter Estoque (minutos)** do WooCommerce.
 
-= É possível utilizar a opção de pagamento recorrente? =
+Note que você NÃO PRECISA configurar qualquer GATILHO dentro da sua conta do Iugu!
 
-No momento ainda não é possível, entretanto iremos fazer esta integração com o WooCommerce Subscriptions em breve.
+= É possível utilizar a opção de pagamento recorrente/assinaturas? =
+
+Sim, é possível utilizar este plugin para fazer pagamento recorrente integrado com o [WooCommerce Subscriptions](http://www.woothemes.com/products/woocommerce-subscriptions/).
+
+Note que a integração não é feita com a API de pagamento recorrente do Iugu e funciona totalmente a partir do WooCommerce Subscriptions, pois desta forma é possível obter maior controle sobre a assinatura dentro da sua loja WooCommerce.
 
 = O pedido foi pago e ficou com o status de "processando" e não como "concluído", isto esta certo ? =
 
@@ -109,13 +118,13 @@ Abra um tópico para a sua pergunta [aqui](http://wordpress.org/support/plugin/i
 
 = 1.0.0 =
 
-* Initial release.
+* Versão inicial.
 
 == Upgrade Notice ==
 
 = 1.0.0 =
 
-* Initial release.
+* Versão inicial.
 
 == License ==
 
