@@ -4,7 +4,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 
 /**
- * Iugu Payment Credit Card Gateway class
+ * Iugu Payment Credit Card Gateway class.
  *
  * Extended by individual payment gateways to handle payments.
  *

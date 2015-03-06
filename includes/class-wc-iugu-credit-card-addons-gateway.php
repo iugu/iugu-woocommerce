@@ -16,7 +16,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 class WC_Iugu_Credit_Card_Addons_Gateway extends WC_Iugu_Credit_Card_Gateway {
 
 	/**
-	 * Constructor
+	 * Constructor.
 	 */
 	public function __construct() {
 		parent::__construct();
@@ -35,29 +35,7 @@ class WC_Iugu_Credit_Card_Addons_Gateway extends WC_Iugu_Credit_Card_Gateway {
 	}
 
 	/**
-	 * Check if order contains subscriptions.
-	 *
-	 * @param  int $order_id
-	 *
-	 * @return bool
-	 */
-	protected function order_contains_subscription( $order_id ) {
-		return class_exists( 'WC_Subscriptions_Order' ) && WC_Subscriptions_Order::order_contains_subscription( $order_id );
-	}
-
-	/**
-	 * Check if order contains pre-orders.
-	 *
-	 * @param  int $order_id
-	 *
-	 * @return bool
-	 */
-	protected function order_contains_pre_order( $order_id ) {
-		return class_exists( 'WC_Pre_Orders_Order' ) && WC_Pre_Orders_Order::order_contains_pre_order( $order_id );
-	}
-
-	/**
-	 * Process the subscription
+	 * Process the subscription.
 	 *
 	 * @param WC_Order $order
 	 *
@@ -121,10 +99,9 @@ class WC_Iugu_Credit_Card_Addons_Gateway extends WC_Iugu_Credit_Card_Gateway {
 	}
 
 	/**
-	 * Process the pre-order
+	 * Process the pre-order.
 	 *
 	 * @param WC_Order $order
-	 * @param string   $cart_token
 	 *
 	 * @return array
 	 */
@@ -196,11 +173,11 @@ class WC_Iugu_Credit_Card_Addons_Gateway extends WC_Iugu_Credit_Card_Gateway {
 	 */
 	public function process_payment( $order_id ) {
 		// Processing subscription.
-		if ( $this->order_contains_subscription( $order_id ) ) {
+		if ( $this->api->order_contains_subscription( $order_id ) ) {
 			return $this->process_subscription( $order_id );
 
 		// Processing pre-order.
-		} elseif ( $this->order_contains_pre_order( $order_id ) ) {
+		} elseif ( $this->api->order_contains_pre_order( $order_id ) ) {
 			return $this->process_pre_order( $order_id );
 
 		// Processing regular product.
@@ -213,7 +190,7 @@ class WC_Iugu_Credit_Card_Addons_Gateway extends WC_Iugu_Credit_Card_Gateway {
 	 * process_subscription_payment function.
 	 *
 	 * @param WC_order $order
-	 * @param integer  $amount (default: 0)
+	 * @param int      $amount (default: 0)
 	 *
 	 * @return bool|WP_Error
 	 */
@@ -359,10 +336,13 @@ class WC_Iugu_Credit_Card_Addons_Gateway extends WC_Iugu_Credit_Card_Gateway {
 	 *
 	 * @param int    $order_id
 	 * @param string $invoice_status
+	 *
+	 * @return bool
 	 */
 	protected function update_subscription_status( $order_id, $invoice_status ) {
 		$order          = new WC_Order( $order_id );
 		$invoice_status = strtolower( $invoice_status );
+		$order_updated  = false;
 
 		if ( 'paid' == $invoice_status ) {
 			$order->add_order_note( __( 'Iugu: Subscription paid successfully.', 'iugu-woocommerce' ) );
@@ -372,11 +352,16 @@ class WC_Iugu_Credit_Card_Addons_Gateway extends WC_Iugu_Credit_Card_Gateway {
 
 			// Update the subscription.
 			WC_Subscriptions_Manager::process_subscription_payments_on_order( $order );
+			$order_updated = true;
 		} elseif ( in_array( $invoice_status, array( 'canceled', 'refunded', 'expired' ) ) ) {
-			$order->add_order_note( __( 'Iugu: Subscription payment declined', 'iugu-woocommerce' ) );
+			$order->add_order_note( __( 'Iugu: Subscription payment declined.', 'iugu-woocommerce' ) );
 
 			WC_Subscriptions_Manager::process_subscription_payment_failure_on_order( $order );
+			$order_updated = true;
 		}
+
+		// Allow custom actions when update the order status.
+		do_action( 'iugu_woocommerce_update_order_status', $order, $invoice_status, $order_updated );
 	}
 
 	/**
@@ -398,7 +383,7 @@ class WC_Iugu_Credit_Card_Addons_Gateway extends WC_Iugu_Credit_Card_Gateway {
 				$invoice_status = $this->api->get_invoice_status( $invoice_id );
 
 				if ( $invoice_status ) {
-					if ( $this->order_contains_subscription( $order_id ) ) {
+					if ( $this->api->order_contains_subscription( $order_id ) ) {
 						$this->update_subscription_status( $order_id, $invoice_status );
 						exit();
 					} else {
