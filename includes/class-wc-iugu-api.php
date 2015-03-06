@@ -85,6 +85,28 @@ class WC_Iugu_API {
 	}
 
 	/**
+	 * Check if order contains subscriptions.
+	 *
+	 * @param  int $order_id
+	 *
+	 * @return bool
+	 */
+	public function order_contains_subscription( $order_id ) {
+		return class_exists( 'WC_Subscriptions_Order' ) && WC_Subscriptions_Order::order_contains_subscription( $order_id );
+	}
+
+	/**
+	 * Check if order contains pre-orders.
+	 *
+	 * @param  int $order_id
+	 *
+	 * @return bool
+	 */
+	public function order_contains_pre_order( $order_id ) {
+		return class_exists( 'WC_Pre_Orders_Order' ) && WC_Pre_Orders_Order::order_contains_pre_order( $order_id );
+	}
+
+	/**
 	 * Only numbers.
 	 *
 	 * @param  string|int $string
@@ -467,7 +489,7 @@ class WC_Iugu_API {
 	 *
 	 * @return array
 	 */
-	protected function get_charge_data( $order, $posted ) {
+	protected function get_charge_data( $order, $posted = array() ) {
 		$invoice_id = $this->create_invoice( $order );
 
 		if ( '' == $invoice_id ) {
@@ -537,7 +559,7 @@ class WC_Iugu_API {
 	 *
 	 * @return array
 	 */
-	public function create_charge( $order, $posted ) {
+	public function create_charge( $order, $posted = array() ) {
 		if ( 'yes' == $this->gateway->debug ) {
 			$this->gateway->log->add( $this->gateway->id, 'Doing charge for order ' . $order->get_order_number() . '...' );
 		}
@@ -732,6 +754,8 @@ class WC_Iugu_API {
 					'pdf' => $charge['pdf']
 				)
 			);
+
+			update_post_meta( $order->id, __( 'Iugu Bank Slip URL', 'iugu-woocommerce' ), $payment_data['pdf'] );
 		} else {
 			$payment_data = array_map(
 				'sanitize_text_field',
@@ -768,11 +792,14 @@ class WC_Iugu_API {
 	 *
 	 * @param int    $order_id
 	 * @param string $invoice_status
+	 *
+	 * @return bool
 	 */
 	protected function update_order_status( $order_id, $invoice_status ) {
 		$order          = new WC_Order( $order_id );
 		$invoice_status = strtolower( $invoice_status );
 		$order_status   = $order->get_status();
+		$order_updated  = false;
 
 		if ( 'yes' == $this->gateway->debug ) {
 			$this->gateway->log->add( $this->gateway->id, 'Iugu payment status for order ' . $order->get_order_number() . ' is now: ' . $invoice_status );
@@ -786,6 +813,8 @@ class WC_Iugu_API {
 					} else {
 						$order->update_status( 'on-hold', __( 'Iugu: Invoice paid by credit card, waiting for operator confirmation.', 'iugu-woocommerce' ) );
 					}
+
+					$order_updated = true;
 				}
 
 				break;
@@ -795,34 +824,33 @@ class WC_Iugu_API {
 
 					// Changing the order for processing and reduces the stock.
 					$order->payment_complete();
+					$order_updated = true;
 				}
 
 				break;
 			case 'canceled' :
-				if ( 'cancelled' != $order_status ) {
-					$order->update_status( 'cancelled', __( 'Iugu: Invoice canceled.', 'iugu-woocommerce' ) );
-				}
+				$order->update_status( 'cancelled', __( 'Iugu: Invoice canceled.', 'iugu-woocommerce' ) );
+				$order_updated = true;
 
 				break;
 			case 'partially_paid' :
 				$order->update_status( 'on-hold', __( 'Iugu: Invoice partially paid.', 'iugu-woocommerce' ) );
+				$order_updated = true;
 
 				break;
 			case 'refunded' :
-				if ( 'refunded' != $order_status ) {
-					$order->update_status( 'refunded', __( 'Iugu: Invoice refunded.', 'iugu-woocommerce' ) );
-					$this->send_email(
-						sprintf( __( 'Invoice for order %s was refunded', 'iugu-woocommerce' ), $order->get_order_number() ),
-						__( 'Invoice refunded', 'iugu-woocommerce' ),
-						sprintf( __( 'Order %s has been marked as refunded by Iugu.', 'iugu-woocommerce' ), $order->get_order_number() )
-					);
-				}
+				$order->update_status( 'refunded', __( 'Iugu: Invoice refunded.', 'iugu-woocommerce' ) );
+				$this->send_email(
+					sprintf( __( 'Invoice for order %s was refunded', 'iugu-woocommerce' ), $order->get_order_number() ),
+					__( 'Invoice refunded', 'iugu-woocommerce' ),
+					sprintf( __( 'Order %s has been marked as refunded by Iugu.', 'iugu-woocommerce' ), $order->get_order_number() )
+				);
+				$order_updated = true;
 
 				break;
 			case 'expired' :
-				if ( 'failed' != $order_status ) {
-					$order->update_status( 'failed', __( 'Iugu: Invoice expired.', 'iugu-woocommerce' ) );
-				}
+				$order->update_status( 'failed', __( 'Iugu: Invoice expired.', 'iugu-woocommerce' ) );
+				$order_updated = true;
 
 				break;
 
@@ -830,6 +858,11 @@ class WC_Iugu_API {
 				// No action xD.
 				break;
 		}
+
+		// Allow custom actions when update the order status.
+		do_action( 'iugu_woocommerce_update_order_status', $order, $invoice_status, $order_updated );
+
+		return $order_updated;
 	}
 
 	/**
