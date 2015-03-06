@@ -233,7 +233,7 @@ class WC_Iugu_Bank_Slip_Addons_Gateway extends WC_Iugu_Bank_Slip_Gateway {
 
 			$order->update_status( 'on-hold', __( 'Iugu: The customer generated a bank slip, awaiting payment confirmation.', 'iugu-woocommerce' ) );
 		} catch ( Exception $e ) {
-			$order_note = sprintf( __( 'Iugu transaction failed (%s)', 'iugu-woocommerce' ), $e->getMessage() );
+			$order_note = sprintf( __( 'Iugu: Subscription payment failed (%s).', 'iugu-woocommerce' ), $e->getMessage() );
 
 			// Mark order as failed if not already set,
 			// otherwise, make sure we add the order note so we can detect when someone fails to check out multiple times
@@ -266,7 +266,7 @@ class WC_Iugu_Bank_Slip_Addons_Gateway extends WC_Iugu_Bank_Slip_Gateway {
 
 			$order_updated = true;
 		} elseif ( in_array( $invoice_status, array( 'canceled', 'refunded', 'expired' ) ) ) {
-			$order->add_order_note( __( 'Iugu: Subscription payment declined.', 'iugu-woocommerce' ) );
+			$order->add_order_note( __( 'Iugu: Subscription payment failed.', 'iugu-woocommerce' ) );
 
 			WC_Subscriptions_Manager::process_subscription_payment_failure_on_order( $order );
 			$order_updated = true;

@@ -62,7 +62,7 @@ class WC_Iugu_Credit_Card_Addons_Gateway extends WC_Iugu_Credit_Card_Gateway {
 					$this->log->add( $this->id, 'Invalid customer method ID for order ' . $order->get_order_number() );
 				}
 
-				$error_msg = __( 'Error creating method payment in Iugu. Please contact us for get help.', 'iugu-woocommerce' );
+				$error_msg = __( 'An error occurred while trying to save your data. Please contact us for get help.', 'iugu-woocommerce' );
 
 				throw new Exception( $error_msg );
 			}
@@ -127,7 +127,7 @@ class WC_Iugu_Credit_Card_Addons_Gateway extends WC_Iugu_Credit_Card_Gateway {
 						$this->log->add( $this->id, 'Invalid customer method ID for order ' . $order->get_order_number() );
 					}
 
-					$error_msg = __( 'Error creating method payment in Iugu. Please contact us for get help.', 'iugu-woocommerce' );
+					$error_msg = __( 'An error occurred while trying to save your data. Please contact us for get help.', 'iugu-woocommerce' );
 
 					throw new Exception( $error_msg );
 				}
@@ -319,7 +319,7 @@ class WC_Iugu_Credit_Card_Addons_Gateway extends WC_Iugu_Credit_Card_Gateway {
 
 			$order->update_status( 'on-hold', __( 'Iugu: Invoice paid by credit card, waiting for operator confirmation.', 'iugu-woocommerce' ) );
 		} catch ( Exception $e ) {
-			$order_note = sprintf( __( 'Iugu transaction failed (%s)', 'iugu-woocommerce' ), $e->getMessage() );
+			$order_note = sprintf( __( 'Iugu: Subscription payment failed (%s).', 'iugu-woocommerce' ), $e->getMessage() );
 
 			// Mark order as failed if not already set,
 			// otherwise, make sure we add the order note so we can detect when someone fails to check out multiple times
@@ -354,7 +354,7 @@ class WC_Iugu_Credit_Card_Addons_Gateway extends WC_Iugu_Credit_Card_Gateway {
 			WC_Subscriptions_Manager::process_subscription_payments_on_order( $order );
 			$order_updated = true;
 		} elseif ( in_array( $invoice_status, array( 'canceled', 'refunded', 'expired' ) ) ) {
-			$order->add_order_note( __( 'Iugu: Subscription payment declined.', 'iugu-woocommerce' ) );
+			$order->add_order_note( __( 'Iugu: Subscription payment failed.', 'iugu-woocommerce' ) );
 
 			WC_Subscriptions_Manager::process_subscription_payment_failure_on_order( $order );
 			$order_updated = true;
