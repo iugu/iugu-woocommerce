@@ -52,6 +52,8 @@ class WC_Iugu_Credit_Card_Gateway extends WC_Payment_Gateway {
 		$this->account_id      = $this->get_option( 'account_id' );
 		$this->api_token       = $this->get_option( 'api_token' );
 		$this->installments    = $this->get_option( 'installments' );
+		$this->pass_interest   = $this->get_option( 'pass_interest' );
+		$this->free_interest   = $this->get_option( 'free_interest' );
 		$this->send_only_total = $this->get_option( 'send_only_total', 'no' );
 		$this->sandbox         = $this->get_option( 'sandbox', 'no' );
 		$this->debug           = $this->get_option( 'debug' );
@@ -73,6 +75,10 @@ class WC_Iugu_Credit_Card_Gateway extends WC_Payment_Gateway {
 		add_action( 'woocommerce_thankyou_' . $this->id, array( $this, 'thankyou_page' ) );
 		add_action( 'woocommerce_email_after_order_table', array( $this, 'email_instructions' ), 10, 3 );
 		add_action( 'wp_enqueue_scripts', array( $this, 'frontend_scripts' ), 9999 );
+
+		if ( is_admin() ) {
+			add_action( 'admin_enqueue_scripts', array( $this, 'admin_scripts' ) );
+		}
 	}
 
 	/**
@@ -153,7 +159,26 @@ class WC_Iugu_Credit_Card_Gateway extends WC_Payment_Gateway {
 				'default'           => '1',
 				'custom_attributes' => array(
 					'step' => '1',
-					'min'  => '1'
+					'min'  => '1',
+					'max'  => '12'
+				)
+			),
+			'pass_interest' => array(
+				'title'   => __( 'Send only the order total', 'iugu-woocommerce' ),
+				'type'    => 'checkbox',
+				'label'   => __( 'Pass on the Installments interest to the customer.', 'iugu-woocommerce' ) . ' ' . __( 'This option is only for display and should represent what was configured on your Iugu account.', 'iugu-woocommerce' ),
+				'default' => 'no'
+			),
+			'free_interest' => array(
+				'title'             => __( 'Free interest', 'iugu-woocommerce' ),
+				'type'              => 'number',
+				'description'       => __( 'Indicate how many installments shall not bear interest, use 0 to disable this option.', 'iugu-woocommerce' ) . ' ' . __( 'This option is only for display and should represent what was configured on your Iugu account.', 'iugu-woocommerce' ),
+				'desc_tip'          => true,
+				'default'           => '0',
+				'custom_attributes' => array(
+					'step' => '1',
+					'min'  => '0',
+					'max'  => '12'
 				)
 			),
 			'behavior' => array(
@@ -228,10 +253,20 @@ class WC_Iugu_Credit_Card_Gateway extends WC_Payment_Gateway {
 			echo wpautop( wptexturize( $description ) );
 		}
 
+		// Get order total.
+		if ( method_exists( $this, 'get_order_total' ) ) {
+			$order_total = $this->get_order_total();
+		} else {
+			$order_total = $this->api->get_order_total();
+		}
+
 		woocommerce_get_template(
 			'credit-card/payment-form.php',
 			array(
-				'installments' => intval( $this->installments )
+				'order_total'   => $order_total,
+				'installments'  => intval( $this->installments ),
+				'free_interest' => 'yes' == $this->pass_interest ? intval( $this->free_interest ) : 0,
+				'rates'         => $this->api->get_interest_rate()
 			),
 			'woocommerce/iugu/',
 			WC_Iugu::get_templates_path()
@@ -330,5 +365,18 @@ class WC_Iugu_Credit_Card_Gateway extends WC_Payment_Gateway {
 	 */
 	public function notification_handler() {
 		$this->api->notification_handler();
+	}
+
+	/**
+	 * Admin scripts.
+	 *
+	 * @param string $hook Page slug.
+	 */
+	public function admin_scripts( $hook ) {
+		if ( in_array( $hook, array( 'woocommerce_page_wc-settings', 'woocommerce_page_woocommerce_settings' ) ) && ( isset( $_GET['section'] ) && 'wc_iugu_credit_card_addons_gateway' == strtolower( $_GET['section'] ) ) ) {
+			$suffix = defined( 'SCRIPT_DEBUG' ) && SCRIPT_DEBUG ? '' : '.min';
+
+			wp_enqueue_script( 'iugu-credit-card-admin', plugins_url( 'assets/js/admin-credit-card' . $suffix . '.js', plugin_dir_path( __FILE__ ) ), array( 'jquery' ), WC_Iugu::VERSION, true );
+		}
 	}
 }

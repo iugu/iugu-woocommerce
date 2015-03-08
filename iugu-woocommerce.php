@@ -110,11 +110,11 @@ class WC_Iugu {
 	 */
 	public function add_gateway( $methods ) {
 		if ( class_exists( 'WC_Subscriptions_Order' ) || class_exists( 'WC_Pre_Orders_Order' ) ) {
-			$methods[] = 'WC_Iugu_Bank_Slip_Addons_Gateway';
 			$methods[] = 'WC_Iugu_Credit_Card_Addons_Gateway';
+			$methods[] = 'WC_Iugu_Bank_Slip_Addons_Gateway';
 		} else {
-			$methods[] = 'WC_Iugu_Bank_Slip_Gateway';
 			$methods[] = 'WC_Iugu_Credit_Card_Gateway';
+			$methods[] = 'WC_Iugu_Bank_Slip_Gateway';
 		}
 
 		return $methods;

@@ -34,8 +34,25 @@ if ( ! defined( 'ABSPATH' ) ) {
 		<p class="form-row form-row-wide">
 			<label for="iugu-card-installments"><?php _e( 'Installments', 'iugu-woocommerce' ); ?> <span class="required">*</span></label>
 			<select id="iugu-card-installments" name="iugu_card_installments" style="font-size: 1.5em; padding: 4px; width: 100%;">
-				<?php for ( $i = 1; $i <= $installments; $i++ ) : ?>
-					<option value="<?php echo $i; ?>"><?php echo esc_attr( sprintf( __( '%d x', 'iugu-woocommerce' ), $i ) ); ?></option>
+				<?php for ( $i = 1; $i <= $installments; $i++ ) :
+					$total_to_pay      = $order_total;
+					$installment_total = $total_to_pay / $i;
+					$interest_text     = __( 'free interest', 'iugu-woocommerce' );
+
+					// Set the interest rate.
+					if ( $i > $free_interest ) {
+						$total_rate        = isset( $rates[ $i ] ) ? $rates[ $i ] / 100 : 1 / 100;
+						$total_to_pay      = $order_total * ( ( 1 - 0.07 ) / ( 1 - $total_rate ) );
+						$installment_total = $total_to_pay / $i;
+						$interest_text     = __( 'with interest', 'iugu-woocommerce' );
+					}
+
+					// Stop when the installment total is less than 5.
+					if ( $installment_total < 5 ) {
+						break;
+					}
+					?>
+					<option value="<?php echo $i; ?>"><?php echo esc_attr( sprintf( __( '%dx of %s %s (Total: %s)', 'iugu-woocommerce' ), $i, sanitize_text_field( woocommerce_price( $installment_total ) ), $interest_text, sanitize_text_field( woocommerce_price( $total_to_pay ) ) ) ); ?></option>
 				<?php endfor; ?>
 			</select>
 		</p>

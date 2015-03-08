@@ -396,4 +396,46 @@ class WC_Iugu_Credit_Card_Addons_Gateway extends WC_Iugu_Credit_Card_Gateway {
 
 		wp_die( __( 'The request failed!', 'iugu-woocommerce' ) );
 	}
+
+	/**
+	 * Payment fields.
+	 */
+	public function payment_fields() {
+		$contains_subscription = false;
+
+		if ( defined( 'WC_VERSION' ) && version_compare( WC_VERSION, '2.1', '>=' ) ) {
+			$order_id = absint( get_query_var( 'order-pay' ) );
+		} else {
+			$order_id = isset( $_GET['order_id'] ) ? absint( $_GET['order_id'] ) : 0;
+		}
+
+		// Check from "pay for order" page.
+		if ( 0 < $order_id ) {
+			$contains_subscription = $this->api->order_contains_subscription( $order_id );
+		} elseif ( class_exists( 'WC_Subscriptions_Cart' ) ) {
+			$contains_subscription = WC_Subscriptions_Cart::cart_contains_subscription();
+		}
+
+		if ( $contains_subscription ) {
+			wp_enqueue_script( 'wc-credit-card-form' );
+
+			if ( $description = $this->get_description() ) {
+				echo wpautop( wptexturize( $description ) );
+			}
+
+			woocommerce_get_template(
+				'credit-card/payment-form.php',
+				array(
+					'order_total'   => 0,
+					'installments'  => 0,
+					'free_interest' => 0,
+					'rates'         => array()
+				),
+				'woocommerce/iugu/',
+				WC_Iugu::get_templates_path()
+			);
+		} else {
+			parent::payment_fields();
+		}
+	}
 }
