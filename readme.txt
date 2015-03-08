@@ -57,15 +57,17 @@ Você pode contribuir com código-fonte em nossa página no [GitHub](https://git
 
 = Configurações do Plugin: =
 
-Com o plugin instalado acesse o admin do WordPress e entre em "WooCommerce" > "Configurações" > "Finalizar compra" > Iugu".
+Com o plugin instalado acesse o admin do WordPress e entre em "WooCommerce" > "Configurações" > "Finalizar compra", selecione "Iugu - Cartão de crédito" ou "Iugu - Boleto bancário".
 
 Habilite o Iugu, preencha as opções de **ID da conta** e **API Token** que você pode encontrar nas configurações da [sua conta no Iugu](https://iugu.com/settings/account).
+
+Note que o plugin divide as duas formas de pagamento, permitindo você ativar e configurar o que desejar.
 
 = Configurações no WooCommerce =
 
 No WooCommerce 2.0 ou superior existe uma opção para cancelar a compra e liberar o estoque depois de alguns minutos.
 
-Esta opção não funciona muito bem com o Iugu, pois pagamentos por boleto bancário pode demorar até 48 horas para serem validados.
+Esta opção não funciona muito bem com o boleto bancário, pois pagamentos por boleto bancário pode demorar até 48 horas para serem validados.
 
 Para corrigir isso é necessário ir em "WooCommerce" > "Configurações" > "Produtos" > "Inventário" e limpar (deixe em branco) a opção **Manter Estoque (minutos)**.
 
