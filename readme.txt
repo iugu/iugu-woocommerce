@@ -3,7 +3,7 @@ Contributors: iugu, claudiosanches
 Tags: woocommerce, iugu, payment
 Requires at least: 3.9
 Tested up to: 4.1
-Stable tag: 1.0.0
+Stable tag: 1.0.1
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -75,9 +75,9 @@ Note que o plugin divide as duas formas de pagamento, permitindo você ativar e 
 
 Entre as opções do cartão de crédito é possível configurar o número de parcelas que os clientes poderam dividir, esta opção não pode ser maior do que o valor configurado dentro da sua conta do Iugu.
 
-É possível também manipular a exibição do valor das parcelas com as opções de "Repassar juros" e "Sem juros".
+É possível também manipular a exibição do valor das parcelas com as opções de "Repassar juros", "Sem juros" e "Taxa por transação".
 
-Note que estas opções são apenas de exibição e não configura de nenhuma forma o valor total que o cliente realmente irá pagar, pois o que controla isto são as configurações de parcelas da sua conta do Iugu e desta forma as opções de "Repassar juros" e "Sem juros" devem represetar exatamente o que você configurou na sua conta do Iugu.
+Note que estas opções são apenas de exibição e não configura de nenhuma forma o valor total que o cliente realmente irá pagar, pois o que controla isto são as configurações de parcelas da sua conta do Iugu e desta forma as opções de "Repassar juros", "Sem juros", "Taxa por transação" devem represetar exatamente o que você configurou na sua conta do Iugu.
 
 Para saber mais sobre parcelamento e juros no Iugu leia o tutorial: [Existem juros no parcelamento?](http://support.iugu.com/hc/pt-br/articles/201728767-Existem-juros-no-parcelamento-).
 
@@ -150,15 +150,19 @@ Abra um tópico para a sua pergunta [aqui](http://wordpress.org/support/plugin/i
 
 == Changelog ==
 
+= 1.0.1 - 2015/03/08 =
+
+* Adicionada opção para configurar a taxa de transação que é utilizada no repasse de juros do parcelamento.
+
 = 1.0.0 - 2015/03/08 =
 
 * Versão inicial.
 
 == Upgrade Notice ==
 
-= 1.0.0 =
+= 1.0.1 =
 
-* Versão inicial.
+* Adicionada opção para configurar a taxa de transação que é utilizada no repasse de juros do parcelamento.
 
 == License ==
 
