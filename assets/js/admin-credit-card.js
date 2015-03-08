@@ -4,12 +4,12 @@
 
 	$( function() {
 		$( '#woocommerce_iugu-credit-card_pass_interest' ).on( 'change', function() {
-			var free_interest = $( '#woocommerce_iugu-credit-card_free_interest' ).closest( 'tr' );
+			var fields = $( '#woocommerce_iugu-credit-card_free_interest, #woocommerce_iugu-credit-card_transaction_rate' ).closest( 'tr' );
 
 			if ( $( this ).is( ':checked' ) ) {
-				free_interest.show();
+				fields.show();
 			} else {
-				free_interest.hide();
+				fields.hide();
 			}
 
 		}).change();

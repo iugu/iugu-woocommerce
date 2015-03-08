@@ -47,16 +47,17 @@ class WC_Iugu_Credit_Card_Gateway extends WC_Payment_Gateway {
 		$this->init_settings();
 
 		// Optins.
-		$this->title           = $this->get_option( 'title' );
-		$this->description     = $this->get_option( 'description' );
-		$this->account_id      = $this->get_option( 'account_id' );
-		$this->api_token       = $this->get_option( 'api_token' );
-		$this->installments    = $this->get_option( 'installments' );
-		$this->pass_interest   = $this->get_option( 'pass_interest' );
-		$this->free_interest   = $this->get_option( 'free_interest' );
-		$this->send_only_total = $this->get_option( 'send_only_total', 'no' );
-		$this->sandbox         = $this->get_option( 'sandbox', 'no' );
-		$this->debug           = $this->get_option( 'debug' );
+		$this->title            = $this->get_option( 'title' );
+		$this->description      = $this->get_option( 'description' );
+		$this->account_id       = $this->get_option( 'account_id' );
+		$this->api_token        = $this->get_option( 'api_token' );
+		$this->installments     = $this->get_option( 'installments' );
+		$this->pass_interest    = $this->get_option( 'pass_interest' );
+		$this->free_interest    = $this->get_option( 'free_interest' );
+		$this->transaction_rate = $this->get_option( 'transaction_rate', 7 );
+		$this->send_only_total  = $this->get_option( 'send_only_total', 'no' );
+		$this->sandbox          = $this->get_option( 'sandbox', 'no' );
+		$this->debug            = $this->get_option( 'debug' );
 
 		// Active logs.
 		if ( 'yes' == $this->debug ) {
@@ -164,10 +165,12 @@ class WC_Iugu_Credit_Card_Gateway extends WC_Payment_Gateway {
 				)
 			),
 			'pass_interest' => array(
-				'title'   => __( 'Send only the order total', 'iugu-woocommerce' ),
-				'type'    => 'checkbox',
-				'label'   => __( 'Pass on the Installments interest to the customer.', 'iugu-woocommerce' ) . ' ' . __( 'This option is only for display and should represent what was configured on your Iugu account.', 'iugu-woocommerce' ),
-				'default' => 'no'
+				'title'       => __( 'Send only the order total', 'iugu-woocommerce' ),
+				'type'        => 'checkbox',
+				'label'       => __( 'Pass on the Installments interest to the customer.', 'iugu-woocommerce' ),
+				'description' => __( 'This option is only for display and should represent what was configured on your Iugu account.', 'iugu-woocommerce' ),
+				'desc_tip'    => true,
+				'default'     => 'no'
 			),
 			'free_interest' => array(
 				'title'             => __( 'Free interest', 'iugu-woocommerce' ),
@@ -179,6 +182,16 @@ class WC_Iugu_Credit_Card_Gateway extends WC_Payment_Gateway {
 					'step' => '1',
 					'min'  => '0',
 					'max'  => '12'
+				)
+			),
+			'transaction_rate' => array(
+				'title'             => __( 'Rate per transaction', 'iugu-woocommerce' ),
+				'type'              => 'number',
+				'description'       => __( 'Enter here the transaction rate that is set up in your plan in Iugu.', 'iugu-woocommerce' ) . ' ' . __( 'This option is only for display and should represent what was configured on your Iugu account.', 'iugu-woocommerce' ),
+				'desc_tip'          => true,
+				'default'           => '7',
+				'custom_attributes' => array(
+					'step' => 'any'
 				)
 			),
 			'behavior' => array(
@@ -263,10 +276,11 @@ class WC_Iugu_Credit_Card_Gateway extends WC_Payment_Gateway {
 		woocommerce_get_template(
 			'credit-card/payment-form.php',
 			array(
-				'order_total'   => $order_total,
-				'installments'  => intval( $this->installments ),
-				'free_interest' => 'yes' == $this->pass_interest ? intval( $this->free_interest ) : 0,
-				'rates'         => $this->api->get_interest_rate()
+				'order_total'      => $order_total,
+				'installments'     => intval( $this->installments ),
+				'free_interest'    => 'yes' == $this->pass_interest ? intval( $this->free_interest ) : 0,
+				'transaction_rate' => $this->api->get_transaction_rate(),
+				'rates'            => $this->api->get_interest_rate()
 			),
 			'woocommerce/iugu/',
 			WC_Iugu::get_templates_path()

@@ -99,6 +99,17 @@ class WC_Iugu_API {
 	}
 
 	/**
+	 * Get transaction rate.
+	 *
+	 * @return float
+	 */
+	public function get_transaction_rate() {
+		$rate = isset( $this->gateway->transaction_rate ) ? $this->gateway->transaction_rate : 7;
+
+		return woocommerce_format_decimal( $rate );
+	}
+
+	/**
 	 * Get order total.
 	 *
 	 * @return float

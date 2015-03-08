@@ -42,7 +42,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 					// Set the interest rate.
 					if ( $i > $free_interest ) {
 						$total_rate        = isset( $rates[ $i ] ) ? $rates[ $i ] / 100 : 1 / 100;
-						$total_to_pay      = $order_total * ( ( 1 - 0.07 ) / ( 1 - $total_rate ) );
+						$total_to_pay      = $order_total * ( ( 1 - ( $transaction_rate / 100 ) ) / ( 1 - $total_rate ) );
 						$installment_total = $total_to_pay / $i;
 						$interest_text     = __( 'with interest', 'iugu-woocommerce' );
 					}
