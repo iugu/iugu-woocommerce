@@ -150,7 +150,7 @@ Abra um tópico para a sua pergunta [aqui](http://wordpress.org/support/plugin/i
 
 == Changelog ==
 
-= 1.0.0 =
+= 1.0.0 - 2015/03/08 =
 
 * Versão inicial.
 
