@@ -55,13 +55,31 @@ Você pode contribuir com código-fonte em nossa página no [GitHub](https://git
 
 É necessário possuir uma conta no [Iugu](https://iugu.com/) e ter instalado o [WooCommerce](http://wordpress.org/extend/plugins/woocommerce/).
 
+### Configuração no Iugu ###
+
+Você deve pegar o seu **ID da conta** e gerar uma **API Token** (do tipo _LIVE_) dentro das configurações da [sua conta no Iugu](https://iugu.com/settings/account) para utilizar neste plugin.
+
+Além disso é necessário habilitar o cartão de crédito e o boleto bancário na sua conta em [Administração > Métodos de Pagamento](https://iugu.com/a/account_payments).
+
+Note que para aceitar pagamento com carao de crédito é necessário enviar uma certa documentação para o Iugu, veja mais detalhes em: [Qual é a documentação necessária para aceitar pagamento com cartão crédito?](http://support.iugu.com/hc/pt-br/articles/202342429-Qual-%C3%A9-a-documenta%C3%A7%C3%A3o-necess%C3%A1ria-para-aceitar-pagamento-com-cart%C3%A3o-cr%C3%A9dito-)
+
 ### Configurações do Plugin: ###
 
 Com o plugin instalado acesse o admin do WordPress e entre em "WooCommerce" > "Configurações" > "Finalizar compra", selecione "Iugu - Cartão de crédito" ou "Iugu - Boleto bancário".
 
-Habilite o Iugu, preencha as opções de **ID da conta** e **API Token** que você pode encontrar nas configurações da [sua conta no Iugu](https://iugu.com/settings/account).
+Habilite o Iugu, preencha as opções de **ID da conta** e **API Token** (você conseguiu estas informações no passo anterior, além que você precisa gerar apenas uma **API Token** que deve ser utilizada nas duas formas de pagamento).
 
 Note que o plugin divide as duas formas de pagamento, permitindo você ativar e configurar o que desejar.
+
+### Configurações de cartão de crédito ###
+
+Entre as opções do cartão de crédito é possível configurar o número de parcelas que os clientes poderam dividir, esta opção não pode ser maior do que o valor configurado dentro da sua conta do Iugu.
+
+É possível também manipular a exibição do valor das parcelas com as opções de "Repassar juros" e "Sem juros".
+
+Note que estas opções são apenas de exibição e não configura de nenhuma forma o valor total que o cliente realmente irá pagar, pois o que controla isto são as configurações de parcelas da sua conta do Iugu e desta forma as opções de "Repassar juros" e "Sem juros" devem represetar exatamente o que você configurou na sua conta do Iugu.
+
+Para saber mais sobre parcelamento e juros no Iugu leia o tutorial: [Existem juros no parcelamento?](http://support.iugu.com/hc/pt-br/articles/201728767-Existem-juros-no-parcelamento-).
 
 ### Configurações no WooCommerce ###
 
@@ -73,6 +91,14 @@ Para corrigir isso é necessário ir em "WooCommerce" > "Configurações" > "Pro
 
 Pronto, sua loja já pode receber pagamentos pelo Iugu.
 
+### Sandbox ###
+
+É possível tambeḿ trabalhar com o plugin no modo sandbox, desta forma você pode testar pagamentos antes de realmente utilizar o plugin em produção.
+
+Para utilizar em modo Sandbox você deve criar uma **API Token** do tipo _TEST_ dentro da [sua conta no Iugu](https://iugu.com/settings/account) e ativar a opção "Sandbox do Iugu" no plugin.
+
+Quando for trocar para produção você deve desmarcar a opção e adicionar uma **API Token** do tipo _LIVE_.
+
 ## Frequently Asked Questions ##
 
 ### Qual é a licença do plugin? ###
@@ -83,10 +109,14 @@ Este plugin esta licenciado como GPL.
 
 * Ter instalado o plugin WooCommerce 2.1 ou superior.
 * Possuir uma conta no [Iugu](https://iugu.com/).
-* Pegar o seu **ID de conta** e gerar um **API Token** na página de [sua conta no Iugu](https://iugu.com/settings/account).
+* Pegar o seu **ID de conta** e gerar uma **API Token** na página de [sua conta no Iugu](https://iugu.com/settings/account).
 * Desativar a opção **Manter Estoque (minutos)** do WooCommerce.
 
 Note que você NÃO PRECISA configurar qualquer GATILHO dentro da sua conta do Iugu!
+
+### Quais são as tarifas do Iugu ###
+
+Veja as tarifas em [Preços e Tarifas - Iugu](http://mkt.iugu.com/precos/).
 
 ### É possível utilizar a opção de pagamento recorrente/assinaturas? ###
 
