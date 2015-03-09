@@ -1,5 +1,5 @@
 === WooCommerce Iugu ===
-Contributors: iugu, claudiosanches
+Contributors: iugu, claudiosanches, braising
 Tags: woocommerce, iugu, payment
 Requires at least: 3.9
 Tested up to: 4.1
