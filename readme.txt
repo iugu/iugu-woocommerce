@@ -3,7 +3,7 @@ Contributors: iugu, claudiosanches, braising
 Tags: woocommerce, iugu, payment
 Requires at least: 3.9
 Tested up to: 4.1
-Stable tag: 1.0.1
+Stable tag: 1.0.2
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -150,6 +150,10 @@ Abra um tópico para a sua pergunta [aqui](http://wordpress.org/support/plugin/i
 
 == Changelog ==
 
+= 1.0.2 - 2015/03/12 =
+
+* Melhorada a renovação de assinaturas no WooCommerce Subscription.
+
 = 1.0.1 - 2015/03/08 =
 
 * Adicionada opção para configurar a taxa de transação que é utilizada no repasse de juros do parcelamento.
@@ -160,9 +164,9 @@ Abra um tópico para a sua pergunta [aqui](http://wordpress.org/support/plugin/i
 
 == Upgrade Notice ==
 
-= 1.0.1 =
+= 1.0.2 =
 
-* Adicionada opção para configurar a taxa de transação que é utilizada no repasse de juros do parcelamento.
+* Melhorada a renovação de assinaturas no WooCommerce Subscription.
 
 == License ==
 
