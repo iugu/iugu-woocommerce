@@ -76,6 +76,19 @@ class WC_Iugu_API {
 	}
 
 	/**
+	 * Get the settings URL.
+	 *
+	 * @return string
+	 */
+	public function get_settings_url() {
+		if ( defined( 'WC_VERSION' ) && version_compare( WC_VERSION, '2.1', '>=' ) ) {
+			return admin_url( 'admin.php?page=wc-settings&tab=checkout&section=' . strtolower( get_class( $this->gateway ) ) );
+		}
+
+		return admin_url( 'admin.php?page=woocommerce_settings&tab=payment_gateways&section=' . get_class( $this->gateway ) );
+	}
+
+	/**
 	 * Get Iugu credit card interest rates.
 	 *
 	 * @return array

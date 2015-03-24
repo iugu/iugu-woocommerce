@@ -43,9 +43,6 @@ class WC_Iugu {
 		// Load plugin text domain.
 		add_action( 'init', array( $this, 'load_plugin_textdomain' ) );
 
-		// Links for reach the setting page from plugin list.
-		add_filter( 'plugin_action_links_' . plugin_basename( __FILE__ ), array( $this, 'plugin_action_links' ) );
-
 		// Checks with WooCommerce and WooCommerce Extra Checkout Fields for Brazil is installed.
 		if ( class_exists( 'WC_Payment_Gateway' ) && class_exists( 'Extra_Checkout_Fields_For_Brazil' ) ) {
 			$this->includes();
@@ -134,19 +131,6 @@ class WC_Iugu {
 	}
 
 	/**
-	 * Get the settings URL.
-	 *
-	 * @return string
-	 */
-	public static function get_settings_url() {
-		if ( version_compare( WOOCOMMERCE_VERSION, '2.1', '>=' ) ) {
-			return admin_url( 'admin.php?page=wc-settings&tab=checkout&section=wc_iugu_gateway' );
-		}
-
-		return admin_url( 'admin.php?page=woocommerce_settings&tab=payment_gateways&section=WC_Iugu_Gateway' );
-	}
-
-	/**
 	 * Get log.
 	 *
 	 * @return string
@@ -157,23 +141,6 @@ class WC_Iugu {
 		}
 
 		return '<code>woocommerce/logs/' . esc_attr( $gateway_id ) . '-' . sanitize_file_name( wp_hash( $gateway_id ) ) . '.txt</code>';
-	}
-
-	/**
-	 * Hooked function to create a link to settings from plugins list.
-	 *
-	 * @param  array $links
-	 *
-	 * @return array
-	 */
-	public function plugin_action_links( $links ) {
-		$plugin_links = array();
-
-		if ( class_exists( 'WC_Payment_Gateway' ) ) {
-			$plugin_links[] = '<a href="' . esc_attr( self::get_settings_url() ) . '">' . __( 'Settings', 'iugu-woocommerce' ) . '</a>';
-		}
-
-		return array_merge( $plugin_links, $links );
 	}
 }
 
