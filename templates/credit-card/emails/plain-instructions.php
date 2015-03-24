@@ -15,10 +15,6 @@ _e( 'Payment', 'iugu-woocommerce' );
 
 echo "\n\n";
 
-echo sprintf( __( 'You just made the payment in %s by credit card.', 'iugu-woocommerce' ), $installments . 'x' );
-
-echo "\n";
-
-_e( 'As soon as the credit card operator confirm the payment, your order will be processed.', 'iugu-woocommerce' );
+echo sprintf( __( 'Payment successfully made using credit card in %s.', 'iugu-woocommerce' ), $installments . 'x' );
 
 echo "\n\n****************************************************\n\n";

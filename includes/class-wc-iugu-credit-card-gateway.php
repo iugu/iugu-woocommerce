@@ -321,9 +321,11 @@ class WC_Iugu_Credit_Card_Gateway extends WC_Payment_Gateway {
 	 * @return string
 	 */
 	public function thankyou_page( $order_id ) {
-		$data = get_post_meta( $order_id, '_iugu_wc_transaction_data', true );
+		$order        = new WC_Order( $order_id );
+		$order_status = $order->get_status();
+		$data         = get_post_meta( $order_id, '_iugu_wc_transaction_data', true );
 
-		if ( isset( $data['installments'] ) ) {
+		if ( isset( $data['installments'] ) && 'processing' == $order_status ) {
 			woocommerce_get_template(
 				'credit-card/payment-instructions.php',
 				array(

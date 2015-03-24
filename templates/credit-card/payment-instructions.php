@@ -14,5 +14,5 @@ if ( ! defined( 'ABSPATH' ) ) {
 ?>
 
 <div class="woocommerce-message">
-	<span><?php echo sprintf( __( 'You just made the payment in %s by credit card.', 'iugu-woocommerce' ), '<strong>' . $installments . 'x</strong>' ); ?><br /><?php _e( 'As soon as the credit card operator confirm the payment, your order will be processed.', 'iugu-woocommerce' ); ?></span>
+	<span><?php echo sprintf( __( 'Payment successfully made using credit card in %s.', 'iugu-woocommerce' ), '<strong>' . $installments . 'x</strong>' ); ?>
 </div>
