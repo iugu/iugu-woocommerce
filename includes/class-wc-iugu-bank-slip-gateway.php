@@ -101,7 +101,7 @@ class WC_Iugu_Bank_Slip_Gateway extends WC_Payment_Gateway {
 				'title'   => __( 'Enable/Disable', 'iugu-woocommerce' ),
 				'type'    => 'checkbox',
 				'label'   => __( 'Enable Iugu Bank Slip', 'iugu-woocommerce' ),
-				'default' => 'yes'
+				'default' => 'no'
 			),
 			'title' => array(
 				'title'       => __( 'Title', 'iugu-woocommerce' ),
