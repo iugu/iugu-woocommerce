@@ -224,14 +224,14 @@ class WC_Iugu_Credit_Card_Addons_Gateway extends WC_Iugu_Credit_Card_Gateway {
 			update_post_meta( $order->id, __( 'Iugu Transaction details', 'iugu-woocommerce' ), 'https://iugu.com/a/invoices/' . sanitize_text_field( $charge['invoice_id'] ) );
 		}
 
-		$order_note = __( 'Iugu: Subscription paid by credit card, waiting for operator confirmation.', 'iugu-woocommerce' );
-		if ( 'pending' == $order->get_status() ) {
-			$order->update_status( 'on-hold', $order_note );
-		} else {
-			$order->add_order_note( $order_note );
-		}
+		if ( true == $charge['success'] ) {
+			$order->add_order_note( __( 'Iugu: Subscription paid successfully by credit card.', 'iugu-woocommerce' ) );
+			$order->payment_complete();
 
-		return true;
+			return true;
+		} else {
+			return new WP_Error( 'iugu_subscription_error', __( 'Iugu: Subscription payment failed. Credit card declined.', 'iugu-woocommerce' ) );
+		}
 	}
 
 	/**
@@ -246,6 +246,8 @@ class WC_Iugu_Credit_Card_Addons_Gateway extends WC_Iugu_Credit_Card_Gateway {
 
 		if ( is_wp_error( $result ) ) {
 			WC_Subscriptions_Manager::process_subscription_payment_failure_on_order( $order, $product_id );
+		} else {
+			WC_Subscriptions_Manager::process_subscription_payments_on_order( $order );
 		}
 	}
 
@@ -317,9 +319,14 @@ class WC_Iugu_Credit_Card_Addons_Gateway extends WC_Iugu_Credit_Card_Gateway {
 				update_post_meta( $order->id, __( 'Iugu Transaction details', 'iugu-woocommerce' ), 'https://iugu.com/a/invoices/' . sanitize_text_field( $charge['invoice_id'] ) );
 			}
 
-			$order->update_status( 'on-hold', __( 'Iugu: Invoice paid by credit card, waiting for operator confirmation.', 'iugu-woocommerce' ) );
+			if ( ! $charge['success'] ) {
+				return new Exception( __( 'Iugu: Credit card declined.', 'iugu-woocommerce' ) );
+			}
+
+			$order->add_order_note( __( 'Iugu: Invoice paid successfully by credit card.', 'iugu-woocommerce' ) );
+			$order->payment_complete();
 		} catch ( Exception $e ) {
-			$order_note = sprintf( __( 'Iugu: Subscription payment failed (%s).', 'iugu-woocommerce' ), $e->getMessage() );
+			$order_note = sprintf( __( 'Iugu: Pre-order payment failed (%s).', 'iugu-woocommerce' ), $e->getMessage() );
 
 			// Mark order as failed if not already set,
 			// otherwise, make sure we add the order note so we can detect when someone fails to check out multiple times
@@ -332,69 +339,10 @@ class WC_Iugu_Credit_Card_Addons_Gateway extends WC_Iugu_Credit_Card_Gateway {
 	}
 
 	/**
-	 * Update subscription status.
-	 *
-	 * @param int    $order_id
-	 * @param string $invoice_status
-	 *
-	 * @return bool
-	 */
-	protected function update_subscription_status( $order_id, $invoice_status ) {
-		$order          = new WC_Order( $order_id );
-		$invoice_status = strtolower( $invoice_status );
-		$order_updated  = false;
-
-		if ( 'paid' == $invoice_status ) {
-			$order->add_order_note( __( 'Iugu: Subscription paid successfully.', 'iugu-woocommerce' ) );
-
-			// Payment complete
-			$order->payment_complete();
-
-			// Update the subscription.
-			WC_Subscriptions_Manager::process_subscription_payments_on_order( $order );
-			$order_updated = true;
-		} elseif ( in_array( $invoice_status, array( 'canceled', 'refunded', 'expired' ) ) ) {
-			$order->add_order_note( __( 'Iugu: Subscription payment failed.', 'iugu-woocommerce' ) );
-
-			WC_Subscriptions_Manager::process_subscription_payment_failure_on_order( $order );
-			$order_updated = true;
-		}
-
-		// Allow custom actions when update the order status.
-		do_action( 'iugu_woocommerce_update_order_status', $order, $invoice_status, $order_updated );
-	}
-
-	/**
 	 * Notification handler.
 	 */
 	public function notification_handler() {
-		@ob_clean();
-
-		if ( isset( $_REQUEST['event'] ) && isset( $_REQUEST['data']['id'] ) && 'invoice.status_changed' == $_REQUEST['event'] ) {
-			global $wpdb;
-
-			header( 'HTTP/1.1 200 OK' );
-
-			$invoice_id = sanitize_text_field( $_REQUEST['data']['id'] );
-			$order_id   = $wpdb->get_var( $wpdb->prepare( "SELECT post_id FROM $wpdb->postmeta WHERE meta_key = '_transaction_id' AND meta_value = '%s'", $invoice_id ) );
-			$order_id   = intval( $order_id );
-
-			if ( $order_id ) {
-				$invoice_status = $this->api->get_invoice_status( $invoice_id );
-
-				if ( $invoice_status ) {
-					if ( $this->api->order_contains_subscription( $order_id ) ) {
-						$this->update_subscription_status( $order_id, $invoice_status );
-						exit();
-					} else {
-						$this->api->update_order_status( $order_id, $invoice_status );
-						exit();
-					}
-				}
-			}
-		}
-
-		wp_die( __( 'The request failed!', 'iugu-woocommerce' ) );
+		$this->api->notification_handler();
 	}
 
 	/**

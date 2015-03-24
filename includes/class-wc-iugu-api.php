@@ -851,7 +851,12 @@ class WC_Iugu_API {
 		if ( 'bank-slip' == $this->method ) {
 			$order->update_status( 'on-hold', __( 'Iugu: The customer generated a bank slip, awaiting payment confirmation.', 'iugu-woocommerce' ) );
 		} else {
-			$order->update_status( 'on-hold', __( 'Iugu: Invoice paid by credit card, waiting for operator confirmation.', 'iugu-woocommerce' ) );
+			if ( true == $charge['success'] ) {
+				$order->add_order_note( __( 'Iugu: Invoice paid successfully by credit card.', 'iugu-woocommerce' ) );
+				$order->payment_complete();
+			} else {
+				$order->update_status( 'failed', __( 'Iugu: Credit card declined.', 'iugu-woocommerce' ) );
+			}
 		}
 
 		return array(
