@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Iugu WooCommerce\n"
 "Report-Msgid-Bugs-To: http://wordpress.org/support/plugin/iugu-woocommerce/\n"
-"POT-Creation-Date: 2015-03-08 18:59:41+00:00\n"
-"PO-Revision-Date: 2015-03-08 19:01+0000\n"
+"POT-Creation-Date: 2015-03-24 04:11:34+00:00\n"
+"PO-Revision-Date: 2015-03-24 04:16+0000\n"
 "Last-Translator: Claudio Sanches <contato@claudiosmweb.com>\n"
 "Language-Team: Portuguese (Brazil) (http://www.transifex.com/projects/p/iugu-woocommerce/language/pt_BR/)\n"
 "MIME-Version: 1.0\n"
@@ -17,100 +17,105 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
 "X-Generator: grunt-wp-i18n 0.4.9\n"
 
-#: includes/class-wc-iugu-api.php:376
+#: includes/class-wc-iugu-api.php:389
 msgid "Order %s"
 msgstr "Pedido %s"
 
-#: includes/class-wc-iugu-api.php:450
+#: includes/class-wc-iugu-api.php:463
 msgid "Shipping via %s"
 msgstr "Entrega via %s"
 
-#: includes/class-wc-iugu-api.php:630 includes/class-wc-iugu-api.php:654
+#: includes/class-wc-iugu-api.php:643 includes/class-wc-iugu-api.php:667
 msgid ""
 "An error has occurred while processing your payment, please try again. Or "
 "contact us for assistance."
 msgstr "Um erro ocorreu ao processar o seu pagamento, por favor, tente novamente ou entre em contato para obter ajuda."
 
-#: includes/class-wc-iugu-api.php:750
+#: includes/class-wc-iugu-api.php:763
 msgid "Payment method created for order %s"
 msgstr "Método de pagamento para o pedido %s"
 
-#: includes/class-wc-iugu-api.php:818
+#: includes/class-wc-iugu-api.php:831
 #: includes/class-wc-iugu-bank-slip-addons-gateway.php:165
 #: includes/class-wc-iugu-bank-slip-addons-gateway.php:226
 msgid "Iugu Bank Slip URL"
 msgstr "Link do boleto bancário do Iugu"
 
-#: includes/class-wc-iugu-api.php:833
+#: includes/class-wc-iugu-api.php:846
 #: includes/class-wc-iugu-bank-slip-addons-gateway.php:170
 #: includes/class-wc-iugu-bank-slip-addons-gateway.php:231
 #: includes/class-wc-iugu-credit-card-addons-gateway.php:224
-#: includes/class-wc-iugu-credit-card-addons-gateway.php:317
+#: includes/class-wc-iugu-credit-card-addons-gateway.php:319
 msgid "Iugu Transaction details"
 msgstr "Detalhes da transação no Iugu"
 
-#: includes/class-wc-iugu-api.php:839 includes/class-wc-iugu-api.php:872
+#: includes/class-wc-iugu-api.php:852 includes/class-wc-iugu-api.php:890
 #: includes/class-wc-iugu-bank-slip-addons-gateway.php:173
 #: includes/class-wc-iugu-bank-slip-addons-gateway.php:234
 msgid ""
 "Iugu: The customer generated a bank slip, awaiting payment confirmation."
 msgstr "Iugu: O cliente gerou um boleto bancário, aguardando a confirmação do pagamento."
 
-#: includes/class-wc-iugu-api.php:841 includes/class-wc-iugu-api.php:874
-#: includes/class-wc-iugu-credit-card-addons-gateway.php:320
+#: includes/class-wc-iugu-api.php:855
+#: includes/class-wc-iugu-credit-card-addons-gateway.php:326
+msgid "Iugu: Invoice paid successfully by credit card."
+msgstr "Iugu: Fatura paga com cartão de crédito com sucesso."
+
+#: includes/class-wc-iugu-api.php:858
+#: includes/class-wc-iugu-credit-card-addons-gateway.php:323
+msgid "Iugu: Credit card declined."
+msgstr "Iugu: Cartão de crédito recusado."
+
+#: includes/class-wc-iugu-api.php:892
 msgid "Iugu: Invoice paid by credit card, waiting for operator confirmation."
 msgstr "Iugu: A fatura foi paga com cartão de credito, aguardando a confirmação da operadora do cartão."
 
-#: includes/class-wc-iugu-api.php:883
+#: includes/class-wc-iugu-api.php:901
 msgid "Iugu: Invoice paid successfully."
 msgstr "Iugu: Fatura paga com sucesso."
 
-#: includes/class-wc-iugu-api.php:892
+#: includes/class-wc-iugu-api.php:910
 msgid "Iugu: Invoice canceled."
 msgstr "Iugu: Fatura cancelada."
 
-#: includes/class-wc-iugu-api.php:897
+#: includes/class-wc-iugu-api.php:915
 msgid "Iugu: Invoice partially paid."
 msgstr "Iugu: Fatura paga parcialmente."
 
-#: includes/class-wc-iugu-api.php:902
+#: includes/class-wc-iugu-api.php:920
 msgid "Iugu: Invoice refunded."
 msgstr "Iugu: Fatura reembolsada."
 
-#: includes/class-wc-iugu-api.php:904
+#: includes/class-wc-iugu-api.php:922
 msgid "Invoice for order %s was refunded"
 msgstr "A fatura do pedido %s foi reembolsada"
 
-#: includes/class-wc-iugu-api.php:905
+#: includes/class-wc-iugu-api.php:923
 msgid "Invoice refunded"
 msgstr "Fatura reembolsada"
 
-#: includes/class-wc-iugu-api.php:906
+#: includes/class-wc-iugu-api.php:924
 msgid "Order %s has been marked as refunded by Iugu."
 msgstr "O pedido %s foi marcado como reembolsado pelo Iugu."
 
-#: includes/class-wc-iugu-api.php:912
+#: includes/class-wc-iugu-api.php:930
 msgid "Iugu: Invoice expired."
 msgstr "Iugu: Fatura expirada."
 
-#: includes/class-wc-iugu-api.php:953
+#: includes/class-wc-iugu-api.php:971
 #: includes/class-wc-iugu-bank-slip-addons-gateway.php:309
-#: includes/class-wc-iugu-credit-card-addons-gateway.php:397
 msgid "The request failed!"
 msgstr "A requisição falhou!"
 
 #: includes/class-wc-iugu-bank-slip-addons-gateway.php:236
-#: includes/class-wc-iugu-credit-card-addons-gateway.php:322
 msgid "Iugu: Subscription payment failed (%s)."
 msgstr "Iugu: O pagamento da assinatura falhou (%s)."
 
 #: includes/class-wc-iugu-bank-slip-addons-gateway.php:262
-#: includes/class-wc-iugu-credit-card-addons-gateway.php:348
 msgid "Iugu: Subscription paid successfully."
 msgstr "Iugu: Assinatura paga com sucesso."
 
 #: includes/class-wc-iugu-bank-slip-addons-gateway.php:269
-#: includes/class-wc-iugu-credit-card-addons-gateway.php:357
 msgid "Iugu: Subscription payment failed."
 msgstr "Iugu: O pagamento da assinatura falhou."
 
@@ -281,14 +286,21 @@ msgid ""
 msgstr "Um erro ocorreu ao tentar salvar os seus dados. Por favor, entre em contato conosco para obter ajuda."
 
 #: includes/class-wc-iugu-credit-card-addons-gateway.php:209
-#: includes/class-wc-iugu-credit-card-addons-gateway.php:302
+#: includes/class-wc-iugu-credit-card-addons-gateway.php:304
 msgid "Customer payment method not found!"
 msgstr "O método de pagamento do cliente não foi encontrado!"
 
-#: includes/class-wc-iugu-credit-card-addons-gateway.php:227
-msgid ""
-"Iugu: Subscription paid by credit card, waiting for operator confirmation."
-msgstr "Iugu: Assinatura paga com cartão de crédito, aguardando a confirmação da operadora do cartão."
+#: includes/class-wc-iugu-credit-card-addons-gateway.php:228
+msgid "Iugu: Subscription paid successfully by credit card."
+msgstr "Iugu: Assinatura paga com cartão de crédito com sucesso."
+
+#: includes/class-wc-iugu-credit-card-addons-gateway.php:233
+msgid "Iugu: Subscription payment failed. Credit card declined."
+msgstr "Iugu: Pagamento da assinatura falhou. Cartão de crédito recusado."
+
+#: includes/class-wc-iugu-credit-card-addons-gateway.php:329
+msgid "Iugu: Pre-order payment failed (%s)."
+msgstr "Iugu: Pré-lançamento pago com sucesso (%s)."
 
 #: includes/class-wc-iugu-credit-card-gateway.php:26
 msgid "Iugu - Credit Card"
@@ -419,13 +431,9 @@ msgstr "Iugu WooCommerce depende da última versão do %s para funcionar!"
 msgid "WooCommerce"
 msgstr "WooCommerce"
 
-#: iugu-woocommerce.php:156
+#: iugu-woocommerce.php:140
 msgid "System Status &gt; Logs"
 msgstr "Status do Sistema &gt; Logs"
-
-#: iugu-woocommerce.php:173
-msgid "Settings"
-msgstr "Configurações"
 
 #: templates/bank-slip/checkout-instructions.php:16
 msgid ""
@@ -477,16 +485,8 @@ msgstr "Você pode imprimi-lo e fazer o pagamento pelo site do seu banco ou por 
 #: templates/credit-card/emails/html-instructions.php:17
 #: templates/credit-card/emails/plain-instructions.php:18
 #: templates/credit-card/payment-instructions.php:17
-msgid "You just made the payment in %s by credit card."
-msgstr "Você acabou de fazer o pagamento em %s com cartão de crédito."
-
-#: templates/credit-card/emails/html-instructions.php:17
-#: templates/credit-card/emails/plain-instructions.php:22
-#: templates/credit-card/payment-instructions.php:17
-msgid ""
-"As soon as the credit card operator confirm the payment, your order will be "
-"processed."
-msgstr "O seu pedido será processado assim que a operadora do seu cartão de crédito confirmar o pagamento."
+msgid "Payment successfully made using credit card in %s."
+msgstr "Pagamento realizado com sucesso por cartão de crédito em %s."
 
 #: templates/credit-card/payment-form.php:17
 msgid "Card Holder Name"
