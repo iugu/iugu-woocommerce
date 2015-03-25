@@ -146,6 +146,8 @@ class WC_Iugu_API {
 		} elseif ( 0 < $woocommerce->cart->total ) {
 			$order_total = (float) $woocommerce->cart->total;
 		}
+
+		return $order_total;
 	}
 
 	/**
