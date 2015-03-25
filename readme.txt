@@ -3,7 +3,7 @@ Contributors: iugu, claudiosanches, braising
 Tags: woocommerce, iugu, payment
 Requires at least: 3.9
 Tested up to: 4.1.1
-Stable tag: 1.0.3
+Stable tag: 1.0.4
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -150,6 +150,10 @@ Abra um tópico para a sua pergunta [aqui](http://wordpress.org/support/plugin/i
 
 == Changelog ==
 
+= 1.0.4 - 2015/03/25 =
+
+* Corrigida as parcelas exibidas na versões 2.1 do WooCommerce.
+
 = 1.0.3 - 2015/03/24 =
 
 * Melhorado o fluxo de pagamento com cartão de crédito.
@@ -172,13 +176,9 @@ Abra um tópico para a sua pergunta [aqui](http://wordpress.org/support/plugin/i
 
 == Upgrade Notice ==
 
-= 1.0.3 =
+= 1.0.4 =
 
-* Melhorado o fluxo de pagamento com cartão de crédito.
-* Corrigida a mudança de status quando o cartão é recusado.
-* Melhorada as opções padrões do plugin.
-* Corrigida as URLs das notificações.
-* Removido o link de "Configurações" na página de plugins.
+* Corrigida as parcelas exibidas na versões 2.1 do WooCommerce.
 
 == License ==
 
