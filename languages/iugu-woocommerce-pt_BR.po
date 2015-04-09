@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Iugu WooCommerce\n"
 "Report-Msgid-Bugs-To: http://wordpress.org/support/plugin/iugu-woocommerce/\n"
-"POT-Creation-Date: 2015-03-24 04:11:34+00:00\n"
-"PO-Revision-Date: 2015-03-24 04:16+0000\n"
+"POT-Creation-Date: 2015-04-09 21:50:23+00:00\n"
+"PO-Revision-Date: 2015-04-09 21:51+0000\n"
 "Last-Translator: Claudio Sanches <contato@claudiosmweb.com>\n"
 "Language-Team: Portuguese (Brazil) (http://www.transifex.com/projects/p/iugu-woocommerce/language/pt_BR/)\n"
 "MIME-Version: 1.0\n"
@@ -17,31 +17,31 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
 "X-Generator: grunt-wp-i18n 0.4.9\n"
 
-#: includes/class-wc-iugu-api.php:389
+#: includes/class-wc-iugu-api.php:391
 msgid "Order %s"
 msgstr "Pedido %s"
 
-#: includes/class-wc-iugu-api.php:463
+#: includes/class-wc-iugu-api.php:465
 msgid "Shipping via %s"
 msgstr "Entrega via %s"
 
-#: includes/class-wc-iugu-api.php:643 includes/class-wc-iugu-api.php:667
+#: includes/class-wc-iugu-api.php:645 includes/class-wc-iugu-api.php:669
 msgid ""
 "An error has occurred while processing your payment, please try again. Or "
 "contact us for assistance."
 msgstr "Um erro ocorreu ao processar o seu pagamento, por favor, tente novamente ou entre em contato para obter ajuda."
 
-#: includes/class-wc-iugu-api.php:763
+#: includes/class-wc-iugu-api.php:765
 msgid "Payment method created for order %s"
 msgstr "Método de pagamento para o pedido %s"
 
-#: includes/class-wc-iugu-api.php:831
+#: includes/class-wc-iugu-api.php:833
 #: includes/class-wc-iugu-bank-slip-addons-gateway.php:165
 #: includes/class-wc-iugu-bank-slip-addons-gateway.php:226
 msgid "Iugu Bank Slip URL"
 msgstr "Link do boleto bancário do Iugu"
 
-#: includes/class-wc-iugu-api.php:846
+#: includes/class-wc-iugu-api.php:848
 #: includes/class-wc-iugu-bank-slip-addons-gateway.php:170
 #: includes/class-wc-iugu-bank-slip-addons-gateway.php:231
 #: includes/class-wc-iugu-credit-card-addons-gateway.php:224
@@ -49,67 +49,68 @@ msgstr "Link do boleto bancário do Iugu"
 msgid "Iugu Transaction details"
 msgstr "Detalhes da transação no Iugu"
 
-#: includes/class-wc-iugu-api.php:852 includes/class-wc-iugu-api.php:890
+#: includes/class-wc-iugu-api.php:854 includes/class-wc-iugu-api.php:892
 #: includes/class-wc-iugu-bank-slip-addons-gateway.php:173
 #: includes/class-wc-iugu-bank-slip-addons-gateway.php:234
 msgid ""
 "Iugu: The customer generated a bank slip, awaiting payment confirmation."
 msgstr "Iugu: O cliente gerou um boleto bancário, aguardando a confirmação do pagamento."
 
-#: includes/class-wc-iugu-api.php:855
+#: includes/class-wc-iugu-api.php:857
 #: includes/class-wc-iugu-credit-card-addons-gateway.php:326
 msgid "Iugu: Invoice paid successfully by credit card."
 msgstr "Iugu: Fatura paga com cartão de crédito com sucesso."
 
-#: includes/class-wc-iugu-api.php:858
+#: includes/class-wc-iugu-api.php:860
 #: includes/class-wc-iugu-credit-card-addons-gateway.php:323
 msgid "Iugu: Credit card declined."
 msgstr "Iugu: Cartão de crédito recusado."
 
-#: includes/class-wc-iugu-api.php:892
+#: includes/class-wc-iugu-api.php:894
 msgid "Iugu: Invoice paid by credit card, waiting for operator confirmation."
 msgstr "Iugu: A fatura foi paga com cartão de credito, aguardando a confirmação da operadora do cartão."
 
-#: includes/class-wc-iugu-api.php:901
+#: includes/class-wc-iugu-api.php:903
 msgid "Iugu: Invoice paid successfully."
 msgstr "Iugu: Fatura paga com sucesso."
 
-#: includes/class-wc-iugu-api.php:910
+#: includes/class-wc-iugu-api.php:912
 msgid "Iugu: Invoice canceled."
 msgstr "Iugu: Fatura cancelada."
 
-#: includes/class-wc-iugu-api.php:915
+#: includes/class-wc-iugu-api.php:917
 msgid "Iugu: Invoice partially paid."
 msgstr "Iugu: Fatura paga parcialmente."
 
-#: includes/class-wc-iugu-api.php:920
+#: includes/class-wc-iugu-api.php:922
 msgid "Iugu: Invoice refunded."
 msgstr "Iugu: Fatura reembolsada."
 
-#: includes/class-wc-iugu-api.php:922
+#: includes/class-wc-iugu-api.php:924
 msgid "Invoice for order %s was refunded"
 msgstr "A fatura do pedido %s foi reembolsada"
 
-#: includes/class-wc-iugu-api.php:923
+#: includes/class-wc-iugu-api.php:925
 msgid "Invoice refunded"
 msgstr "Fatura reembolsada"
 
-#: includes/class-wc-iugu-api.php:924
+#: includes/class-wc-iugu-api.php:926
 msgid "Order %s has been marked as refunded by Iugu."
 msgstr "O pedido %s foi marcado como reembolsado pelo Iugu."
 
-#: includes/class-wc-iugu-api.php:930
+#: includes/class-wc-iugu-api.php:932
 msgid "Iugu: Invoice expired."
 msgstr "Iugu: Fatura expirada."
 
-#: includes/class-wc-iugu-api.php:971
+#: includes/class-wc-iugu-api.php:973
 #: includes/class-wc-iugu-bank-slip-addons-gateway.php:309
 msgid "The request failed!"
 msgstr "A requisição falhou!"
 
 #: includes/class-wc-iugu-bank-slip-addons-gateway.php:236
-msgid "Iugu: Subscription payment failed (%s)."
-msgstr "Iugu: O pagamento da assinatura falhou (%s)."
+#: includes/class-wc-iugu-credit-card-addons-gateway.php:329
+msgid "Iugu: Pre-order payment failed (%s)."
+msgstr "Iugu: Pré-lançamento pago com sucesso (%s)."
 
 #: includes/class-wc-iugu-bank-slip-addons-gateway.php:262
 msgid "Iugu: Subscription paid successfully."
@@ -221,7 +222,6 @@ msgid "Integration Behavior"
 msgstr "Comportamento da integração"
 
 #: includes/class-wc-iugu-bank-slip-gateway.php:164
-#: includes/class-wc-iugu-credit-card-gateway.php:168
 #: includes/class-wc-iugu-credit-card-gateway.php:203
 msgid "Send only the order total"
 msgstr "Enviar apenas o total do pedido"
@@ -298,10 +298,6 @@ msgstr "Iugu: Assinatura paga com cartão de crédito com sucesso."
 msgid "Iugu: Subscription payment failed. Credit card declined."
 msgstr "Iugu: Pagamento da assinatura falhou. Cartão de crédito recusado."
 
-#: includes/class-wc-iugu-credit-card-addons-gateway.php:329
-msgid "Iugu: Pre-order payment failed (%s)."
-msgstr "Iugu: Pré-lançamento pago com sucesso (%s)."
-
 #: includes/class-wc-iugu-credit-card-gateway.php:26
 msgid "Iugu - Credit Card"
 msgstr "Iugu - Cartão de credito"
@@ -332,6 +328,10 @@ msgid ""
 "bigger than 1 to enable the field. This cannot be greater than the number "
 "allowed in your Iugu account."
 msgstr "O número maximo de parcelas que serão aceitas para cartão de crédito. Digite um número maior do que 1. Este número não pode ser maior que o número permitido na sua conta no Iugu."
+
+#: includes/class-wc-iugu-credit-card-gateway.php:168
+msgid "Pass interest rate"
+msgstr "Repassar juros"
 
 #: includes/class-wc-iugu-credit-card-gateway.php:170
 msgid "Pass on the Installments interest to the customer."

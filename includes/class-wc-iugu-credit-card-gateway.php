@@ -165,7 +165,7 @@ class WC_Iugu_Credit_Card_Gateway extends WC_Payment_Gateway {
 				)
 			),
 			'pass_interest' => array(
-				'title'       => __( 'Send only the order total', 'iugu-woocommerce' ),
+				'title'       => __( 'Pass interest rate', 'iugu-woocommerce' ),
 				'type'        => 'checkbox',
 				'label'       => __( 'Pass on the Installments interest to the customer.', 'iugu-woocommerce' ),
 				'description' => __( 'This option is only for display and should represent what was configured on your Iugu account.', 'iugu-woocommerce' ),
