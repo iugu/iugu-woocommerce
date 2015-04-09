@@ -3,7 +3,7 @@ Contributors: iugu, claudiosanches, braising
 Tags: woocommerce, iugu, payment
 Requires at least: 3.9
 Tested up to: 4.1.1
-Stable tag: 1.0.4
+Stable tag: 1.0.5
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -150,6 +150,10 @@ Abra um tópico para a sua pergunta [aqui](http://wordpress.org/support/plugin/i
 
 == Changelog ==
 
+= 1.0.5 - 2015/04/09 =
+
+* Corrigida opção de repasse de juros quando desativada.
+
 = 1.0.4 - 2015/03/25 =
 
 * Corrigida as parcelas exibidas na versões 2.1 do WooCommerce.
@@ -176,9 +180,9 @@ Abra um tópico para a sua pergunta [aqui](http://wordpress.org/support/plugin/i
 
 == Upgrade Notice ==
 
-= 1.0.4 =
+= 1.0.5 =
 
-* Corrigida as parcelas exibidas na versões 2.1 do WooCommerce.
+* Corrigida opção de repasse de juros quando desativada.
 
 == License ==
 
