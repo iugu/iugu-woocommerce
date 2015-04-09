@@ -278,7 +278,7 @@ class WC_Iugu_Credit_Card_Gateway extends WC_Payment_Gateway {
 			array(
 				'order_total'      => $order_total,
 				'installments'     => intval( $this->installments ),
-				'free_interest'    => 'yes' == $this->pass_interest ? intval( $this->free_interest ) : 0,
+				'free_interest'    => 'yes' == $this->pass_interest ? intval( $this->free_interest ) : 12,
 				'transaction_rate' => $this->api->get_transaction_rate(),
 				'rates'            => $this->api->get_interest_rate()
 			),
