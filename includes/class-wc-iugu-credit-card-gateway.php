@@ -100,8 +100,6 @@ class WC_Iugu_Credit_Card_Gateway extends WC_Payment_Gateway {
 
 	/**
 	 * Initialise Gateway Settings Form Fields.
-	 *
-	 * @return void
 	 */
 	public function init_form_fields() {
 		$this->form_fields = array(
@@ -389,7 +387,7 @@ class WC_Iugu_Credit_Card_Gateway extends WC_Payment_Gateway {
 	 * @param string $hook Page slug.
 	 */
 	public function admin_scripts( $hook ) {
-		if ( in_array( $hook, array( 'woocommerce_page_wc-settings', 'woocommerce_page_woocommerce_settings' ) ) && ( isset( $_GET['section'] ) && 'wc_iugu_credit_card_addons_gateway' == strtolower( $_GET['section'] ) ) ) {
+		if ( in_array( $hook, array( 'woocommerce_page_wc-settings', 'woocommerce_page_woocommerce_settings' ) ) && ( isset( $_GET['section'] ) && strtolower( get_class( $this ) ) == strtolower( $_GET['section'] ) ) ) {
 			$suffix = defined( 'SCRIPT_DEBUG' ) && SCRIPT_DEBUG ? '' : '.min';
 
 			wp_enqueue_script( 'iugu-credit-card-admin', plugins_url( 'assets/js/admin-credit-card' . $suffix . '.js', plugin_dir_path( __FILE__ ) ), array( 'jquery' ), WC_Iugu::VERSION, true );
