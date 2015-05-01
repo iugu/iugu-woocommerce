@@ -49,6 +49,7 @@ class WC_Iugu {
 
 			// Hook to add Iugu Gateway to WooCommerce.
 			add_filter( 'woocommerce_payment_gateways', array( $this, 'add_gateway' ) );
+			add_filter( 'plugin_action_links_' . plugin_basename( __FILE__ ), array( $this, 'plugin_action_links' ) );
 		} else {
 			add_action( 'admin_notices', array( $this, 'dependencies_notices' ) );
 		}
@@ -141,6 +142,37 @@ class WC_Iugu {
 		}
 
 		return '<code>woocommerce/logs/' . esc_attr( $gateway_id ) . '-' . sanitize_file_name( wp_hash( $gateway_id ) ) . '.txt</code>';
+	}
+
+	/**
+	 * Action links.
+	 *
+	 * @param  array $links
+	 *
+	 * @return array
+	 */
+	public function plugin_action_links( $links ) {
+		$plugin_links = array();
+
+		if ( defined( 'WC_VERSION' ) && version_compare( WC_VERSION, '2.1', '>=' ) ) {
+			$settings_url = admin_url( 'admin.php?page=wc-settings&tab=checkout&section=' );
+		} else {
+			$settings_url = admin_url( 'admin.php?page=woocommerce_settings&tab=payment_gateways&section=' );
+		}
+
+		if ( class_exists( 'WC_Subscriptions_Order' ) || class_exists( 'WC_Pre_Orders_Order' ) ) {
+			$credit_card = 'wc_iugu_credit_card_addons_gateway';
+			$bank_slip   = 'wc_iugu_bank_slip_addons_Gateway';
+		} else  {
+			$credit_card = 'wc_iugu_credit_card_Gateway';
+			$bank_slip   = 'wc_iugu_bank_slip_gateway';
+		}
+
+		$plugin_links[] = '<a href="' . esc_url( $settings_url . $credit_card ) . '">' . __( 'Credit Card Settings', 'iugu-woocommerce' ) . '</a>';
+
+		$plugin_links[] = '<a href="' . esc_url( $settings_url . $bank_slip ) . '">' . __( 'Bank Slip Settings', 'iugu-woocommerce' ) . '</a>';
+
+		return array_merge( $plugin_links, $links );
 	}
 }
 
