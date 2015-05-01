@@ -311,6 +311,16 @@ class WC_Iugu_API {
 	}
 
 	/**
+	 * Value in cents.
+	 *
+	 * @param  float $value
+	 * @return int
+	 */
+	protected function get_cents( $value ) {
+		return number_format( $value, 2, '', '' );
+	}
+
+	/**
 	 * Get phone number
 	 *
 	 * @param  WC_Order $order
@@ -389,7 +399,7 @@ class WC_Iugu_API {
 		if ( 'yes' == $this->gateway->send_only_total ) {
 			$items[] = array(
 				'description' => sprintf( __( 'Order %s', 'iugu-woocommerce' ), $order->get_order_number() ),
-				'price_cents' => $order->get_total() * 100,
+				'price_cents' => $this->get_cents( $order->get_total() ),
 				'quantity'    => 1
 			);
 		} else {
@@ -397,7 +407,7 @@ class WC_Iugu_API {
 			if ( 0 < sizeof( $order->get_items() ) ) {
 				foreach ( $order->get_items() as $order_item ) {
 					if ( $order_item['qty'] ) {
-						$item_total = $order->get_item_total( $order_item, false ) * 100;
+						$item_total = $this->get_cents( $order->get_item_total( $order_item, false ) );
 
 						if ( 0 > $item_total ) {
 							continue;
@@ -422,7 +432,7 @@ class WC_Iugu_API {
 			// Fees.
 			if ( 0 < sizeof( $order->get_fees() ) ) {
 				foreach ( $order->get_fees() as $fee ) {
-					$fee_total = $fee['line_total'] * 100;
+					$fee_total = $this->get_cents( $fee['line_total'] );
 
 					if ( 0 > $fee_total ) {
 						continue;
@@ -439,7 +449,7 @@ class WC_Iugu_API {
 			// Taxes.
 			if ( 0 < sizeof( $order->get_taxes() ) ) {
 				foreach ( $order->get_taxes() as $tax ) {
-					$tax_total = ( $tax['tax_amount'] + $tax['shipping_tax_amount'] ) * 100;
+					$tax_total = $this->get_cents( $tax['tax_amount'] + $tax['shipping_tax_amount'] );
 
 					if ( 0 > $tax_total ) {
 						continue;
@@ -455,9 +465,9 @@ class WC_Iugu_API {
 
 			// Shipping Cost.
 			if ( method_exists( $order, 'get_total_shipping' ) ) {
-				$shipping_cost = $order->get_total_shipping() * 100;
+				$shipping_cost = $this->get_cents( $order->get_total_shipping() );
 			} else {
-				$shipping_cost = $order->get_shipping() * 100;
+				$shipping_cost = $this->get_cents( $order->get_shipping() );
 			}
 
 			if ( 0 < $shipping_cost ) {
@@ -471,7 +481,7 @@ class WC_Iugu_API {
 			// Discount.
 			if ( defined( 'WC_VERSION' ) && version_compare( WC_VERSION, '2.3', '<' ) ) {
 				if ( 0 < $order->get_order_discount() ) {
-					$data['discount_cents'] = $order->get_order_discount() * 100;
+					$data['discount_cents'] = $this->get_cents( $order->get_order_discount() );
 				}
 			}
 		}
