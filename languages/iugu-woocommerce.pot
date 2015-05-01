@@ -4,7 +4,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Iugu WooCommerce 1.0.5\n"
 "Report-Msgid-Bugs-To: http://wordpress.org/support/plugin/iugu-woocommerce/\n"
-"POT-Creation-Date: 2015-04-09 21:50:23+00:00\n"
+"POT-Creation-Date: 2015-05-01 03:37:53+00:00\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -13,31 +13,31 @@ msgstr ""
 "Language-Team: LANGUAGE <EMAIL@ADDRESS>\n"
 "X-Generator: grunt-wp-i18n 0.4.9\n"
 
-#: includes/class-wc-iugu-api.php:391
+#: includes/class-wc-iugu-api.php:401
 msgid "Order %s"
 msgstr ""
 
-#: includes/class-wc-iugu-api.php:465
+#: includes/class-wc-iugu-api.php:475
 msgid "Shipping via %s"
 msgstr ""
 
-#: includes/class-wc-iugu-api.php:645 includes/class-wc-iugu-api.php:669
+#: includes/class-wc-iugu-api.php:655 includes/class-wc-iugu-api.php:679
 msgid ""
 "An error has occurred while processing your payment, please try again. Or "
 "contact us for assistance."
 msgstr ""
 
-#: includes/class-wc-iugu-api.php:765
+#: includes/class-wc-iugu-api.php:775
 msgid "Payment method created for order %s"
 msgstr ""
 
-#: includes/class-wc-iugu-api.php:833
+#: includes/class-wc-iugu-api.php:843
 #: includes/class-wc-iugu-bank-slip-addons-gateway.php:165
 #: includes/class-wc-iugu-bank-slip-addons-gateway.php:226
 msgid "Iugu Bank Slip URL"
 msgstr ""
 
-#: includes/class-wc-iugu-api.php:848
+#: includes/class-wc-iugu-api.php:858
 #: includes/class-wc-iugu-bank-slip-addons-gateway.php:170
 #: includes/class-wc-iugu-bank-slip-addons-gateway.php:231
 #: includes/class-wc-iugu-credit-card-addons-gateway.php:224
@@ -45,59 +45,59 @@ msgstr ""
 msgid "Iugu Transaction details"
 msgstr ""
 
-#: includes/class-wc-iugu-api.php:854 includes/class-wc-iugu-api.php:892
+#: includes/class-wc-iugu-api.php:864 includes/class-wc-iugu-api.php:902
 #: includes/class-wc-iugu-bank-slip-addons-gateway.php:173
 #: includes/class-wc-iugu-bank-slip-addons-gateway.php:234
 msgid "Iugu: The customer generated a bank slip, awaiting payment confirmation."
 msgstr ""
 
-#: includes/class-wc-iugu-api.php:857
+#: includes/class-wc-iugu-api.php:867
 #: includes/class-wc-iugu-credit-card-addons-gateway.php:326
 msgid "Iugu: Invoice paid successfully by credit card."
 msgstr ""
 
-#: includes/class-wc-iugu-api.php:860
+#: includes/class-wc-iugu-api.php:870
 #: includes/class-wc-iugu-credit-card-addons-gateway.php:323
 msgid "Iugu: Credit card declined."
 msgstr ""
 
-#: includes/class-wc-iugu-api.php:894
+#: includes/class-wc-iugu-api.php:904
 msgid "Iugu: Invoice paid by credit card, waiting for operator confirmation."
 msgstr ""
 
-#: includes/class-wc-iugu-api.php:903
+#: includes/class-wc-iugu-api.php:913
 msgid "Iugu: Invoice paid successfully."
 msgstr ""
 
-#: includes/class-wc-iugu-api.php:912
+#: includes/class-wc-iugu-api.php:922
 msgid "Iugu: Invoice canceled."
 msgstr ""
 
-#: includes/class-wc-iugu-api.php:917
+#: includes/class-wc-iugu-api.php:927
 msgid "Iugu: Invoice partially paid."
 msgstr ""
 
-#: includes/class-wc-iugu-api.php:922
+#: includes/class-wc-iugu-api.php:932
 msgid "Iugu: Invoice refunded."
 msgstr ""
 
-#: includes/class-wc-iugu-api.php:924
+#: includes/class-wc-iugu-api.php:934
 msgid "Invoice for order %s was refunded"
 msgstr ""
 
-#: includes/class-wc-iugu-api.php:925
+#: includes/class-wc-iugu-api.php:935
 msgid "Invoice refunded"
 msgstr ""
 
-#: includes/class-wc-iugu-api.php:926
+#: includes/class-wc-iugu-api.php:936
 msgid "Order %s has been marked as refunded by Iugu."
 msgstr ""
 
-#: includes/class-wc-iugu-api.php:932
+#: includes/class-wc-iugu-api.php:942
 msgid "Iugu: Invoice expired."
 msgstr ""
 
-#: includes/class-wc-iugu-api.php:973
+#: includes/class-wc-iugu-api.php:983
 #: includes/class-wc-iugu-bank-slip-addons-gateway.php:309
 msgid "The request failed!"
 msgstr ""
@@ -124,7 +124,7 @@ msgid "Accept payments by bank slip using the Iugu."
 msgstr ""
 
 #: includes/class-wc-iugu-bank-slip-gateway.php:101
-#: includes/class-wc-iugu-credit-card-gateway.php:109
+#: includes/class-wc-iugu-credit-card-gateway.php:107
 msgid "Enable/Disable"
 msgstr ""
 
@@ -133,12 +133,12 @@ msgid "Enable Iugu Bank Slip"
 msgstr ""
 
 #: includes/class-wc-iugu-bank-slip-gateway.php:107
-#: includes/class-wc-iugu-credit-card-gateway.php:115
+#: includes/class-wc-iugu-credit-card-gateway.php:113
 msgid "Title"
 msgstr ""
 
 #: includes/class-wc-iugu-bank-slip-gateway.php:109
-#: includes/class-wc-iugu-credit-card-gateway.php:117
+#: includes/class-wc-iugu-credit-card-gateway.php:115
 msgid "This controls the title which the user sees during checkout."
 msgstr ""
 
@@ -147,12 +147,12 @@ msgid "Bank Slip"
 msgstr ""
 
 #: includes/class-wc-iugu-bank-slip-gateway.php:114
-#: includes/class-wc-iugu-credit-card-gateway.php:122
+#: includes/class-wc-iugu-credit-card-gateway.php:120
 msgid "Description"
 msgstr ""
 
 #: includes/class-wc-iugu-bank-slip-gateway.php:116
-#: includes/class-wc-iugu-credit-card-gateway.php:124
+#: includes/class-wc-iugu-credit-card-gateway.php:122
 msgid "This controls the description which the user sees during checkout."
 msgstr ""
 
@@ -161,17 +161,17 @@ msgid "Pay with bank slip"
 msgstr ""
 
 #: includes/class-wc-iugu-bank-slip-gateway.php:120
-#: includes/class-wc-iugu-credit-card-gateway.php:128
+#: includes/class-wc-iugu-credit-card-gateway.php:126
 msgid "Integration Settings"
 msgstr ""
 
 #: includes/class-wc-iugu-bank-slip-gateway.php:125
-#: includes/class-wc-iugu-credit-card-gateway.php:133
+#: includes/class-wc-iugu-credit-card-gateway.php:131
 msgid "Account ID"
 msgstr ""
 
 #: includes/class-wc-iugu-bank-slip-gateway.php:127
-#: includes/class-wc-iugu-credit-card-gateway.php:135
+#: includes/class-wc-iugu-credit-card-gateway.php:133
 msgid ""
 "Please enter your Account ID. This is needed in order to take payment. Is "
 "possible found the Account ID in %s."
@@ -180,26 +180,26 @@ msgstr ""
 #: includes/class-wc-iugu-bank-slip-gateway.php:127
 #: includes/class-wc-iugu-bank-slip-gateway.php:136
 #: includes/class-wc-iugu-bank-slip-gateway.php:179
-#: includes/class-wc-iugu-credit-card-gateway.php:135
-#: includes/class-wc-iugu-credit-card-gateway.php:144
-#: includes/class-wc-iugu-credit-card-gateway.php:218
+#: includes/class-wc-iugu-credit-card-gateway.php:133
+#: includes/class-wc-iugu-credit-card-gateway.php:142
+#: includes/class-wc-iugu-credit-card-gateway.php:216
 msgid "Iugu Account Settings"
 msgstr ""
 
 #: includes/class-wc-iugu-bank-slip-gateway.php:134
-#: includes/class-wc-iugu-credit-card-gateway.php:142
+#: includes/class-wc-iugu-credit-card-gateway.php:140
 msgid "API Token"
 msgstr ""
 
 #: includes/class-wc-iugu-bank-slip-gateway.php:136
-#: includes/class-wc-iugu-credit-card-gateway.php:144
+#: includes/class-wc-iugu-credit-card-gateway.php:142
 msgid ""
 "Please enter your API Token. This is needed in order to take payment. Is "
 "possible generate a new API Token in %s."
 msgstr ""
 
 #: includes/class-wc-iugu-bank-slip-gateway.php:143
-#: includes/class-wc-iugu-credit-card-gateway.php:151
+#: includes/class-wc-iugu-credit-card-gateway.php:149
 msgid "Payment Options"
 msgstr ""
 
@@ -212,62 +212,62 @@ msgid "Number of days the customer will have to pay the bank slip."
 msgstr ""
 
 #: includes/class-wc-iugu-bank-slip-gateway.php:159
-#: includes/class-wc-iugu-credit-card-gateway.php:198
+#: includes/class-wc-iugu-credit-card-gateway.php:196
 msgid "Integration Behavior"
 msgstr ""
 
 #: includes/class-wc-iugu-bank-slip-gateway.php:164
-#: includes/class-wc-iugu-credit-card-gateway.php:203
+#: includes/class-wc-iugu-credit-card-gateway.php:201
 msgid "Send only the order total"
 msgstr ""
 
 #: includes/class-wc-iugu-bank-slip-gateway.php:166
-#: includes/class-wc-iugu-credit-card-gateway.php:205
+#: includes/class-wc-iugu-credit-card-gateway.php:203
 msgid ""
 "If this option is enabled will only send the order total, not the list of "
 "items."
 msgstr ""
 
 #: includes/class-wc-iugu-bank-slip-gateway.php:170
-#: includes/class-wc-iugu-credit-card-gateway.php:209
+#: includes/class-wc-iugu-credit-card-gateway.php:207
 msgid "Gateway Testing"
 msgstr ""
 
 #: includes/class-wc-iugu-bank-slip-gateway.php:175
-#: includes/class-wc-iugu-credit-card-gateway.php:214
+#: includes/class-wc-iugu-credit-card-gateway.php:212
 msgid "Iugu Sandbox"
 msgstr ""
 
 #: includes/class-wc-iugu-bank-slip-gateway.php:177
-#: includes/class-wc-iugu-credit-card-gateway.php:216
+#: includes/class-wc-iugu-credit-card-gateway.php:214
 msgid "Enable Iugu Sandbox"
 msgstr ""
 
 #: includes/class-wc-iugu-bank-slip-gateway.php:179
-#: includes/class-wc-iugu-credit-card-gateway.php:218
+#: includes/class-wc-iugu-credit-card-gateway.php:216
 msgid ""
 "Iugu Sandbox can be used to test the payments. <strong>Note:</strong> you "
 "must use the development API Token that can be created in %s."
 msgstr ""
 
 #: includes/class-wc-iugu-bank-slip-gateway.php:182
-#: includes/class-wc-iugu-credit-card-gateway.php:221
+#: includes/class-wc-iugu-credit-card-gateway.php:219
 msgid "Debug Log"
 msgstr ""
 
 #: includes/class-wc-iugu-bank-slip-gateway.php:184
-#: includes/class-wc-iugu-credit-card-gateway.php:223
+#: includes/class-wc-iugu-credit-card-gateway.php:221
 msgid "Enable logging"
 msgstr ""
 
 #: includes/class-wc-iugu-bank-slip-gateway.php:186
-#: includes/class-wc-iugu-credit-card-gateway.php:225
+#: includes/class-wc-iugu-credit-card-gateway.php:223
 msgid "Log Iugu events, such as API requests, you can check this log in %s."
 msgstr ""
 
 #: includes/class-wc-iugu-credit-card-addons-gateway.php:53
 #: includes/class-wc-iugu-credit-card-addons-gateway.php:118
-#: includes/class-wc-iugu-credit-card-gateway.php:305
+#: includes/class-wc-iugu-credit-card-gateway.php:303
 msgid ""
 "Please make sure your card details have been entered correctly and that "
 "your browser supports JavaScript."
@@ -301,86 +301,86 @@ msgstr ""
 msgid "Accept payments by credit card using the Iugu."
 msgstr ""
 
-#: includes/class-wc-iugu-credit-card-gateway.php:111
+#: includes/class-wc-iugu-credit-card-gateway.php:109
 msgid "Enable Iugu Credit Card"
 msgstr ""
 
-#: includes/class-wc-iugu-credit-card-gateway.php:119
+#: includes/class-wc-iugu-credit-card-gateway.php:117
 msgid "Credit Card"
 msgstr ""
 
-#: includes/class-wc-iugu-credit-card-gateway.php:125
+#: includes/class-wc-iugu-credit-card-gateway.php:123
 msgid "Pay with credit card."
 msgstr ""
 
-#: includes/class-wc-iugu-credit-card-gateway.php:156
+#: includes/class-wc-iugu-credit-card-gateway.php:154
 msgid "Number of credit card Installments"
 msgstr ""
 
-#: includes/class-wc-iugu-credit-card-gateway.php:158
+#: includes/class-wc-iugu-credit-card-gateway.php:156
 msgid ""
 "The maximum number of installments allowed for credit cards. Put a number "
 "bigger than 1 to enable the field. This cannot be greater than the number "
 "allowed in your Iugu account."
 msgstr ""
 
-#: includes/class-wc-iugu-credit-card-gateway.php:168
+#: includes/class-wc-iugu-credit-card-gateway.php:166
 msgid "Pass interest rate"
 msgstr ""
 
-#: includes/class-wc-iugu-credit-card-gateway.php:170
+#: includes/class-wc-iugu-credit-card-gateway.php:168
 msgid "Pass on the Installments interest to the customer."
 msgstr ""
 
-#: includes/class-wc-iugu-credit-card-gateway.php:171
-#: includes/class-wc-iugu-credit-card-gateway.php:178
-#: includes/class-wc-iugu-credit-card-gateway.php:190
+#: includes/class-wc-iugu-credit-card-gateway.php:169
+#: includes/class-wc-iugu-credit-card-gateway.php:176
+#: includes/class-wc-iugu-credit-card-gateway.php:188
 msgid ""
 "This option is only for display and should represent what was configured on "
 "your Iugu account."
 msgstr ""
 
-#: includes/class-wc-iugu-credit-card-gateway.php:176
+#: includes/class-wc-iugu-credit-card-gateway.php:174
 msgid "Free interest"
 msgstr ""
 
-#: includes/class-wc-iugu-credit-card-gateway.php:178
+#: includes/class-wc-iugu-credit-card-gateway.php:176
 msgid ""
 "Indicate how many installments shall not bear interest, use 0 to disable "
 "this option."
 msgstr ""
 
-#: includes/class-wc-iugu-credit-card-gateway.php:188
+#: includes/class-wc-iugu-credit-card-gateway.php:186
 msgid "Rate per transaction"
 msgstr ""
 
-#: includes/class-wc-iugu-credit-card-gateway.php:190
+#: includes/class-wc-iugu-credit-card-gateway.php:188
 msgid "Enter here the transaction rate that is set up in your plan in Iugu."
 msgstr ""
 
-#: includes/class-wc-iugu-credit-card-gateway.php:248
+#: includes/class-wc-iugu-credit-card-gateway.php:246
 #: templates/credit-card/payment-form.php:21
 msgid "Card Number"
 msgstr ""
 
-#: includes/class-wc-iugu-credit-card-gateway.php:249
+#: includes/class-wc-iugu-credit-card-gateway.php:247
 #: templates/credit-card/payment-form.php:30
 msgid "Security Code"
 msgstr ""
 
-#: includes/class-wc-iugu-credit-card-gateway.php:250
+#: includes/class-wc-iugu-credit-card-gateway.php:248
 msgid "Card Expiry Date"
 msgstr ""
 
-#: includes/class-wc-iugu-credit-card-gateway.php:251
+#: includes/class-wc-iugu-credit-card-gateway.php:249
 msgid "First Name"
 msgstr ""
 
-#: includes/class-wc-iugu-credit-card-gateway.php:252
+#: includes/class-wc-iugu-credit-card-gateway.php:250
 msgid "Last Name"
 msgstr ""
 
-#: includes/class-wc-iugu-credit-card-gateway.php:253
+#: includes/class-wc-iugu-credit-card-gateway.php:251
 msgid "is invalid"
 msgstr ""
 
@@ -393,16 +393,11 @@ msgid "Iugu Disabled"
 msgstr ""
 
 #: includes/views/html-notice-account-id-missing.php:13
-msgid "You should inform your API Token. %s"
-msgstr ""
-
-#: includes/views/html-notice-account-id-missing.php:13
-#: includes/views/html-notice-api-token-missing.php:13
-msgid "Click here to configure!"
+msgid "You should inform your API Token."
 msgstr ""
 
 #: includes/views/html-notice-api-token-missing.php:13
-msgid "You should inform your Account ID. %s"
+msgid "You should inform your Account ID."
 msgstr ""
 
 #: includes/views/html-notice-currency-not-supported.php:13
@@ -425,8 +420,16 @@ msgstr ""
 msgid "WooCommerce"
 msgstr ""
 
-#: iugu-woocommerce.php:140
+#: iugu-woocommerce.php:141
 msgid "System Status &gt; Logs"
+msgstr ""
+
+#: iugu-woocommerce.php:171
+msgid "Credit Card Settings"
+msgstr ""
+
+#: iugu-woocommerce.php:173
+msgid "Bank Slip Settings"
 msgstr ""
 
 #: templates/bank-slip/checkout-instructions.php:16
