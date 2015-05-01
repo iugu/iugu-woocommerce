@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Iugu WooCommerce\n"
 "Report-Msgid-Bugs-To: http://wordpress.org/support/plugin/iugu-woocommerce/\n"
-"POT-Creation-Date: 2015-05-01 03:37:53+00:00\n"
-"PO-Revision-Date: 2015-05-01 04:14+0000\n"
+"POT-Creation-Date: 2015-05-01 04:20:11+00:00\n"
+"PO-Revision-Date: 2015-05-01 04:21+0000\n"
 "Last-Translator: Claudio Sanches <contato@claudiosmweb.com>\n"
 "Language-Team: Portuguese (Brazil) (http://www.transifex.com/projects/p/iugu-woocommerce/language/pt_BR/)\n"
 "MIME-Version: 1.0\n"
@@ -364,7 +364,7 @@ msgid "Enter here the transaction rate that is set up in your plan in Iugu."
 msgstr "Digite aqui a taxa de transação que esta configurada para o seu plano no Iugu."
 
 #: includes/class-wc-iugu-credit-card-gateway.php:246
-#: templates/credit-card/payment-form.php:21
+#: templates/credit-card/payment-form.php:17
 msgid "Card Number"
 msgstr "Número do cartão"
 
@@ -491,13 +491,9 @@ msgstr "Você pode imprimi-lo e fazer o pagamento pelo site do seu banco ou por 
 msgid "Payment successfully made using credit card in %s."
 msgstr "Pagamento realizado com sucesso por cartão de crédito em %s."
 
-#: templates/credit-card/payment-form.php:17
-msgid "Card Holder Name"
-msgstr "Nome do portador"
-
-#: templates/credit-card/payment-form.php:17
-msgid "as recorded on the card"
-msgstr "como gravado no cartão"
+#: templates/credit-card/payment-form.php:21
+msgid "Name Printed on the Card"
+msgstr "Nome impresso no cartão"
 
 #: templates/credit-card/payment-form.php:26
 msgid "Expiry (MM/YYYY)"

@@ -2,9 +2,9 @@
 # This file is distributed under the GPLv2 or later.
 msgid ""
 msgstr ""
-"Project-Id-Version: Iugu WooCommerce 1.0.5\n"
+"Project-Id-Version: Iugu WooCommerce 1.0.6\n"
 "Report-Msgid-Bugs-To: http://wordpress.org/support/plugin/iugu-woocommerce/\n"
-"POT-Creation-Date: 2015-05-01 03:37:53+00:00\n"
+"POT-Creation-Date: 2015-05-01 04:20:11+00:00\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -359,7 +359,7 @@ msgid "Enter here the transaction rate that is set up in your plan in Iugu."
 msgstr ""
 
 #: includes/class-wc-iugu-credit-card-gateway.php:246
-#: templates/credit-card/payment-form.php:21
+#: templates/credit-card/payment-form.php:17
 msgid "Card Number"
 msgstr ""
 
@@ -484,12 +484,8 @@ msgstr ""
 msgid "Payment successfully made using credit card in %s."
 msgstr ""
 
-#: templates/credit-card/payment-form.php:17
-msgid "Card Holder Name"
-msgstr ""
-
-#: templates/credit-card/payment-form.php:17
-msgid "as recorded on the card"
+#: templates/credit-card/payment-form.php:21
+msgid "Name Printed on the Card"
 msgstr ""
 
 #: templates/credit-card/payment-form.php:26
