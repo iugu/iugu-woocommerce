@@ -10,6 +10,6 @@ if ( ! defined( 'ABSPATH' ) ) {
 ?>
 
 <div class="error">
-	<p><strong><?php _e( 'Iugu Disabled', 'iugu-woocommerce' ); ?></strong>: <?php printf( __( 'You should inform your Account ID. %s', 'iugu-woocommerce' ), '<a href="' . esc_attr( $this->api->get_settings_url() ) . '">' . __( 'Click here to configure!', 'iugu-woocommerce' ) . '</a>' ); ?>
+	<p><strong><?php _e( 'Iugu Disabled', 'iugu-woocommerce' ); ?></strong>: <?php _e( 'You should inform your Account ID.', 'iugu-woocommerce' ); ?>
 	</p>
 </div>

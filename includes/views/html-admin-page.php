@@ -15,7 +15,7 @@ if ( empty( $this->account_id ) ) {
 }
 
 if ( empty( $this->api_token ) ) {
-	include 'html-notice-account-id-missing.php';
+	include 'html-notice-api-token-missing.php';
 }
 
 ?>
