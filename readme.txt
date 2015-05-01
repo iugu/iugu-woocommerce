@@ -2,8 +2,8 @@
 Contributors: iugu, claudiosanches, braising
 Tags: woocommerce, iugu, payment
 Requires at least: 3.9
-Tested up to: 4.1.1
-Stable tag: 1.0.5
+Tested up to: 4.2.1
+Stable tag: 1.0.6
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -150,6 +150,13 @@ Abra um tópico para a sua pergunta [aqui](http://wordpress.org/support/plugin/i
 
 == Changelog ==
 
+= 1.0.6 - 2015/05/01 =
+
+* Melhorada a forma que os valores são convertidos para centavos antes de enviar para a API do Iugu.
+* Melhorado o campo de "Nome impresso no cartão" do formulário de cartão de crédito.
+* Corrigido carregamento do JavaScript das opções de cartão de crédito quando instalado o WooCommerce Subscriptions.
+* Correções no HTML das instruções do cartão de crédito após o pagamento.
+
 = 1.0.5 - 2015/04/09 =
 
 * Corrigida opção de repasse de juros quando desativada.
@@ -180,9 +187,12 @@ Abra um tópico para a sua pergunta [aqui](http://wordpress.org/support/plugin/i
 
 == Upgrade Notice ==
 
-= 1.0.5 =
+= 1.0.6 =
 
-* Corrigida opção de repasse de juros quando desativada.
+* Melhorada a forma que os valores são convertidos para centavos antes de enviar para a API do Iugu.
+* Melhorado o campo de "Nome impresso no cartão" do formulário de cartão de crédito.
+* Corrigido carregamento do JavaScript das opções de cartão de crédito quando instalado o WooCommerce Subscriptions.
+* Correções no HTML das instruções do cartão de crédito após o pagamento.
 
 == License ==
 
