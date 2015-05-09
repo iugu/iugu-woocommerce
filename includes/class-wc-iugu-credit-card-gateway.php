@@ -46,7 +46,7 @@ class WC_Iugu_Credit_Card_Gateway extends WC_Payment_Gateway {
 		// Load the settings.
 		$this->init_settings();
 
-		// Optins.
+		// Options.
 		$this->title            = $this->get_option( 'title' );
 		$this->description      = $this->get_option( 'description' );
 		$this->account_id       = $this->get_option( 'account_id' );
