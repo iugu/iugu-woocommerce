@@ -387,6 +387,7 @@ class WC_Iugu_API {
 			'expired_url'      => $order->get_cancel_order_url(),
 			'notification_url' => $this->get_wc_request_url(),
 			'ignore_due_email' => true,
+			'payable_with'     => 'credit-card' === $this->method ? 'credit_card' : 'bank_slip',
 			'custom_variables' => array(
 				array(
 					'name'  => 'order_id',
@@ -404,7 +405,7 @@ class WC_Iugu_API {
 			);
 		} else {
 			// Products.
-			if ( 0 < sizeof( $order->get_items() ) ) {
+			if ( 0 < count( $order->get_items() ) ) {
 				foreach ( $order->get_items() as $order_item ) {
 					if ( $order_item['qty'] ) {
 						$item_total = $this->get_cents( $order->get_item_total( $order_item, false ) );
@@ -430,7 +431,7 @@ class WC_Iugu_API {
 			}
 
 			// Fees.
-			if ( 0 < sizeof( $order->get_fees() ) ) {
+			if ( 0 < count( $order->get_fees() ) ) {
 				foreach ( $order->get_fees() as $fee ) {
 					$fee_total = $this->get_cents( $fee['line_total'] );
 
@@ -447,7 +448,7 @@ class WC_Iugu_API {
 			}
 
 			// Taxes.
-			if ( 0 < sizeof( $order->get_taxes() ) ) {
+			if ( 0 < count( $order->get_taxes() ) ) {
 				foreach ( $order->get_taxes() as $tax ) {
 					$tax_total = $this->get_cents( $tax['tax_amount'] + $tax['shipping_tax_amount'] );
 
