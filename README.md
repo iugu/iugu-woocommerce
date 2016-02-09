@@ -2,7 +2,7 @@
 **Contributors:** iugu, claudiosanches, braising  
 **Tags:** woocommerce, iugu, payment  
 **Requires at least:** 3.9  
-**Tested up to:** 4.2.1  
+**Tested up to:** 4.4  
 **Stable tag:** 1.0.6  
 **License:** GPLv2 or later  
 **License URI:** http://www.gnu.org/licenses/gpl-2.0.html  
@@ -19,7 +19,7 @@ Saiba mais como o Iugu funciona em [Iugu - Entendendo como tudo funciona](https:
 
 ### Compatibilidade ###
 
-Compatível com as versões 2.1.x e 2.2.x e 2.3.x do WooCommerce.
+Compatível com as versões 2.1.x, 2.2.x, 2.3.x, 2.4.x e 2.5.x do WooCommerce.
 
 Este plugin funciona integrado com o [WooCommerce Extra Checkout Fields for Brazil](http://wordpress.org/plugins/woocommerce-extra-checkout-fields-for-brazil/), desta forma é possível enviar documentos do cliente como "CPF" ou "CNPJ", além dos campos "número" e "bairro" do endereço.
 
