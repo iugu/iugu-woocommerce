@@ -144,16 +144,16 @@ Abra um tópico para a sua pergunta [aqui](http://wordpress.org/support/plugin/i
 ## Screenshots ##
 
 ### 1. Configurações do método de cartão de crédito. ###
-![1. Configurações do método de cartão de crédito.](http://ps.w.org/woocommerce-iugu/assets/screenshot-1.png)
+![1. Configurações do método de cartão de crédito.](http://ps.w.org/iugu-woocommerce/assets/screenshot-1.png)
 
 ### 2. Configurações do método de boleto bancário. ###
-![2. Configurações do método de boleto bancário.](http://ps.w.org/woocommerce-iugu/assets/screenshot-2.png)
+![2. Configurações do método de boleto bancário.](http://ps.w.org/iugu-woocommerce/assets/screenshot-2.png)
 
 ### 2. Opção de cartão de crédito na página de finalizar compra. ###
-![2. Opção de cartão de crédito na página de finalizar compra.](http://ps.w.org/woocommerce-iugu/assets/screenshot-3.png)
+![2. Opção de cartão de crédito na página de finalizar compra.](http://ps.w.org/iugu-woocommerce/assets/screenshot-3.png)
 
 ### 2. Opção de boleto bancário na página de finalizar compra. ###
-![2. Opção de boleto bancário na página de finalizar compra.](http://ps.w.org/woocommerce-iugu/assets/screenshot-4.png)
+![2. Opção de boleto bancário na página de finalizar compra.](http://ps.w.org/iugu-woocommerce/assets/screenshot-4.png)
 
 
 ## Changelog ##
