@@ -82,11 +82,7 @@ module.exports = function( grunt ) {
 		makepot: {
 			dist: {
 				options: {
-					type: 'wp-plugin',
-					potHeaders: {
-						'report-msgid-bugs-to': 'http://wordpress.org/support/plugin/iugu-woocommerce/',
-						'language-team': 'LANGUAGE <EMAIL@ADDRESS>'
-					}
+					type: 'wp-plugin'
 				}
 			}
 		},

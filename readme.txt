@@ -3,7 +3,7 @@ Contributors: iugu, claudiosanches, braising
 Tags: woocommerce, iugu, payment
 Requires at least: 3.9
 Tested up to: 4.4
-Stable tag: 1.0.6
+Stable tag: 1.0.7
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -150,6 +150,10 @@ Abra um tópico para a sua pergunta [aqui](http://wordpress.org/support/plugin/i
 
 == Changelog ==
 
+= 1.0.7 - 2016/02/09 =
+
+* Melhorada a geração das faturas, agora garantindo que seja pago apenas com cartão de crédito ou boleto, sem poder mudar a forma de pagamento.
+
 = 1.0.6 - 2015/05/01 =
 
 * Melhorada a forma que os valores são convertidos para centavos antes de enviar para a API do Iugu.
@@ -187,17 +191,6 @@ Abra um tópico para a sua pergunta [aqui](http://wordpress.org/support/plugin/i
 
 == Upgrade Notice ==
 
-= 1.0.6 =
+= 1.0.7 =
 
-* Melhorada a forma que os valores são convertidos para centavos antes de enviar para a API do Iugu.
-* Melhorado o campo de "Nome impresso no cartão" do formulário de cartão de crédito.
-* Corrigido carregamento do JavaScript das opções de cartão de crédito quando instalado o WooCommerce Subscriptions.
-* Correções no HTML das instruções do cartão de crédito após o pagamento.
-
-== License ==
-
-WooCommerce Iugu is free software: you can redistribute it and/or modify it under the terms of the GNU General Public License as published by the Free Software Foundation, either version 3 of the License, or (at your option) any later version.
-
-WooCommerce Iugu is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU General Public License for more details.
-
-You should have received a copy of the GNU General Public License along with WooCommerce Iugu. If not, see <http://www.gnu.org/licenses/>.
+* Melhorada a geração das faturas, agora garantindo que seja pago apenas com cartão de crédito ou boleto, sem poder mudar a forma de pagamento.
