@@ -119,14 +119,6 @@ module.exports = function( grunt ) {
 				],
 				expand: true
 			}
-		},
-
-		// Convert .po files to .mo
-		po2mo: {
-			files: {
-				src: 'languages/*.po',
-				expand: true
-			}
 		}
 	});
 
@@ -137,7 +129,6 @@ module.exports = function( grunt ) {
 	grunt.loadNpmTasks( 'grunt-contrib-cssmin' );
 	grunt.loadNpmTasks( 'grunt-wp-i18n' );
 	grunt.loadNpmTasks( 'grunt-checktextdomain' );
-	grunt.loadNpmTasks( 'grunt-po2mo' );
 
 	// Register tasks
 	grunt.registerTask( 'default', [
