@@ -22,7 +22,7 @@ class WC_Iugu_Bank_Slip_Addons_Gateway extends WC_Iugu_Bank_Slip_Gateway {
 		parent::__construct();
 
 		if ( class_exists( 'WC_Subscriptions_Order' ) ) {
-			add_action( 'scheduled_subscription_payment_' . $this->id, array( $this, 'scheduled_subscription_payment' ), 10, 2 );
+			add_action( 'woocommerce_scheduled_subscription_payment_' . $this->id, array( $this, 'scheduled_subscription_payment' ), 10, 2 );
 		}
 
 		if ( class_exists( 'WC_Pre_Orders_Order' ) ) {
