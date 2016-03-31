@@ -8,12 +8,12 @@ if ( ! defined( 'ABSPATH' ) ) {
  *
  * Integration with WooCommerce Subscriptions and Pre-orders.
  *
- * @class   WC_Iugu_Bank_Slip_Addons_Gateway
+ * @class   WC_Iugu_Bank_Slip_Addons_Gateway_Deprecated
  * @extends WC_Iugu_Bank_Slip_Gateway
  * @version 1.0.0
  * @author  Iugu
  */
-class WC_Iugu_Bank_Slip_Addons_Gateway extends WC_Iugu_Bank_Slip_Gateway {
+class WC_Iugu_Bank_Slip_Addons_Gateway_Deprecated extends WC_Iugu_Bank_Slip_Gateway {
 
 	/**
 	 * Constructor.
@@ -22,7 +22,7 @@ class WC_Iugu_Bank_Slip_Addons_Gateway extends WC_Iugu_Bank_Slip_Gateway {
 		parent::__construct();
 
 		if ( class_exists( 'WC_Subscriptions_Order' ) ) {
-			add_action( 'scheduled_subscription_payment_' . $this->id, array( $this, 'scheduled_subscription_payment' ), 10, 2 );
+			add_action( 'scheduled_subscription_payment_' . $this->id, array( $this, 'scheduled_subscription_payment' ), 10, 3 );
 		}
 
 		if ( class_exists( 'WC_Pre_Orders_Order' ) ) {
@@ -43,8 +43,11 @@ class WC_Iugu_Bank_Slip_Addons_Gateway extends WC_Iugu_Bank_Slip_Gateway {
 		try {
 			$order = new WC_Order( $order_id );
 
-			$payment_response = $this->process_subscription_payment( $order, $order->get_total() );
-
+			// Try to do an initial payment.
+			$initial_payment = WC_Subscriptions_Order::get_total_initial_payment( $order );
+			if ( $initial_payment > 0 ) {
+				$payment_response = $this->process_subscription_payment( $order, $initial_payment );
+			}
 			if ( isset( $payment_response ) && is_wp_error( $payment_response ) ) {
 				throw new Exception( $payment_response->get_error_message() );
 			} else {
@@ -132,7 +135,7 @@ class WC_Iugu_Bank_Slip_Addons_Gateway extends WC_Iugu_Bank_Slip_Gateway {
 	}
 
 	/**
-	 * Process subscription payment.
+	 * process_subscription_payment function.
 	 *
 	 * @param WC_order $order
 	 * @param int      $amount (default: 0)
@@ -140,13 +143,6 @@ class WC_Iugu_Bank_Slip_Addons_Gateway extends WC_Iugu_Bank_Slip_Gateway {
 	 * @return bool|WP_Error
 	 */
 	public function process_subscription_payment( $order = '', $amount = 0 ) {
-		if ( 0 == $amount ) {
-			// Payment complete.
-			$order->payment_complete();
-
-			return true;
-		}
-
 		if ( 'yes' == $this->debug ) {
 			$this->log->add( $this->id, 'Processing a subscription payment for order ' . $order->get_order_number() );
 		}
@@ -187,14 +183,17 @@ class WC_Iugu_Bank_Slip_Addons_Gateway extends WC_Iugu_Bank_Slip_Gateway {
 	/**
 	 * Scheduled subscription payment.
 	 *
-	 * @param float $amount_to_charge The amount to charge.
-	 * @param WC_Order $renewal_order A WC_Order object created to record the renewal payment.
+	 * @param float    $amount_to_charge The amount to charge.
+	 * @param WC_Order $order            The WC_Order object of the order which the subscription was purchased in.
+	 * @param int      $product_id       The ID of the subscription product for which this payment relates.
 	 */
-	public function scheduled_subscription_payment( $amount_to_charge, $renewal_order ) {
-		$result = $this->process_subscription_payment( $renewal_order, $amount_to_charge );
+	public function scheduled_subscription_payment( $amount_to_charge, $order, $product_id ) {
+		$result = $this->process_subscription_payment( $order, $amount_to_charge );
 
 		if ( is_wp_error( $result ) ) {
-			$renewal_order->update_status( 'failed', $result->get_error_message() );
+			WC_Subscriptions_Manager::process_subscription_payment_failure_on_order( $order, $product_id );
+		} else {
+			WC_Subscriptions_Manager::process_subscription_payments_on_order( $order );
 		}
 	}
 

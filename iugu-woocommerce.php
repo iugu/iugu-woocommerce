@@ -94,8 +94,14 @@ class WC_Iugu {
 		include_once 'includes/class-wc-iugu-credit-card-gateway.php';
 
 		if ( class_exists( 'WC_Subscriptions_Order' ) || class_exists( 'WC_Pre_Orders_Order' ) ) {
-			include_once 'includes/class-wc-iugu-bank-slip-addons-gateway.php';
-			include_once 'includes/class-wc-iugu-credit-card-addons-gateway.php';
+			// Subscriptions < 2.0.
+			if ( ! function_exists( 'wcs_create_renewal_order' ) ) {
+				include_once 'includes/class-wc-iugu-bank-slip-addons-gateway-deprecated.php';
+				include_once 'includes/class-wc-iugu-credit-card-addons-gateway-deprecated.php';
+			} else {
+				include_once 'includes/class-wc-iugu-bank-slip-addons-gateway.php';
+				include_once 'includes/class-wc-iugu-credit-card-addons-gateway.php';
+			}
 		}
 	}
 
@@ -108,8 +114,13 @@ class WC_Iugu {
 	 */
 	public function add_gateway( $methods ) {
 		if ( class_exists( 'WC_Subscriptions_Order' ) || class_exists( 'WC_Pre_Orders_Order' ) ) {
-			$methods[] = 'WC_Iugu_Credit_Card_Addons_Gateway';
-			$methods[] = 'WC_Iugu_Bank_Slip_Addons_Gateway';
+			if ( ! function_exists( 'wcs_create_renewal_order' ) ) {
+				$methods[] = 'WC_Iugu_Credit_Card_Addons_Gateway_Deprecated';
+				$methods[] = 'WC_Iugu_Bank_Slip_Addons_Gateway_Deprecated';
+			} else {
+				$methods[] = 'WC_Iugu_Credit_Card_Addons_Gateway';
+				$methods[] = 'WC_Iugu_Bank_Slip_Addons_Gateway';
+			}
 		} else {
 			$methods[] = 'WC_Iugu_Credit_Card_Gateway';
 			$methods[] = 'WC_Iugu_Bank_Slip_Gateway';
@@ -161,8 +172,13 @@ class WC_Iugu {
 		}
 
 		if ( class_exists( 'WC_Subscriptions_Order' ) || class_exists( 'WC_Pre_Orders_Order' ) ) {
-			$credit_card = 'wc_iugu_credit_card_addons_gateway';
-			$bank_slip   = 'wc_iugu_bank_slip_addons_Gateway';
+			if ( ! function_exists( 'wcs_create_renewal_order' ) ) {
+				$credit_card = 'wc_iugu_credit_card_addons_gateway_deprecated';
+				$bank_slip   = 'wc_iugu_bank_slip_addons_gateway_deprecated';
+			} else {
+				$credit_card = 'wc_iugu_credit_card_addons_gateway';
+				$bank_slip   = 'wc_iugu_bank_slip_addons_gateway';
+			}
 		} else  {
 			$credit_card = 'wc_iugu_credit_card_Gateway';
 			$bank_slip   = 'wc_iugu_bank_slip_gateway';
