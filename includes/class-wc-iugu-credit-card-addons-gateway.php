@@ -22,9 +22,13 @@ class WC_Iugu_Credit_Card_Addons_Gateway extends WC_Iugu_Credit_Card_Gateway {
 		parent::__construct();
 
 		if ( class_exists( 'WC_Subscriptions_Order' ) ) {
-			add_action( 'scheduled_subscription_payment_' . $this->id, array( $this, 'scheduled_subscription_payment' ), 10, 3 );
-			add_filter( 'woocommerce_subscriptions_renewal_order_meta_query', array( $this, 'remove_renewal_order_meta' ), 10, 4 );
-			add_action( 'woocommerce_subscriptions_changed_failing_payment_method_' . $this->id, array( $this, 'update_failing_payment_method' ), 10, 3 );
+			add_action( 'woocommerce_scheduled_subscription_payment_' . $this->id, array( $this, 'scheduled_subscription_payment' ), 10, 2 );
+			add_action( 'woocommerce_subscription_failing_payment_method_updated_' . $this->id, array( $this, 'update_failing_payment_method' ), 10, 2 );
+			add_action( 'wcs_resubscribe_order_created', array( $this, 'delete_resubscribe_meta' ), 10 );
+
+			// Allow store managers to manually set Simplify as the payment method on a subscription.
+			add_filter( 'woocommerce_subscription_payment_meta', array( $this, 'add_subscription_payment_meta' ), 10, 2 );
+			add_filter( 'woocommerce_subscription_validate_payment_meta', array( $this, 'validate_subscription_payment_meta' ), 10, 2 );
 		}
 
 		if ( class_exists( 'WC_Pre_Orders_Order' ) ) {
@@ -50,9 +54,7 @@ class WC_Iugu_Credit_Card_Addons_Gateway extends WC_Iugu_Credit_Card_Gateway {
 					$this->log->add( $this->id, 'Error doing the subscription for order ' . $order->get_order_number() . ': Missing the "iugu_token".' );
 				}
 
-				$error_msg = __( 'Please make sure your card details have been entered correctly and that your browser supports JavaScript.', 'iugu-woocommerce' );
-
-				throw new Exception( $error_msg );
+				throw new Exception( __( 'Please make sure your card details have been entered correctly and that your browser supports JavaScript.', 'iugu-woocommerce' ) );
 			}
 
 			// Create customer payment method.
@@ -62,19 +64,14 @@ class WC_Iugu_Credit_Card_Addons_Gateway extends WC_Iugu_Credit_Card_Gateway {
 					$this->log->add( $this->id, 'Invalid customer method ID for order ' . $order->get_order_number() );
 				}
 
-				$error_msg = __( 'An error occurred while trying to save your data. Please contact us for get help.', 'iugu-woocommerce' );
-
-				throw new Exception( $error_msg );
+				throw new Exception( __( 'An error occurred while trying to save your data. Please contact us for get help.', 'iugu-woocommerce' ) );
 			}
 
 			// Save the payment method ID in order data.
 			update_post_meta( $order->id, '_iugu_customer_payment_method_id', $payment_method_id );
 
-			// Try to do an initial payment.
-			$initial_payment = WC_Subscriptions_Order::get_total_initial_payment( $order );
-			if ( $initial_payment > 0 ) {
-				$payment_response = $this->process_subscription_payment( $order, $initial_payment );
-			}
+			$payment_response = $this->process_subscription_payment( $order, $order->get_total() );
+
 			if ( isset( $payment_response ) && is_wp_error( $payment_response ) ) {
 				throw new Exception( $payment_response->get_error_message() );
 			} else {
@@ -187,7 +184,7 @@ class WC_Iugu_Credit_Card_Addons_Gateway extends WC_Iugu_Credit_Card_Gateway {
 	}
 
 	/**
-	 * process_subscription_payment function.
+	 * Process subscription payment.
 	 *
 	 * @param WC_order $order
 	 * @param int      $amount (default: 0)
@@ -195,6 +192,13 @@ class WC_Iugu_Credit_Card_Addons_Gateway extends WC_Iugu_Credit_Card_Gateway {
 	 * @return bool|WP_Error
 	 */
 	public function process_subscription_payment( $order = '', $amount = 0 ) {
+		if ( 0 == $amount ) {
+			// Payment complete.
+			$order->payment_complete();
+
+			return true;
+		}
+
 		if ( 'yes' == $this->debug ) {
 			$this->log->add( $this->id, 'Processing a subscription payment for order ' . $order->get_order_number() );
 		}
@@ -237,50 +241,73 @@ class WC_Iugu_Credit_Card_Addons_Gateway extends WC_Iugu_Credit_Card_Gateway {
 	/**
 	 * Scheduled subscription payment.
 	 *
-	 * @param float    $amount_to_charge The amount to charge.
-	 * @param WC_Order $order            The WC_Order object of the order which the subscription was purchased in.
-	 * @param int      $product_id       The ID of the subscription product for which this payment relates.
+	 * @param float $amount_to_charge The amount to charge.
+	 * @param WC_Order $renewal_order A WC_Order object created to record the renewal payment.
 	 */
-	public function scheduled_subscription_payment( $amount_to_charge, $order, $product_id ) {
-		$result = $this->process_subscription_payment( $order, $amount_to_charge );
+	public function scheduled_subscription_payment( $amount_to_charge, $renewal_order ) {
+		$result = $this->process_subscription_payment( $renewal_order, $amount_to_charge );
 
 		if ( is_wp_error( $result ) ) {
-			WC_Subscriptions_Manager::process_subscription_payment_failure_on_order( $order, $product_id );
-		} else {
-			WC_Subscriptions_Manager::process_subscription_payments_on_order( $order );
+			$renewal_order->update_status( 'failed', $result->get_error_message() );
 		}
 	}
 
 	/**
-	 * Don't transfer customer meta when creating a parent renewal order.
-	 *
-	 * @param  string $order_meta_query  MySQL query for pulling the metadata
-	 * @param  int    $original_order_id Post ID of the order being used to purchased the subscription being renewed.
-	 * @param  int    $renewal_order_id  Post ID of the order created for renewing the subscription.
-	 * @param  string $new_order_role T  he role the renewal order is taking, one of 'parent' or 'child'.
-	 *
-	 * @return string
-	 */
-	public function remove_renewal_order_meta( $order_meta_query, $original_order_id, $renewal_order_id, $new_order_role ) {
-		if ( 'parent' == $new_order_role ) {
-			$order_meta_query .= " AND `meta_key` NOT LIKE '_iugu_customer_payment_method_id' ";
-		}
-
-		return $order_meta_query;
-	}
-
-	/**
-	 * Update the customer_id for a subscription after using Simplify to complete a payment to make up for
+	 * Update the customer_id for a subscription after using Simplify to complete a payment to make up for.
 	 * an automatic renewal payment which previously failed.
 	 *
-	 * @param WC_Order $original_order   The original order in which the subscription was purchased.
-	 * @param WC_Order $renewal_order    The order which recorded the successful payment (to make up for the failed automatic payment).
-	 * @param string   $subscription_key A subscription key of the form created by @see WC_Subscriptions_Manager::get_subscription_key().
+	 * @param WC_Subscription $subscription The subscription for which the failing payment method relates.
+	 * @param WC_Order $renewal_order The order which recorded the successful payment (to make up for the failed automatic payment).
 	 */
-	public function update_failing_payment_method( $original_order, $renewal_order, $subscription_key ) {
-		$new_customer_id = get_post_meta( $renewal_order->id, '_iugu_customer_payment_method_id', true );
+	public function update_failing_payment_method( $subscription, $renewal_order ) {
+		update_post_meta( $subscription->id, '_iugu_customer_payment_method_id', get_post_meta( $renewal_order->id, '_iugu_customer_payment_method_id', true ) );
+	}
 
-		update_post_meta( $original_order->id, '_iugu_customer_payment_method_id', $new_customer_id );
+	/**
+	 * Don't transfer customer meta to resubscribe orders.
+	 *
+	 * @param int $resubscribe_order The order created for the customer to resubscribe to the old expired/cancelled subscription.
+	 */
+	public function delete_resubscribe_meta( $resubscribe_order ) {
+		delete_post_meta( $resubscribe_order->id, '_iugu_customer_payment_method_id' );
+	}
+
+	/**
+	 * Include the payment meta data required to process automatic recurring payments so that store managers can.
+	 * manually set up automatic recurring payments for a customer via the Edit Subscription screen in Subscriptions v2.0+.
+	 *
+	 * @param array $payment_meta associative array of meta data required for automatic payments
+	 * @param WC_Subscription $subscription An instance of a subscription object
+	 * @return array
+	 */
+	public function add_subscription_payment_meta( $payment_meta, $subscription ) {
+		$payment_meta[ $this->id ] = array(
+			'post_meta' => array(
+				'_iugu_customer_payment_method_id' => array(
+					'value' => get_post_meta( $subscription->id, '_iugu_customer_payment_method_id', true ),
+					'label' => 'Iugu Payment Method ID',
+				),
+			),
+		);
+
+		return $payment_meta;
+	}
+
+	/**
+	 * Validate the payment meta data required to process automatic recurring payments so that store managers can.
+	 * manually set up automatic recurring payments for a customer via the Edit Subscription screen in Subscriptions 2.0+.
+	 *
+	 * @param  string $payment_method_id The ID of the payment method to validate.
+	 * @param  array $payment_meta associative array of meta data required for automatic payments.
+	 * @return array
+	 * @throws Exception
+	 */
+	public function validate_subscription_payment_meta( $payment_method_id, $payment_meta ) {
+		if ( $this->id === $payment_method_id ) {
+			if ( ! isset( $payment_meta['post_meta']['_iugu_customer_payment_method_id']['value'] ) || empty( $payment_meta['post_meta']['_iugu_customer_payment_method_id']['value'] ) ) {
+				throw new Exception( 'A "_iugu_customer_payment_method_id" value is required.' );
+			}
+		}
 	}
 
 	/**
