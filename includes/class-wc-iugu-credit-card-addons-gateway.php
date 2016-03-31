@@ -401,11 +401,12 @@ class WC_Iugu_Credit_Card_Addons_Gateway extends WC_Iugu_Credit_Card_Gateway {
 			woocommerce_get_template(
 				'credit-card/payment-form.php',
 				array(
-					'order_total'      => 0,
-					'installments'     => 0,
-					'free_interest'    => 0,
-					'transaction_rate' => 0,
-					'rates'            => array()
+					'order_total'          => 0,
+					'installments'         => 0,
+					'smallest_installment' => 0,
+					'free_interest'        => 0,
+					'transaction_rate'     => 0,
+					'rates'                => array()
 				),
 				'woocommerce/iugu/',
 				WC_Iugu::get_templates_path()

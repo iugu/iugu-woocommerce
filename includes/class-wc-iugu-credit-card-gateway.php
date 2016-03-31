@@ -49,17 +49,18 @@ class WC_Iugu_Credit_Card_Gateway extends WC_Payment_Gateway {
 		$this->init_settings();
 
 		// Options.
-		$this->title            = $this->get_option( 'title' );
-		$this->description      = $this->get_option( 'description' );
-		$this->account_id       = $this->get_option( 'account_id' );
-		$this->api_token        = $this->get_option( 'api_token' );
-		$this->installments     = $this->get_option( 'installments' );
-		$this->pass_interest    = $this->get_option( 'pass_interest' );
-		$this->free_interest    = $this->get_option( 'free_interest' );
-		$this->transaction_rate = $this->get_option( 'transaction_rate', 7 );
-		$this->send_only_total  = $this->get_option( 'send_only_total', 'no' );
-		$this->sandbox          = $this->get_option( 'sandbox', 'no' );
-		$this->debug            = $this->get_option( 'debug' );
+		$this->title                = $this->get_option( 'title' );
+		$this->description          = $this->get_option( 'description' );
+		$this->account_id           = $this->get_option( 'account_id' );
+		$this->api_token            = $this->get_option( 'api_token' );
+		$this->installments         = $this->get_option( 'installments' );
+		$this->pass_interest        = $this->get_option( 'pass_interest' );
+		$this->smallest_installment = $this->get_option( 'smallest_installment', 5 );
+		$this->free_interest        = $this->get_option( 'free_interest' );
+		$this->transaction_rate     = $this->get_option( 'transaction_rate', 7 );
+		$this->send_only_total      = $this->get_option( 'send_only_total', 'no' );
+		$this->sandbox              = $this->get_option( 'sandbox', 'no' );
+		$this->debug                = $this->get_option( 'debug' );
 
 		// Active logs.
 		if ( 'yes' == $this->debug ) {
@@ -163,6 +164,13 @@ class WC_Iugu_Credit_Card_Gateway extends WC_Payment_Gateway {
 					'min'  => '1',
 					'max'  => '12'
 				)
+			),
+			'smallest_installment' => array(
+				'title'       => __( 'Smallest Installment', 'iugu-woocommerce' ),
+				'type'        => 'text',
+				'description' => __( 'Smallest value of each installment, cannot be less than 5.', 'iugu-woocommerce' ),
+				'desc_tip'    => true,
+				'default'     => '5'
 			),
 			'pass_interest' => array(
 				'title'       => __( 'Pass interest rate', 'iugu-woocommerce' ),
@@ -276,11 +284,12 @@ class WC_Iugu_Credit_Card_Gateway extends WC_Payment_Gateway {
 		woocommerce_get_template(
 			'credit-card/payment-form.php',
 			array(
-				'order_total'      => $order_total,
-				'installments'     => intval( $this->installments ),
-				'free_interest'    => 'yes' == $this->pass_interest ? intval( $this->free_interest ) : 12,
-				'transaction_rate' => $this->api->get_transaction_rate(),
-				'rates'            => $this->api->get_interest_rate()
+				'order_total'          => $order_total,
+				'installments'         => intval( $this->installments ),
+				'smallest_installment' => 5 <= $this->smallest_installment ? $this->smallest_installment : 5,
+				'free_interest'        => 'yes' == $this->pass_interest ? intval( $this->free_interest ) : 12,
+				'transaction_rate'     => $this->api->get_transaction_rate(),
+				'rates'                => $this->api->get_interest_rate()
 			),
 			'woocommerce/iugu/',
 			WC_Iugu::get_templates_path()

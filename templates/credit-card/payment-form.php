@@ -4,7 +4,7 @@
  *
  * @author  Iugu
  * @package Iugu_WooCommerce/Templates
- * @version 1.0.0
+ * @version 1.1.0
  */
 
 if ( ! defined( 'ABSPATH' ) ) {
@@ -47,8 +47,8 @@ if ( ! defined( 'ABSPATH' ) ) {
 						$interest_text     = __( 'with interest', 'iugu-woocommerce' );
 					}
 
-					// Stop when the installment total is less than 5.
-					if ( $installment_total < 5 ) {
+					// Stop when the installment total is less than the smallest installment configure.
+					if ( $installment_total < $smallest_installment ) {
 						break;
 					}
 					?>
