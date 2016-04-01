@@ -167,7 +167,13 @@ class WC_Iugu_API {
 	 * @return bool
 	 */
 	public function order_contains_subscription( $order_id ) {
-		return class_exists( 'WC_Subscriptions_Order' ) && ( WC_Subscriptions_Order::order_contains_subscription( $order_id ) || WC_Subscriptions_Renewal_Order::is_renewal( $order_id ) );
+		if ( function_exists( 'wcs_order_contains_subscription' ) ) {
+			return wcs_order_contains_subscription( $order_id ) || wcs_order_contains_resubscribe( $order_id );
+		} elseif ( class_exists( 'WC_Subscriptions_Order' ) ) {
+			return WC_Subscriptions_Order::order_contains_subscription( $order_id ) || WC_Subscriptions_Renewal_Order::is_renewal( $order_id );
+		}
+
+		return false;
 	}
 
 	/**
