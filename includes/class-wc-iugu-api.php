@@ -249,6 +249,20 @@ class WC_Iugu_API {
 	}
 
 	/**
+	 * Get customer payment method id
+	 * 
+	 * @return string Payment Method Id
+	 */
+	public function get_customer_payment_method_id() {
+		$customer_id = get_user_meta( get_current_user_id(), '_iugu_customer_id', true );
+		$endpoint = 'customers/' .  $customer_id;
+
+		$response = $this->do_request( $endpoint, 'GET' );
+		$data = json_decode( $response['body'], true );
+		return $data['default_payment_method_id'];
+	}
+
+	/**
 	 * Do requests in the Iugu API.
 	 *
 	 * @param  string $endpoint API Endpoint.
@@ -700,7 +714,8 @@ class WC_Iugu_API {
 
 		$data = array(
 			'email' => $order->billing_email,
-			'name'  => trim( $order->billing_first_name . ' ' . $order->billing_last_name )
+			'name'  => trim( $order->billing_first_name . ' ' . $order->billing_last_name ),
+			'set_as_default' => true
 		);
 
 		if ( $cpf_cnpj = $this->get_cpf_cnpj( $order ) ) {
