@@ -2,8 +2,8 @@
 **Contributors:** iugu, claudiosanches, braising  
 **Tags:** woocommerce, iugu, payment  
 **Requires at least:** 3.9  
-**Tested up to:** 4.4  
-**Stable tag:** 1.0.7  
+**Tested up to:** 4.5  
+**Stable tag:** 1.0.8  
 **License:** GPLv2 or later  
 **License URI:** http://www.gnu.org/licenses/gpl-2.0.html  
 
@@ -19,7 +19,7 @@ Saiba mais como o Iugu funciona em [Iugu - Entendendo como tudo funciona](https:
 
 ### Compatibilidade ###
 
-Compatível com as versões 2.1.x, 2.2.x, 2.3.x, 2.4.x e 2.5.x do WooCommerce.
+Compatível desde a versão 2.1.x até 2.6.x do WooCommerce.
 
 Este plugin funciona integrado com o [WooCommerce Extra Checkout Fields for Brazil](http://wordpress.org/plugins/woocommerce-extra-checkout-fields-for-brazil/), desta forma é possível enviar documentos do cliente como "CPF" ou "CNPJ", além dos campos "número" e "bairro" do endereço.
 
@@ -40,7 +40,7 @@ Você pode esclarecer suas dúvidas usando:
 * Criando um tópico no [fórum de público do WordPress](http://wordpress.org/support/plugin/iugu-woocommerce).
 * Criando um tópico no [fórum do Github](https://github.com/iugu/iugu-woocommerce/issues).
 
-### Coloborar ###
+### Colaborar ###
 
 Você pode contribuir com código-fonte em nossa página no [GitHub](https://github.com/iugu/iugu-woocommerce).
 
@@ -144,19 +144,26 @@ Abra um tópico para a sua pergunta [aqui](http://wordpress.org/support/plugin/i
 ## Screenshots ##
 
 ### 1. Configurações do método de cartão de crédito. ###
-![1. Configurações do método de cartão de crédito.](http://ps.w.org/iugu-woocommerce/assets/screenshot-1.png)
+![1. Configurações do método de cartão de crédito.](http://ps.w.org/woocommerce-iugu/assets/screenshot-1.png)
 
 ### 2. Configurações do método de boleto bancário. ###
-![2. Configurações do método de boleto bancário.](http://ps.w.org/iugu-woocommerce/assets/screenshot-2.png)
+![2. Configurações do método de boleto bancário.](http://ps.w.org/woocommerce-iugu/assets/screenshot-2.png)
 
 ### 2. Opção de cartão de crédito na página de finalizar compra. ###
-![2. Opção de cartão de crédito na página de finalizar compra.](http://ps.w.org/iugu-woocommerce/assets/screenshot-3.png)
+![2. Opção de cartão de crédito na página de finalizar compra.](http://ps.w.org/woocommerce-iugu/assets/screenshot-3.png)
 
 ### 2. Opção de boleto bancário na página de finalizar compra. ###
-![2. Opção de boleto bancário na página de finalizar compra.](http://ps.w.org/iugu-woocommerce/assets/screenshot-4.png)
+![2. Opção de boleto bancário na página de finalizar compra.](http://ps.w.org/woocommerce-iugu/assets/screenshot-4.png)
 
 
 ## Changelog ##
+
+### 1.0.8 - 2016/06/17 ###
+
+* Corrigido suporte para WooCommerce 2.6+.
+* Adicionado suporte para WooCommerce Subscriptions 2.0+.
+* Corrigido suporte a assinaturas.
+* Corrigida a exibição de CPF/CPNJ em boletos.
 
 ### 1.0.7 - 2016/02/09 ###
 
@@ -199,6 +206,9 @@ Abra um tópico para a sua pergunta [aqui](http://wordpress.org/support/plugin/i
 
 ## Upgrade Notice ##
 
-### 1.0.7 ###
+### 1.0.8 ###
 
-* Melhorada a geração das faturas, agora garantindo que seja pago apenas com cartão de crédito ou boleto, sem poder mudar a forma de pagamento.
+* Corrigido suporte para WooCommerce 2.6+.
+* Adicionado suporte para WooCommerce Subscriptions 2.0+.
+* Corrigido suporte a assinaturas.
+* Corrigida a exibição de CPF/CPNJ em boletos.
