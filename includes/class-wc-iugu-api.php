@@ -390,7 +390,7 @@ class WC_Iugu_API {
 			'email'            => $order->billing_email,
 			'due_date'         => $this->get_invoice_due_date(),
 			'return_url'       => $this->gateway->get_return_url( $order ),
-			'expired_url'      => $order->get_cancel_order_url(),
+			'expired_url'      => str_replace( '&#038;', '&', $order->get_cancel_order_url() ),
 			'notification_url' => $this->get_wc_request_url(),
 			'ignore_due_email' => true,
 			'payable_with'     => 'credit-card' === $this->method ? 'credit_card' : 'bank_slip',
