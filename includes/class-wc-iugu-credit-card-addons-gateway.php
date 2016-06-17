@@ -210,7 +210,10 @@ class WC_Iugu_Credit_Card_Addons_Gateway extends WC_Iugu_Credit_Card_Gateway {
 		// TODO: Check deprecated warning (get_formatted_legacy), somewhere inside process_subscription_payment
 		if ( ! $payment_method_id ) {
 			$payment_method_id = $this->api->get_customer_payment_method_id();
-			update_post_meta( $order->id, '_iugu_customer_payment_method_id', $payment_method_id );
+
+			if ( ! empty( $payment_method_id ) ) {
+				update_post_meta( $order->id, '_iugu_customer_payment_method_id', $payment_method_id );
+			}
 		}
 
 		if ( ! $payment_method_id ) {

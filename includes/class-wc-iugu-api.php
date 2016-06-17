@@ -250,16 +250,16 @@ class WC_Iugu_API {
 
 	/**
 	 * Get customer payment method id
-	 * 
+	 *
 	 * @return string Payment Method Id
 	 */
 	public function get_customer_payment_method_id() {
 		$customer_id = get_user_meta( get_current_user_id(), '_iugu_customer_id', true );
-		$endpoint = 'customers/' .  $customer_id;
+		$endpoint    = 'customers/' .  $customer_id;
+		$response    = $this->do_request( $endpoint, 'GET' );
+		$data        = isset( $response['body'] ) ? json_decode( $response['body'], true ) : array();
 
-		$response = $this->do_request( $endpoint, 'GET' );
-		$data = json_decode( $response['body'], true );
-		return $data['default_payment_method_id'];
+		return isset( $data['default_payment_method_id'] ) ? $data['default_payment_method_id'] : '';
 	}
 
 	/**
