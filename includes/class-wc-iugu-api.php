@@ -413,8 +413,27 @@ class WC_Iugu_API {
 					'name'  => 'order_id',
 					'value' => $order->id
 				)
-			)
+			),
+			'payer'      => array(
+				'name'         => $order->billing_first_name . ' ' . $order->billing_last_name,
+				'phone_prefix' => $phone_number['area_code'],
+				'phone'        => $phone_number['number'],
+				'email'        => $order->billing_email,
+				'address'      => array(
+					'street'   => $order->billing_address_1,
+					'number'   => $order->billing_number,
+					'city'     => $order->billing_city,
+					'state'    => $order->billing_state,
+					'country'  => isset( WC()->countries->countries[ $order->billing_country ] ) ? WC()->countries->countries[ $order->billing_country ] : $order->billing_country,
+					'zip_code' => $this->only_numbers( $order->billing_postcode )
+				)
+			),
 		);
+
+
+		if ( $cpf_cnpj = $this->get_cpf_cnpj( $order ) ) {
+			$data['payer']['cpf_cnpj'] = $cpf_cnpj;
+		}
 
 		// Force only one item.
 		if ( 'yes' == $this->gateway->send_only_total ) {
@@ -609,25 +628,7 @@ class WC_Iugu_API {
 		$phone_number = $this->get_phone_number( $order );
 		$data = array(
 			'invoice_id' => $invoice_id,
-			'payer'      => array(
-				'name'         => $order->billing_first_name . ' ' . $order->billing_last_name,
-				'phone_prefix' => $phone_number['area_code'],
-				'phone'        => $phone_number['number'],
-				'email'        => $order->billing_email,
-				'address'      => array(
-					'street'   => $order->billing_address_1,
-					'number'   => $order->billing_number,
-					'city'     => $order->billing_city,
-					'state'    => $order->billing_state,
-					'country'  => isset( WC()->countries->countries[ $order->billing_country ] ) ? WC()->countries->countries[ $order->billing_country ] : $order->billing_country,
-					'zip_code' => $this->only_numbers( $order->billing_postcode )
-				)
-			)
 		);
-
-		if ( $cpf_cnpj = $this->get_cpf_cnpj( $order ) ) {
-			$data['payer']['cpf_cnpj'] = $cpf_cnpj;
-		}
 
 		// Credit Card.
 		if ( 'credit-card' == $this->method ) {
@@ -713,8 +714,8 @@ class WC_Iugu_API {
 		}
 
 		$data = array(
-			'email' => $order->billing_email,
-			'name'  => trim( $order->billing_first_name . ' ' . $order->billing_last_name ),
+			'email'          => $order->billing_email,
+			'name'           => trim( $order->billing_first_name . ' ' . $order->billing_last_name ),
 			'set_as_default' => true
 		);
 
