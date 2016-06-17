@@ -205,6 +205,14 @@ class WC_Iugu_Credit_Card_Addons_Gateway extends WC_Iugu_Credit_Card_Gateway {
 
 		$payment_method_id = get_post_meta( $order->id, '_iugu_customer_payment_method_id', true );
 
+		// TODO: It's a workaround.
+		// TODO: The payment method can`t repeat for each product order, it should have some options which  client can manage.
+		// TODO: Check deprecated warning (get_formatted_legacy), somewhere inside process_subscription_payment
+		if ( ! $payment_method_id ) {
+			$payment_method_id = $this->api->get_customer_payment_method_id();
+			update_post_meta( $order->id, '_iugu_customer_payment_method_id', $payment_method_id );
+		}
+
 		if ( ! $payment_method_id ) {
 			if ( 'yes' == $this->debug ) {
 				$this->log->add( $this->id, 'Missing customer payment method ID in subscription payment for order ' . $order->get_order_number() );
