@@ -61,7 +61,7 @@ Você deve pegar o seu **ID da conta** e gerar uma **API Token** (do tipo _LIVE_
 
 Além disso é necessário habilitar o cartão de crédito e o boleto bancário na sua conta em [Administração > Métodos de Pagamento](https://iugu.com/a/account_payments).
 
-Note que para aceitar pagamento com carao de crédito é necessário enviar uma certa documentação para o Iugu, veja mais detalhes em: [Qual é a documentação necessária para aceitar pagamento com cartão crédito?](http://support.iugu.com/hc/pt-br/articles/202342429-Qual-%C3%A9-a-documenta%C3%A7%C3%A3o-necess%C3%A1ria-para-aceitar-pagamento-com-cart%C3%A3o-cr%C3%A9dito-)
+Note que para aceitar pagamento com cartão de crédito é necessário enviar uma certa documentação para o Iugu, veja mais detalhes em: [Qual é a documentação necessária para aceitar pagamento com cartão crédito?](http://support.iugu.com/hc/pt-br/articles/202342429-Qual-%C3%A9-a-documenta%C3%A7%C3%A3o-necess%C3%A1ria-para-aceitar-pagamento-com-cart%C3%A3o-cr%C3%A9dito-)
 
 = Configurações do Plugin: =
 
@@ -93,7 +93,7 @@ Pronto, sua loja já pode receber pagamentos pelo Iugu.
 
 = Sandbox =
 
-É possível tambeḿ trabalhar com o plugin no modo sandbox, desta forma você pode testar pagamentos antes de realmente utilizar o plugin em produção.
+É possível também trabalhar com o plugin no modo sandbox, desta forma você pode testar pagamentos antes de realmente utilizar o plugin em produção.
 
 Para utilizar em modo Sandbox você deve criar uma **API Token** do tipo _TEST_ dentro da [sua conta no Iugu](https://iugu.com/settings/account) e ativar a opção "Sandbox do Iugu" no plugin.
 
