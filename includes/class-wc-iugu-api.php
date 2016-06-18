@@ -398,9 +398,9 @@ class WC_Iugu_API {
 	 * @return array
 	 */
 	protected function get_invoice_data( $order ) {
-		$items = array();
-
-		$data = array(
+		$items        = array();
+		$phone_number = $this->get_phone_number( $order );
+		$data         = array(
 			'email'            => $order->billing_email,
 			'due_date'         => $this->get_invoice_due_date(),
 			'return_url'       => $this->gateway->get_return_url( $order ),
@@ -625,7 +625,6 @@ class WC_Iugu_API {
 			return array();
 		}
 
-		$phone_number = $this->get_phone_number( $order );
 		$data = array(
 			'invoice_id' => $invoice_id,
 		);
