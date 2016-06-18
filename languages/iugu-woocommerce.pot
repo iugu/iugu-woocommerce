@@ -2,9 +2,9 @@
 # This file is distributed under the GPLv2 or later.
 msgid ""
 msgstr ""
-"Project-Id-Version: Iugu WooCommerce 1.0.8\n"
+"Project-Id-Version: Iugu WooCommerce 1.0.9\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/iugu-woocommerce\n"
-"POT-Creation-Date: 2016-06-17 21:10:27+00:00\n"
+"POT-Creation-Date: 2016-06-18 08:51:09+00:00\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -21,17 +21,17 @@ msgstr ""
 msgid "Shipping via %s"
 msgstr ""
 
-#: includes/class-wc-iugu-api.php:677 includes/class-wc-iugu-api.php:701
+#: includes/class-wc-iugu-api.php:676 includes/class-wc-iugu-api.php:700
 msgid ""
 "An error has occurred while processing your payment, please try again. Or "
 "contact us for assistance."
 msgstr ""
 
-#: includes/class-wc-iugu-api.php:798
+#: includes/class-wc-iugu-api.php:797
 msgid "Payment method created for order %s"
 msgstr ""
 
-#: includes/class-wc-iugu-api.php:866
+#: includes/class-wc-iugu-api.php:865
 #: includes/class-wc-iugu-bank-slip-addons-gateway-deprecated.php:165
 #: includes/class-wc-iugu-bank-slip-addons-gateway-deprecated.php:226
 #: includes/class-wc-iugu-bank-slip-addons-gateway.php:169
@@ -39,7 +39,7 @@ msgstr ""
 msgid "Iugu Bank Slip URL"
 msgstr ""
 
-#: includes/class-wc-iugu-api.php:881
+#: includes/class-wc-iugu-api.php:880
 #: includes/class-wc-iugu-bank-slip-addons-gateway-deprecated.php:170
 #: includes/class-wc-iugu-bank-slip-addons-gateway-deprecated.php:231
 #: includes/class-wc-iugu-bank-slip-addons-gateway.php:174
@@ -51,7 +51,7 @@ msgstr ""
 msgid "Iugu Transaction details"
 msgstr ""
 
-#: includes/class-wc-iugu-api.php:887 includes/class-wc-iugu-api.php:925
+#: includes/class-wc-iugu-api.php:886 includes/class-wc-iugu-api.php:924
 #: includes/class-wc-iugu-bank-slip-addons-gateway-deprecated.php:173
 #: includes/class-wc-iugu-bank-slip-addons-gateway-deprecated.php:234
 #: includes/class-wc-iugu-bank-slip-addons-gateway.php:177
@@ -59,55 +59,55 @@ msgstr ""
 msgid "Iugu: The customer generated a bank slip, awaiting payment confirmation."
 msgstr ""
 
-#: includes/class-wc-iugu-api.php:890
+#: includes/class-wc-iugu-api.php:889
 #: includes/class-wc-iugu-credit-card-addons-gateway-deprecated.php:337
 #: includes/class-wc-iugu-credit-card-addons-gateway.php:364
 msgid "Iugu: Invoice paid successfully by credit card."
 msgstr ""
 
-#: includes/class-wc-iugu-api.php:893
+#: includes/class-wc-iugu-api.php:892
 #: includes/class-wc-iugu-credit-card-addons-gateway-deprecated.php:334
 #: includes/class-wc-iugu-credit-card-addons-gateway.php:361
 msgid "Iugu: Credit card declined."
 msgstr ""
 
-#: includes/class-wc-iugu-api.php:927
+#: includes/class-wc-iugu-api.php:926
 msgid "Iugu: Invoice paid by credit card, waiting for operator confirmation."
 msgstr ""
 
-#: includes/class-wc-iugu-api.php:936
+#: includes/class-wc-iugu-api.php:935
 msgid "Iugu: Invoice paid successfully."
 msgstr ""
 
-#: includes/class-wc-iugu-api.php:945
+#: includes/class-wc-iugu-api.php:944
 msgid "Iugu: Invoice canceled."
 msgstr ""
 
-#: includes/class-wc-iugu-api.php:950
+#: includes/class-wc-iugu-api.php:949
 msgid "Iugu: Invoice partially paid."
 msgstr ""
 
-#: includes/class-wc-iugu-api.php:955
+#: includes/class-wc-iugu-api.php:954
 msgid "Iugu: Invoice refunded."
 msgstr ""
 
-#: includes/class-wc-iugu-api.php:957
+#: includes/class-wc-iugu-api.php:956
 msgid "Invoice for order %s was refunded"
 msgstr ""
 
-#: includes/class-wc-iugu-api.php:958
+#: includes/class-wc-iugu-api.php:957
 msgid "Invoice refunded"
 msgstr ""
 
-#: includes/class-wc-iugu-api.php:959
+#: includes/class-wc-iugu-api.php:958
 msgid "Order %s has been marked as refunded by Iugu."
 msgstr ""
 
-#: includes/class-wc-iugu-api.php:965
+#: includes/class-wc-iugu-api.php:964
 msgid "Iugu: Invoice expired."
 msgstr ""
 
-#: includes/class-wc-iugu-api.php:1006
+#: includes/class-wc-iugu-api.php:1005
 #: includes/class-wc-iugu-bank-slip-addons-gateway-deprecated.php:309
 #: includes/class-wc-iugu-bank-slip-addons-gateway.php:310
 msgid "The request failed!"
