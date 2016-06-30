@@ -10,8 +10,6 @@ if ( ! defined( 'ABSPATH' ) ) {
  *
  * @class   WC_Iugu_Credit_Card_Addons_Gateway
  * @extends WC_Iugu_Credit_Card_Gateway
- * @version 1.0.0
- * @author  Iugu
  */
 class WC_Iugu_Credit_Card_Addons_Gateway extends WC_Iugu_Credit_Card_Gateway {
 
@@ -67,8 +65,7 @@ class WC_Iugu_Credit_Card_Addons_Gateway extends WC_Iugu_Credit_Card_Gateway {
 				throw new Exception( __( 'An error occurred while trying to save your data. Please contact us for get help.', 'iugu-woocommerce' ) );
 			}
 
-			// Save the payment method ID in order data.
-			update_post_meta( $order->id, '_iugu_customer_payment_method_id', $payment_method_id );
+			$this->save_subscription_meta( $order->id, $payment_method_id );
 
 			$payment_response = $this->process_subscription_payment( $order, $order->get_total() );
 
@@ -184,6 +181,22 @@ class WC_Iugu_Credit_Card_Addons_Gateway extends WC_Iugu_Credit_Card_Gateway {
 	}
 
 	/**
+	 * Store the Iugu customer payment method id on the order and subscriptions in the order.
+	 *
+	 * @param int $order_id
+	 * @param string $payment_method_id
+	 */
+	protected function save_subscription_meta( $order_id, $payment_method_id ) {
+		$payment_method_id = wc_clean( $payment_method_id );
+		update_post_meta( $order_id, '_iugu_customer_payment_method_id', $payment_method_id );
+
+		// Also store it on the subscriptions being purchased in the order.
+		foreach( wcs_get_subscriptions_for_order( $order_id ) as $subscription ) {
+			update_post_meta( $subscription->id, '_iugu_customer_payment_method_id', $payment_method_id );
+		}
+	}
+
+	/**
 	 * Process subscription payment.
 	 *
 	 * @param WC_order $order
@@ -205,9 +218,6 @@ class WC_Iugu_Credit_Card_Addons_Gateway extends WC_Iugu_Credit_Card_Gateway {
 
 		$payment_method_id = get_post_meta( $order->id, '_iugu_customer_payment_method_id', true );
 
-		// TODO: It's a workaround.
-		// TODO: The payment method can`t repeat for each product order, it should have some options which  client can manage.
-		// TODO: Check deprecated warning (get_formatted_legacy), somewhere inside process_subscription_payment
 		if ( ! $payment_method_id ) {
 			$payment_method_id = $this->api->get_customer_payment_method_id();
 
@@ -275,15 +285,6 @@ class WC_Iugu_Credit_Card_Addons_Gateway extends WC_Iugu_Credit_Card_Gateway {
 	}
 
 	/**
-	 * Don't transfer customer meta to resubscribe orders.
-	 *
-	 * @param int $resubscribe_order The order created for the customer to resubscribe to the old expired/cancelled subscription.
-	 */
-	public function delete_resubscribe_meta( $resubscribe_order ) {
-		delete_post_meta( $resubscribe_order->id, '_iugu_customer_payment_method_id' );
-	}
-
-	/**
 	 * Include the payment meta data required to process automatic recurring payments so that store managers can.
 	 * manually set up automatic recurring payments for a customer via the Edit Subscription screen in Subscriptions v2.0+.
 	 *
@@ -319,6 +320,15 @@ class WC_Iugu_Credit_Card_Addons_Gateway extends WC_Iugu_Credit_Card_Gateway {
 				throw new Exception( 'A "_iugu_customer_payment_method_id" value is required.' );
 			}
 		}
+	}
+
+	/**
+	 * Don't transfer customer meta to resubscribe orders.
+	 *
+	 * @param int $resubscribe_order The order created for the customer to resubscribe to the old expired/cancelled subscription.
+	 */
+	public function delete_resubscribe_meta( $resubscribe_order ) {
+		delete_post_meta( $resubscribe_order->id, '_iugu_customer_payment_method_id' );
 	}
 
 	/**

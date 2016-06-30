@@ -10,8 +10,6 @@ if ( ! defined( 'ABSPATH' ) ) {
  *
  * @class   WC_Iugu_Credit_Card_Gateway
  * @extends WC_Payment_Gateway
- * @version 1.0.0
- * @author  Iugu
  */
 class WC_Iugu_Credit_Card_Gateway extends WC_Payment_Gateway {
 
@@ -38,6 +36,7 @@ class WC_Iugu_Credit_Card_Gateway extends WC_Payment_Gateway {
 			'subscription_payment_method_change_customer',
 			'subscription_payment_method_change_admin',
 			'subscription_date_changes',
+			'multiple_subscriptions',
 			'refunds',
 			'pre-orders'
 		);
