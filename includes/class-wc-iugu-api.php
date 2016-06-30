@@ -366,12 +366,12 @@ class WC_Iugu_API {
 	protected function get_cpf_cnpj( $order ) {
 		$wcbcf_settings = get_option( 'wcbcf_settings' );
 
-		if ( 0 != $wcbcf_settings['person_type'] ) {
-			if ( ( 1 == $wcbcf_settings['person_type'] && 1 == $order->billing_persontype ) || 2 == $wcbcf_settings['person_type'] ) {
+		if ( '0' !== $wcbcf_settings['person_type'] ) {
+			if ( ( '1' === $wcbcf_settings['person_type'] && '1' === $order->billing_persontype ) || '2' === $wcbcf_settings['person_type'] ) {
 				return $this->only_numbers( $order->billing_cpf );
 			}
 
-			if ( ( 1 == $wcbcf_settings['person_type'] && 2 == $order->billing_persontype ) || 3 == $wcbcf_settings['person_type'] ) {
+			if ( ( '1' === $wcbcf_settings['person_type'] && '2' === $order->billing_persontype ) || '3' === $wcbcf_settings['person_type'] ) {
 				return $this->only_numbers( $order->billing_cnpj );
 			}
 		}
@@ -380,12 +380,29 @@ class WC_Iugu_API {
 	}
 
 	/**
+	 * Check if the customer is a "company".
+	 *
+	 * @param  WC_Order $order
+	 *
+	 * @return bool
+	 */
+	protected function is_a_company( $order ) {
+		$wcbcf_settings = get_option( 'wcbcf_settings' );
+
+		if ( ( '1' === $wcbcf_settings['person_type'] && '2' === $order->billing_persontype ) || '3' === $wcbcf_settings['person_type'] ) {
+			return true;
+		}
+
+		return false;
+	}
+
+	/**
 	 * Get the invoice due date.
 	 *
 	 * @return string
 	 */
 	protected function get_invoice_due_date() {
-		$days = ( 'credit-card' != $this->method ) ? intval( $this->gateway->deadline ) : 1;
+		$days = ( 'credit-card' !== $this->method ) ? intval( $this->gateway->deadline ) : 1;
 
 		return date( 'd-m-Y', strtotime( '+' . $days . ' day' ) );
 	}
@@ -433,6 +450,10 @@ class WC_Iugu_API {
 
 		if ( $cpf_cnpj = $this->get_cpf_cnpj( $order ) ) {
 			$data['payer']['cpf_cnpj'] = $cpf_cnpj;
+		}
+
+		if ( $this->is_a_company( $order ) ) {
+			$data['payer']['name'] = $order->billing_company;
 		}
 
 		// Force only one item.
