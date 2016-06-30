@@ -1,7 +1,7 @@
 {
   "name": "iugu-woocommerce",
   "description": "Iugu for WooCommerce",
-  "version": "1.0.9",
+  "version": "1.0.10",
   "repository": {
     "type": "git",
     "url": "https://github.com/iugu/iugu-woocommerce.git"

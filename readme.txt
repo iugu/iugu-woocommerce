@@ -3,7 +3,7 @@ Contributors: iugu, claudiosanches, braising
 Tags: woocommerce, iugu, payment
 Requires at least: 3.9
 Tested up to: 4.5
-Stable tag: 1.0.9
+Stable tag: 1.0.10
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -150,6 +150,11 @@ Abra um tópico para a sua pergunta [aqui](http://wordpress.org/support/plugin/i
 
 == Changelog ==
 
+= 1.0.10 - 2016/06/30 =
+
+* Corrigido o ID de pagamento das assinaturas de cartão de crédito.
+* Melhorado o funcionamento para Pessoa Jurídica, enviando o nome da empresa.
+
 = 1.0.9 - 2016/06/18 =
 
 * Corrigido o campo de número de telefone.
@@ -202,10 +207,7 @@ Abra um tópico para a sua pergunta [aqui](http://wordpress.org/support/plugin/i
 
 == Upgrade Notice ==
 
-= 1.0.8 =
+= 1.0.10 =
 
-* Corrigido suporte para WooCommerce 2.6+.
-* Adicionado suporte para WooCommerce Subscriptions 2.0+.
-* Corrigido suporte a assinaturas.
-* Corrigida a exibição de CPF/CPNJ em boletos.
-* Corrigido o campo de número de telefone.
+* Corrigido o ID de pagamento das assinaturas de cartão de crédito.
+* Melhorado o funcionamento para Pessoa Jurídica, enviando o nome da empresa.
