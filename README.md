@@ -57,7 +57,7 @@ Você pode contribuir com código-fonte em nossa página no [GitHub](https://git
 
 ### Configuração no Iugu ###
 
-Você deve pegar o seu **ID da conta** e gerar uma **API Token** (do tipo _LIVE_) dentro das configurações da [sua conta no Iugu](https://iugu.com/settings/account) para utilizar neste plugin.
+Você deve pegar o seu **ID da conta** e gerar uma **API Token** (do tipo _LIVE_) dentro das configurações da [sua conta no Iugu](https://app.iugu.com/account) para utilizar neste plugin.
 
 Além disso é necessário habilitar o cartão de crédito e o boleto bancário na sua conta em [Administração > Métodos de Pagamento](https://iugu.com/a/account_payments).
 
@@ -95,7 +95,7 @@ Pronto, sua loja já pode receber pagamentos pelo Iugu.
 
 É possível também trabalhar com o plugin no modo sandbox, desta forma você pode testar pagamentos antes de realmente utilizar o plugin em produção.
 
-Para utilizar em modo Sandbox você deve criar uma **API Token** do tipo _TEST_ dentro da [sua conta no Iugu](https://iugu.com/settings/account) e ativar a opção "Sandbox do Iugu" no plugin.
+Para utilizar em modo Sandbox você deve criar uma **API Token** do tipo _TEST_ dentro da [sua conta no Iugu](https://app.iugu.com/account) e ativar a opção "Sandbox do Iugu" no plugin.
 
 Quando for trocar para produção você deve desmarcar a opção e adicionar uma **API Token** do tipo _LIVE_.
 
@@ -109,7 +109,7 @@ Este plugin esta licenciado como GPL.
 
 * Ter instalado o plugin WooCommerce 2.1 ou superior.
 * Possuir uma conta no [Iugu](https://iugu.com/).
-* Pegar o seu **ID de conta** e gerar uma **API Token** na página de [sua conta no Iugu](https://iugu.com/settings/account).
+* Pegar o seu **ID de conta** e gerar uma **API Token** na página de [sua conta no Iugu](https://app.iugu.com/account).
 * Desativar a opção **Manter Estoque (minutos)** do WooCommerce.
 
 Note que você NÃO PRECISA configurar qualquer GATILHO dentro da sua conta do Iugu!
