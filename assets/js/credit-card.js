@@ -30,6 +30,10 @@
 		$( 'form.checkout, form#order_review' ).on( 'change', '#iugu-credit-card-fields input', function() {
 			$( '.iugu-token' ).remove();
 		});
+		// Disable Submit Order Button to prevent double submits
+    	$("form#order_review").submit(disableSubmitOrderButton);
+
+	    $("form.checkout").on("checkout_place_order_iugu-credit-card", disableSubmitOrderButton);
 
 		/**
 		 * Form Handler.
@@ -89,6 +93,15 @@
 			});
 
 			return false;
+		}
+
+		/**
+		 * Function tests if the payment validation error (for IUGU) has been shown. And if not, it disables the Submit button to prevent double submits for a single order
+		 */
+		function disableSubmitOrderButton() {
+		    if (!jQuery(".woocommerce-error").is(':visible')) {
+		        jQuery("#place_order").attr('disabled', true);
+		    }
 		}
 	});
 
