@@ -1023,6 +1023,6 @@ class WC_Iugu_API {
 			}
 		}
 
-		wp_die( __( 'The request failed!', 'iugu-woocommerce' ) );
+		wp_die( __( 'The request failed!', 'iugu-woocommerce' ), __( 'The request failed!', 'iugu-woocommerce' ), array( 'response' => 200 ) );
 	}
 }

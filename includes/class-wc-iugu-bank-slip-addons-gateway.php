@@ -307,6 +307,6 @@ class WC_Iugu_Bank_Slip_Addons_Gateway extends WC_Iugu_Bank_Slip_Gateway {
 			}
 		}
 
-		wp_die( __( 'The request failed!', 'iugu-woocommerce' ) );
+		wp_die( __( 'The request failed!', 'iugu-woocommerce' ), __( 'The request failed!', 'iugu-woocommerce' ), array( 'response' => 200 ) );
 	}
 }
