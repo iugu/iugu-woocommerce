@@ -95,7 +95,7 @@ class WC_Iugu_Credit_Card_Gateway extends WC_Payment_Gateway {
 		// Test if is valid for use.
 		$api = ! empty( $this->account_id ) && ! empty( $this->api_token );
 
-		$available = 'yes' == $this->get_option( 'enabled' ) && $api && $this->api->using_supported_currency();
+		$available = parent::is_available() && $api && $this->api->using_supported_currency();
 
 		return $available;
 	}
@@ -280,7 +280,7 @@ class WC_Iugu_Credit_Card_Gateway extends WC_Payment_Gateway {
 			$order_total = $this->api->get_order_total();
 		}
 
-		woocommerce_get_template(
+		wc_get_template(
 			'credit-card/payment-form.php',
 			array(
 				'order_total'          => $order_total,
@@ -304,7 +304,7 @@ class WC_Iugu_Credit_Card_Gateway extends WC_Payment_Gateway {
 	 */
 	public function process_payment( $order_id ) {
 		if ( ! isset( $_POST['iugu_token'] ) ) {
-			$order = new WC_Order( $order_id );
+			$order = wc_get_order( $order_id );
 
 			if ( 'yes' === $this->debug ) {
 				$this->log->add( $this->id, 'Error doing the charge for order ' . $order->get_order_number() . ': Missing the "iugu_token".' );
@@ -329,12 +329,17 @@ class WC_Iugu_Credit_Card_Gateway extends WC_Payment_Gateway {
 	 * @return string
 	 */
 	public function thankyou_page( $order_id ) {
-		$order        = new WC_Order( $order_id );
-		$order_status = $order->get_status();
-		$data         = get_post_meta( $order_id, '_iugu_wc_transaction_data', true );
+		$order = wc_get_order( $order_id );
 
-		if ( isset( $data['installments'] ) && 'processing' == $order_status ) {
-			woocommerce_get_template(
+		// WooCommerce 3.0 or later.
+		if ( is_callable( array( $order, 'get_meta' ) ) ) {
+			$data = $order->get_meta( '_iugu_wc_transaction_data' );
+		} else {
+			$data = get_post_meta( $order_id, '_iugu_wc_transaction_data', true );
+		}
+
+		if ( isset( $data['installments'] ) && $order->has_status( 'processing' ) ) {
+			wc_get_template(
 				'credit-card/payment-instructions.php',
 				array(
 					'installments' => $data['installments']
@@ -355,15 +360,24 @@ class WC_Iugu_Credit_Card_Gateway extends WC_Payment_Gateway {
 	 * @return string                Payment instructions.
 	 */
 	public function email_instructions( $order, $sent_to_admin, $plain_text = false ) {
-		if ( $sent_to_admin || ! in_array( $order->status, array( 'processing', 'on-hold' ) ) || $this->id !== $order->payment_method ) {
-			return;
-		}
+		// WooCommerce 3.0 or later.
+		if ( is_callable( array( $order, 'get_meta' ) ) ) {
+			if ( $sent_to_admin || ! $order->has_status( array( 'processing', 'on-hold' ) ) || $this->id !== $order->get_payment_method() ) {
+				return;
+			}
 
-		$data = get_post_meta( $order->id, '_iugu_wc_transaction_data', true );
+			$data = $order->get_meta( '_iugu_wc_transaction_data' );
+		} else {
+			if ( $sent_to_admin || ! $order->has_status( array( 'processing', 'on-hold' ) ) || $this->id !== $order->payment_method ) {
+				return;
+			}
+
+			$data = get_post_meta( $order->id, '_iugu_wc_transaction_data', true );
+		}
 
 		if ( isset( $data['installments'] ) ) {
 			if ( $plain_text ) {
-				woocommerce_get_template(
+				wc_get_template(
 					'credit-card/emails/plain-instructions.php',
 					array(
 						'installments' => $data['installments']
@@ -372,7 +386,7 @@ class WC_Iugu_Credit_Card_Gateway extends WC_Payment_Gateway {
 					WC_Iugu::get_templates_path()
 				);
 			} else {
-				woocommerce_get_template(
+				wc_get_template(
 					'credit-card/emails/html-instructions.php',
 					array(
 						'installments' => $data['installments']
