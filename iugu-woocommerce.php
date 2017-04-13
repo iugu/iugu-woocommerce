@@ -92,6 +92,7 @@ class WC_Iugu {
 		include_once 'includes/class-wc-iugu-api.php';
 		include_once 'includes/class-wc-iugu-bank-slip-gateway.php';
 		include_once 'includes/class-wc-iugu-credit-card-gateway.php';
+		include_once 'includes/class-wc-iugu-my-account.php';
 
 		if ( class_exists( 'WC_Subscriptions_Order' ) || class_exists( 'WC_Pre_Orders_Order' ) ) {
 			// Subscriptions < 2.0.
