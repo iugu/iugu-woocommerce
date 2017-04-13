@@ -365,13 +365,14 @@ class WC_Iugu_API {
 	 */
 	protected function get_cpf_cnpj( $order ) {
 		$wcbcf_settings = get_option( 'wcbcf_settings' );
+		$person_type    = intval( $wcbcf_settings['person_type'] );
 
-		if ( '0' !== $wcbcf_settings['person_type'] ) {
-			if ( ( '1' === $wcbcf_settings['person_type'] && '1' === $order->billing_persontype ) || '2' === $wcbcf_settings['person_type'] ) {
+		if ( 0 !== $person_type ) {
+			if ( ( 1 === $person_type && 1 === intval( $order->billing_persontype ) ) || 2 === $person_type ) {
 				return $this->only_numbers( $order->billing_cpf );
 			}
 
-			if ( ( '1' === $wcbcf_settings['person_type'] && '2' === $order->billing_persontype ) || '3' === $wcbcf_settings['person_type'] ) {
+			if ( ( 1 === $person_type && 2 === intval( $order->billing_persontype ) ) || 3 === $person_type ) {
 				return $this->only_numbers( $order->billing_cnpj );
 			}
 		}
