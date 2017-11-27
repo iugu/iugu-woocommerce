@@ -1,4 +1,7 @@
 <?php
+
+include 'chromephp.php';
+
 /**
  * WC Iugu API Class.
  */
@@ -440,7 +443,7 @@ class WC_Iugu_API {
 				'address'      => array(
 					'street'   => $order->billing_address_1,
 					'number'   => $order->billing_number,
-					'district' => isset($order->billing_neighborhood) ? $order->billing_neighborhood : '', 
+					'district' => isset($order->billing_neighborhood) ? $order->billing_neighborhood : '',
 					'city'     => $order->billing_city,
 					'state'    => $order->billing_state,
 					'country'  => isset( WC()->countries->countries[ $order->billing_country ] ) ? WC()->countries->countries[ $order->billing_country ] : $order->billing_country,
@@ -573,12 +576,25 @@ class WC_Iugu_API {
 		$invoice_data = $this->build_api_params( $invoice_data );
 		$response     = $this->do_request( 'invoices', 'POST', $invoice_data );
 
+		$response_code = $response['response']['code'];
+		$response_message = $response['response']['message'];
+		$response_body = json_decode( $response['body'], true );
+
 		if ( is_wp_error( $response ) ) {
 			if ( 'yes' == $this->gateway->debug ) {
 				$this->gateway->log->add( $this->gateway->id, 'WP_Error while trying to generate an invoice: ' . $response->get_error_message() );
 			}
-		} elseif ( 200 == $response['response']['code'] && 'OK' == $response['response']['message'] ) {
-			$invoice = json_decode( $response['body'], true );
+
+		} elseif ( $response_code >= 400 || $response_code < 600 ) {
+			$response_errors = $response_body['errors'];
+
+			// Handle invalid zip codes according to iugu's API reponse
+			if ( isset( $response_errors['payer.address.zip_code'] ) && in_array( 'não é válido', $response_errors['payer.address.zip_code'] ) ) {
+				$this->add_error( __( 'Invalid zip code.', 'iugu-woocommerce' ) );
+			}
+
+		} elseif ( 200 == $response_code && 'OK' == $response_message) {
+			$invoice = $response_body;
 
 			if ( 'yes' == $this->gateway->debug ) {
 				$this->gateway->log->add( $this->gateway->id, 'Invoice created successfully!' );

@@ -21,6 +21,10 @@ msgstr ""
 msgid "Shipping via %s"
 msgstr ""
 
+#: includes/class-wc-iugu-api.php:609
+msgid "Invalid zip code."
+msgstr ""
+
 #: includes/class-wc-iugu-api.php:697 includes/class-wc-iugu-api.php:721
 msgid ""
 "An error has occurred while processing your payment, please try again. Or "
