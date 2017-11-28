@@ -1,162 +1,144 @@
-# WooCommerce Iugu #
+# WooCommerce iugu #
 **Contributors:** iugu, claudiosanches, braising  
 **Tags:** woocommerce, iugu, payment  
 **Requires at least:** 3.9  
-**Tested up to:** 4.5  
-**Stable tag:** 1.0.10  
+**Tested up to:** 4.9
+**Stable tag:** 1.0.11
 **License:** GPLv2 or later  
 **License URI:** http://www.gnu.org/licenses/gpl-2.0.html  
 
-Receba pagamentos por cartão de crédito e boleto bancário com o Iugu
+Receba pagamentos por cartão de crédito e boleto bancário na sua loja WooCommerce com a iugu.
 
-## Description ##
+## Descrição ##
 
-Iugu é uma plataforma que disponibiliza toda infra-estrutura necessária para que você possa transacionar pagamentos online com menos burocracia e mais vantagens.
+A iugu disponibiliza toda a infraestrutura necessária para que você possa transacionar pagamentos online com menos burocracia e mais vantagens. Com a nossa plataforma, você pode oferecer pagamentos com checkout transparente com cartão de crédito e boleto bancário.
 
-Com a iugu você pode oferecer pagamento com o checkout transparente com cartão de crédito e boleto bancário.
-
-Saiba mais como o Iugu funciona em [Iugu - Entendendo como tudo funciona](https://iugu.com/documentacao/comecando).
+Saiba mais como a iugu funciona em [iugu - Entendendo como tudo funciona](https://docs.iugu.com).
 
 ### Compatibilidade ###
 
-Compatível desde a versão 2.1.x até 2.6.x do WooCommerce.
+Compatível desde a versão 2.1.x até a 3.2.5 do WooCommerce.
 
-Este plugin funciona integrado com o [WooCommerce Extra Checkout Fields for Brazil](http://wordpress.org/plugins/woocommerce-extra-checkout-fields-for-brazil/), desta forma é possível enviar documentos do cliente como "CPF" ou "CNPJ", além dos campos "número" e "bairro" do endereço.
+Este plugin funciona integrado com o [WooCommerce Extra Checkout Fields for Brazil](http://wordpress.org/plugins/woocommerce-extra-checkout-fields-for-brazil/), que permite enviar dados do cliente como **CPF** ou **CNPJ**, além dos campos **número** e **bairro** do endereço.
 
-Também é compatível com os seguintes plugins:
+Ele também é compatível com os seguintes plugins:
 
 * [WooCommerce Subscriptions](http://www.woothemes.com/products/woocommerce-subscriptions/) - Para pagamentos recorrentes/assinaturas.
-* [WooCommerce Pre-orders](http://www.woothemes.com/products/woocommerce-pre-orders/) - Para pré venda de produtos.
+* [WooCommerce Pre-orders](http://www.woothemes.com/products/woocommerce-pre-orders/) - Para pré-venda de produtos.
 
 ### Instalação ###
 
-Confira o nosso guia de instalação e configuração do Iugu na aba [Installation](http://wordpress.org/extend/plugins/iugu-woocommerce/installation/).
+Confira o nosso guia de instalação e configuração da iugu na aba [Installation](http://wordpress.org/extend/plugins/iugu-woocommerce/installation/).
 
 ### Dúvidas? ###
 
 Você pode esclarecer suas dúvidas usando:
 
-* A nossa sessão de [FAQ](http://wordpress.org/extend/plugins/iugu-woocommerce/faq/).
-* Criando um tópico no [fórum de público do WordPress](http://wordpress.org/support/plugin/iugu-woocommerce).
+* Nossa sessão de [FAQ](http://wordpress.org/extend/plugins/iugu-woocommerce/faq/).
+* Criando um tópico no [fórum público do WordPress](http://wordpress.org/support/plugin/iugu-woocommerce).
 * Criando um tópico no [fórum do Github](https://github.com/iugu/iugu-woocommerce/issues).
 
 ### Colaborar ###
 
-Você pode contribuir com código-fonte em nossa página no [GitHub](https://github.com/iugu/iugu-woocommerce).
+Você pode contribuir para o plug-in fazendo o fork do repositório no [GitHub](https://github.com/iugu/iugu-woocommerce).
 
 ## Installation ##
 
 ### Instalação do plugin: ###
 
-* Envie os arquivos do plugin para a pasta wp-content/plugins, ou instale usando o instalador de plugins do WordPress.
+* Envie os arquivos do plugin para a pasta `wp-content/plugins` ou instale-o usando o instalador de plugins do WordPress.
 * Ative o plugin.
 
 ### Requerimentos: ###
 
-É necessário possuir uma conta no [Iugu](https://iugu.com/) e ter instalado o [WooCommerce](http://wordpress.org/extend/plugins/woocommerce/).
+- Conta ativa na [iugu](https://iugu.com) com boleto bancário e/ou cartão de crédito aprovados e habilitados como métodos de pagamento. Ver [_O que é necessário para começar a usar iugu?_](https://support.iugu.com/hc/pt-br/articles/201531709).
+- Plugins instalados: [WooCommerce](http://wordpress.org/extend/plugins/woocommerce/) e [WooCommerce Extra Checkout Fields for Brazil](http://wordpress.org/plugins/woocommerce-extra-checkout-fields-for-brazil/).
 
-### Configuração no Iugu ###
+### Configuração no WooCommerce ###
 
-Você deve pegar o seu **ID da conta** e gerar uma **API Token** (do tipo _LIVE_) dentro das configurações da [sua conta no Iugu](https://app.iugu.com/account) para utilizar neste plugin.
+No men _WooCommerce > Configurações > Produtos > Inventário_, desabilite (deixe em branco) a opção **Manter estoque (minutos)**, que permite permite cancelar a compra e liberar o estoque depois de alguns minutos.
 
-Além disso é necessário habilitar o cartão de crédito e o boleto bancário na sua conta em [Administração > Métodos de Pagamento](https://iugu.com/a/account_payments).
+Essa funcionalidade foi introduzida na versão 2.0 do Woocommerce, mas não funciona muito bem com pagamentos por boleto bancário, pois podem demorar até 48 horas para serem validados.
 
-Note que para aceitar pagamento com cartão de crédito é necessário enviar uma certa documentação para o Iugu, veja mais detalhes em: [Qual é a documentação necessária para aceitar pagamento com cartão crédito?](http://support.iugu.com/hc/pt-br/articles/202342429-Qual-%C3%A9-a-documenta%C3%A7%C3%A3o-necess%C3%A1ria-para-aceitar-pagamento-com-cart%C3%A3o-cr%C3%A9dito-)
+### Configuração na iugu ###
 
-### Configurações do Plugin: ###
+No menu [_Administração > Configurações da conta_](https://app.iugu.com/account), crie um _API token_ do tipo LIVE. Ele será usado, junto com o ID da sua conta iugu, para configurar o plugin. Você também pode criar um API token do tipo TEST para realizar testes com o plugin.
 
-Com o plugin instalado acesse o admin do WordPress e entre em "WooCommerce" > "Configurações" > "Finalizar compra", selecione "Iugu - Cartão de crédito" ou "Iugu - Boleto bancário".
+### Configurações do plugin: ###
 
-Habilite o Iugu, preencha as opções de **ID da conta** e **API Token** (você conseguiu estas informações no passo anterior, além que você precisa gerar apenas uma **API Token** que deve ser utilizada nas duas formas de pagamento).
-
-Note que o plugin divide as duas formas de pagamento, permitindo você ativar e configurar o que desejar.
+Com o plugin instalado, acesse o painel de administração do WordPress e entre em _WooCommerce > Configurações > Finalizar compra_. Selecione **iugu - Cartão de crédito** ou **iugu - Boleto bancário** para ativar o(s) método(s) de pagamento que lhe interessa(m). Marque a caixa de seleção para ativá-lo(s) e preencha as opções de **ID da conta** e **API Token**.
 
 ### Configurações de cartão de crédito ###
 
-Entre as opções do cartão de crédito é possível configurar o número de parcelas que os clientes poderam dividir, esta opção não pode ser maior do que o valor configurado dentro da sua conta do Iugu.
+Entre as opções do cartão de crédito é possível configurar o número de parcelas que os clientes poderam dividir, esta opção não pode ser maior do que o valor configurado dentro da sua conta da iugu.
 
 É possível também manipular a exibição do valor das parcelas com as opções de "Repassar juros", "Sem juros" e "Taxa por transação".
 
-Note que estas opções são apenas de exibição e não configura de nenhuma forma o valor total que o cliente realmente irá pagar, pois o que controla isto são as configurações de parcelas da sua conta do Iugu e desta forma as opções de "Repassar juros", "Sem juros", "Taxa por transação" devem represetar exatamente o que você configurou na sua conta do Iugu.
+Note que estas opções são apenas de exibição e não configura de nenhuma forma o valor total que o cliente realmente irá pagar, pois o que controla isto são as configurações de parcelas da sua conta da iugu e desta forma as opções de "Repassar juros", "Sem juros", "Taxa por transação" devem represetar exatamente o que você configurou na sua conta da iugu.
 
-Para saber mais sobre parcelamento e juros no Iugu leia o tutorial: [Existem juros no parcelamento?](http://support.iugu.com/hc/pt-br/articles/201728767-Existem-juros-no-parcelamento-).
+Para saber mais sobre parcelamento e juros na iugu leia o tutorial: [Existem juros no parcelamento?](http://support.iugu.com/hc/pt-br/articles/201728767-Existem-juros-no-parcelamento-).
 
-### Configurações no WooCommerce ###
-
-No WooCommerce 2.0 ou superior existe uma opção para cancelar a compra e liberar o estoque depois de alguns minutos.
-
-Esta opção não funciona muito bem com o boleto bancário, pois pagamentos por boleto bancário pode demorar até 48 horas para serem validados.
-
-Para corrigir isso é necessário ir em "WooCommerce" > "Configurações" > "Produtos" > "Inventário" e limpar (deixe em branco) a opção **Manter Estoque (minutos)**.
-
-Pronto, sua loja já pode receber pagamentos pelo Iugu.
+Pronto, sua loja já pode receber pagamentos pela iugu.
 
 ### Sandbox ###
 
 É possível também trabalhar com o plugin no modo sandbox, desta forma você pode testar pagamentos antes de realmente utilizar o plugin em produção.
 
-Para utilizar em modo Sandbox você deve criar uma **API Token** do tipo _TEST_ dentro da [sua conta no Iugu](https://app.iugu.com/account) e ativar a opção "Sandbox do Iugu" no plugin.
+Para utilizar em modo Sandbox você deve criar uma **API Token** do tipo _TEST_ dentro da [sua conta na iugu](https://app.iugu.com/account) e ativar a opção "Sandbox da iugu" no plugin.
 
 Quando for trocar para produção você deve desmarcar a opção e adicionar uma **API Token** do tipo _LIVE_.
 
-## Frequently Asked Questions ##
+
+## Perguntas frenquentes ##
 
 ### Qual é a licença do plugin? ###
 
-Este plugin esta licenciado como GPL.
+Este plugin está licenciado como GPL.
 
-### O que eu preciso para utilizar este plugin? ###
+### Do que preciso para utilizar o plugin? ###
 
-* Ter instalado o plugin WooCommerce 2.1 ou superior.
-* Possuir uma conta no [Iugu](https://iugu.com/).
-* Pegar o seu **ID de conta** e gerar uma **API Token** na página de [sua conta no Iugu](https://app.iugu.com/account).
+* WooCommerce versão 2.1 ou superior.
+* Conta ativada na [iugu](https://iugu.com/).
+* Pegar o seu **ID de conta** e gerar uma **API Token** na página de [sua conta na iugu](https://app.iugu.com/account).
 * Desativar a opção **Manter Estoque (minutos)** do WooCommerce.
 
-Note que você NÃO PRECISA configurar qualquer GATILHO dentro da sua conta do Iugu!
+Note que você NÃO PRECISA configurar qualquer GATILHO dentro da sua conta da iugu!
 
-### Quais são as tarifas do Iugu ###
+### Quais são as tarifas da iugu? ###
 
-Veja as tarifas em [Preços e Tarifas - Iugu](http://mkt.iugu.com/precos/).
+Conheça todas as tarifas da iugu em [iugu.com/precos](https://iugu.com/precos/).
 
 ### É possível utilizar a opção de pagamento recorrente/assinaturas? ###
 
 Sim, é possível utilizar este plugin para fazer pagamento recorrente integrado com o [WooCommerce Subscriptions](http://www.woothemes.com/products/woocommerce-subscriptions/).
 
-Note que a integração não é feita com a API de pagamento recorrente do Iugu e funciona totalmente a partir do WooCommerce Subscriptions, pois desta forma é possível obter maior controle sobre a assinatura dentro da sua loja WooCommerce.
+Note que a integração não é feita com a API de pagamento recorrente da iugu e funciona totalmente a partir do WooCommerce Subscriptions, pois desta forma é possível obter maior controle sobre a assinatura dentro da sua loja WooCommerce.
 
-### O pedido foi pago e ficou com o status de "processando" e não como "concluído", isto esta certo ? ###
+### O pedido foi pago e ficou com o status de _processando_, e não _concluído_. Isso está certo? ###
 
-Sim, esta certo e significa que o plugin esta trabalhando como deveria.
+Sim. Significa que o plugin está trabalhando como deveria.
 
-Todo gateway de pagamentos no WooCommerce deve mudar o status do pedido para "processando" no momento que é confirmado o pagamento e nunca deve ser alterado sozinho para "concluído", pois o pedido deve ir apenas para o status "concluído" após ele ter sido entregue.
+Todo gateway de pagamento no WooCommerce deve mudar o status do pedido para _processando_ no momento em que o pagamento é confirmado. O status só deve ser alterado para _concluído_ após o pedido ter sido entregue.
 
-Para produtos baixáveis a configuração padrão do WooCommerce é permitir o acesso apenas quando o pedido tem o status "concluído", entretanto nas configurações do WooCommerce na aba *Produtos* é possível ativar a opção **"Conceder acesso para download do produto após o pagamento"** e assim liberar o download quando o status do pedido esta como "processando".
+Para produtos digitais, por padrão, o WooCommerce só permite o acesso do comprador quando o pedido tem o status _concluído_. No entanto, nas configurações do WooCommerce, na aba _Produtos_, é possível ativar a opção **Conceder acesso para download do produto após o pagamento**, liberando o download no status _processando_.
 
 ### Problemas com a integração? ###
 
-Primeiro de tudo ative a opção **Log de depuração** e tente realizar o pagamento novamente.
-Feito isso copie o conteúdo do log e salve usando o [pastebin.com](http://pastebin.com) ou o [gist.github.com](http://gist.github.com), depois basta abrir um tópico de suporte [aqui](http://wordpress.org/support/plugin/iugu-woocommerce).
+1. Ative o **Log de depuração** nas configurações da iugu na administração do plugin do WooCommerce e tente realizar o pagamento novamente.
+2. Copie o conteúdo do respectivo log no menu _WooCommerce > Status > Logs_.
+3. Crie um [pastebin](http://pastebin.com) ou um [gist](http://gist.github.com) e salve o log.
+4. Abra um ticket de suporte [aqui](http://wordpress.org/support/plugin/iugu-woocommerce) e compartilhe o link do log.
 
-### Mais dúvidas relacionadas ao funcionamento do plugin? ###
+### Mais dúvidas sobre o funcionamento do plugin? ###
 
-Abra um tópico para a sua pergunta [aqui](http://wordpress.org/support/plugin/iugu-woocommerce).
-
-## Screenshots ##
-
-### 1. Configurações do método de cartão de crédito. ###
-![1. Configurações do método de cartão de crédito.](http://ps.w.org/woocommerce-iugu/assets/screenshot-1.png)
-
-### 2. Configurações do método de boleto bancário. ###
-![2. Configurações do método de boleto bancário.](http://ps.w.org/woocommerce-iugu/assets/screenshot-2.png)
-
-### 2. Opção de cartão de crédito na página de finalizar compra. ###
-![2. Opção de cartão de crédito na página de finalizar compra.](http://ps.w.org/woocommerce-iugu/assets/screenshot-3.png)
-
-### 2. Opção de boleto bancário na página de finalizar compra. ###
-![2. Opção de boleto bancário na página de finalizar compra.](http://ps.w.org/woocommerce-iugu/assets/screenshot-4.png)
+Abra um ticket para a sua pergunta [aqui](http://wordpress.org/support/plugin/iugu-woocommerce).
 
 
 ## Changelog ##
+
+### 1.0.11 - 2017/11/28 ###
+* **Melhoria**: Erros da API da iugu agora são exibidos na página do checkout em vez do antigo erro padrão de pagamento, que dizia muito sem dizer nada.
+* **Correção**: Plugin não enviava o _Bairro_ do cliente, informação obrigatória para a criação de boletos registrados, impedindo a compra.
 
 ### 1.0.10 - 2016/06/30 ###
 
@@ -180,7 +162,7 @@ Abra um tópico para a sua pergunta [aqui](http://wordpress.org/support/plugin/i
 
 ### 1.0.6 - 2015/05/01 ###
 
-* Melhorada a forma que os valores são convertidos para centavos antes de enviar para a API do Iugu.
+* Melhorada a forma que os valores são convertidos para centavos antes de enviar para a API da iugu.
 * Melhorado o campo de "Nome impresso no cartão" do formulário de cartão de crédito.
 * Corrigido carregamento do JavaScript das opções de cartão de crédito quando instalado o WooCommerce Subscriptions.
 * Correções no HTML das instruções do cartão de crédito após o pagamento.
@@ -215,7 +197,5 @@ Abra um tópico para a sua pergunta [aqui](http://wordpress.org/support/plugin/i
 
 ## Upgrade Notice ##
 
-### 1.0.10 ###
-
-* Corrigido o ID de pagamento das assinaturas de cartão de crédito.
-* Melhorado o funcionamento para Pessoa Jurídica, enviando o nome da empresa.
+### 1.0.11  ###
+Atualize seu plugin para não perder vendas no boleto bancário.
