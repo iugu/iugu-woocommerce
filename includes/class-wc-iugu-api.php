@@ -1,4 +1,7 @@
 <?php
+
+include 'chromephp.php';
+
 /**
  * WC Iugu API Class.
  */
@@ -448,13 +451,16 @@ class WC_Iugu_API {
 			),
 		);
 
-
 		if ( $cpf_cnpj = $this->get_cpf_cnpj( $order ) ) {
 			$data['payer']['cpf_cnpj'] = $cpf_cnpj;
 		}
 
 		if ( $this->is_a_company( $order ) ) {
 			$data['payer']['name'] = $order->billing_company;
+		}
+
+		if ( ! empty( $order->billing_neighborhood ) ) {
+			$data['payer']['address']['district'] = $order->billing_neighborhood;
 		}
 
 		// Force only one item.
@@ -572,25 +578,38 @@ class WC_Iugu_API {
 		$invoice_data = $this->build_api_params( $invoice_data );
 		$response     = $this->do_request( 'invoices', 'POST', $invoice_data );
 
+		$response_code = $response['response']['code'];
+		$response_message = $response['response']['message'];
+		$response_body = json_decode( $response['body'], true );
+		$response_errors = isset( $response_body['errors'] ) ? $response_body['errors'] : '';
+
 		if ( is_wp_error( $response ) ) {
 			if ( 'yes' == $this->gateway->debug ) {
 				$this->gateway->log->add( $this->gateway->id, 'WP_Error while trying to generate an invoice: ' . $response->get_error_message() );
 			}
-		} elseif ( 200 == $response['response']['code'] && 'OK' == $response['response']['message'] ) {
-			$invoice = json_decode( $response['body'], true );
 
+		} elseif ( 200 == $response_code && 'OK' == $response_message) {
 			if ( 'yes' == $this->gateway->debug ) {
 				$this->gateway->log->add( $this->gateway->id, 'Invoice created successfully!' );
 			}
 
-			return $invoice['id'];
+			return array(
+				'id' => $response_body['id'],
+			);
+
 		}
 
 		if ( 'yes' == $this->gateway->debug ) {
 			$this->gateway->log->add( $this->gateway->id, 'Error while generating the invoice for order ' . $order->get_order_number() . ': ' . print_r( $response, true ) );
 		}
 
-		return '';
+		return array(
+			'response' => array(
+				'code' => $response_code,
+				'message' => $response_message,
+				'errors' => $response_errors,
+			),
+		);
 	}
 
 	/**
@@ -637,18 +656,20 @@ class WC_Iugu_API {
 	 * @return array
 	 */
 	protected function get_charge_data( $order, $posted = array() ) {
-		$invoice_id = $this->create_invoice( $order );
+		$invoice = $this->create_invoice( $order );
 
-		if ( '' == $invoice_id ) {
+		if ( ! isset( $invoice['id'] ) ) {
 			if ( 'yes' == $this->gateway->debug ) {
-				$this->gateway->log->add( $this->gateway->id, 'Error while doing the charge for order ' . $order->get_order_number() . ': Missing the invoice ID.' );
+				$this->gateway->log->add( $this->gateway->id, 'Error while getting the charge data for order ' . $order->get_order_number() . ': Missing the invoice ID.' );
 			}
 
-			return array();
+			return array(
+				'response' => $invoice['response'],
+			);
 		}
 
 		$data = array(
-			'invoice_id' => $invoice_id,
+			'invoice_id' => $invoice['id'],
 		);
 
 		// Credit Card.
@@ -694,8 +715,9 @@ class WC_Iugu_API {
 
 		$charge_data = $this->get_charge_data( $order, $posted );
 
-		if ( empty( $charge_data ) ) {
-			return array( 'errors' => array( __( 'An error has occurred while processing your payment, please try again. Or contact us for assistance.', 'iugu-woocommerce' ) ) );
+		if ( ! isset( $charge_data['invoice_id'] ) ) {
+
+			return $charge_data;
 		}
 
 		$charge_data = $this->build_api_params( $charge_data );
@@ -856,16 +878,21 @@ class WC_Iugu_API {
 		$order  = new WC_Order( $order_id );
 		$charge = $this->create_charge( $order, $_POST );
 
-		if ( isset( $charge['errors'] ) && ! empty( $charge['errors'] ) ) {
-			$errors = is_array( $charge['errors'] ) ? $charge['errors'] : array( $charge['errors'] );
+		if ( ! isset( $charge['invoice_id'] ) ) {
 
-			foreach ( $charge['errors'] as $error ) {
-				if ( is_array( $error ) ) {
+			$charge_response = isset( $charge['response'] ) ? $charge['response'] : null;
+
+			if ( $charge_response && ! empty( $charge_response['errors'] ) ) {
+				$errors = is_array( $charge_response['errors'] ) ? $charge_response['errors'] : array( $charge_response['errors'] );
+
+				$this->add_error( '<strong>' . esc_attr( $this->gateway->title ) . '</strong>: ' );
+
+				foreach ( $errors as $name=>$error ) {
+					$error = is_array( $error ) ? $error : array( $error );
+
 					foreach ( $error as $_error ) {
-						$this->add_error( '<strong>' . esc_attr( $this->gateway->title ) . '</strong>: ' . $_error );
+						$this->add_error( $name . ' ' . $_error . '.');
 					}
-				} else {
-					$this->add_error( '<strong>' . esc_attr( $this->gateway->title ) . '</strong>: ' . $error );
 				}
 			}
 
