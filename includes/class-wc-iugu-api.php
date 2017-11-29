@@ -443,6 +443,7 @@ class WC_Iugu_API {
 				'address'      => array(
 					'street'   => $order->billing_address_1,
 					'number'   => $order->billing_number,
+					'district' => $order->billing_neighborhood,
 					'city'     => $order->billing_city,
 					'state'    => $order->billing_state,
 					'country'  => isset( WC()->countries->countries[ $order->billing_country ] ) ? WC()->countries->countries[ $order->billing_country ] : $order->billing_country,
