@@ -583,8 +583,6 @@ class WC_Iugu_API {
 		$response_body = json_decode( $response['body'], true );
 		$response_errors = isset( $response_body['errors'] ) ? $response_body['errors'] : '';
 
-		ChromePhp::log($response_code, $response_message, $response_errors);
-
 		if ( is_wp_error( $response ) ) {
 			if ( 'yes' == $this->gateway->debug ) {
 				$this->gateway->log->add( $this->gateway->id, 'WP_Error while trying to generate an invoice: ' . $response->get_error_message() );
@@ -660,14 +658,10 @@ class WC_Iugu_API {
 	protected function get_charge_data( $order, $posted = array() ) {
 		$invoice = $this->create_invoice( $order );
 
-		ChromePhp::log('Invoice', $invoice);
-
 		if ( ! isset( $invoice['id'] ) ) {
 			if ( 'yes' == $this->gateway->debug ) {
 				$this->gateway->log->add( $this->gateway->id, 'Error while getting the charge data for order ' . $order->get_order_number() . ': Missing the invoice ID.' );
 			}
-
-			ChromePhp::log('No invoice found.');
 
 			return array(
 				'response' => $invoice['response'],
@@ -721,18 +715,13 @@ class WC_Iugu_API {
 
 		$charge_data = $this->get_charge_data( $order, $posted );
 
-		ChromePhp::log('Charge data:', $charge_data);
-
 		if ( ! isset( $charge_data['invoice_id'] ) ) {
-			ChromePhp::log('Charge data is empty.');
 
 			return $charge_data;
 		}
 
 		$charge_data = $this->build_api_params( $charge_data );
 		$response    = $this->do_request( 'charge', 'POST', $charge_data );
-
-		ChromePhp::log('Charge', $response);
 
 		if ( is_wp_error( $response ) ) {
 			if ( 'yes' == $this->gateway->debug ) {
@@ -890,10 +879,8 @@ class WC_Iugu_API {
 		$charge = $this->create_charge( $order, $_POST );
 
 		if ( ! isset( $charge['invoice_id'] ) ) {
-			ChromePhp::log('Charge failed.');
 
 			$charge_response = isset( $charge['response'] ) ? $charge['response'] : null;
-			ChromePhp::log('Charge response', $charge_response);
 
 			if ( $charge_response && ! empty( $charge_response['errors'] ) ) {
 				$errors = is_array( $charge_response['errors'] ) ? $charge_response['errors'] : array( $charge_response['errors'] );
