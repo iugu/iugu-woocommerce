@@ -1,7 +1,4 @@
 <?php
-
-include 'chromephp.php';
-
 /**
  * WC Iugu API Class.
  */
