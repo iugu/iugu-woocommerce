@@ -1,11 +1,11 @@
 === WooCommerce iugu ===
-**Contributors:** iugu, claudiosanches, braising, andsnleo
-**Tags:** woocommerce, iugu, payment
-**Requires at least:** 3.9
-**Tested up to:** 4.9
-**Stable tag:** 1.0.11
-**License:** GPLv2 or later
-**License URI:** http://www.gnu.org/licenses/gpl-2.0.html
+Contributors: iugu, claudiosanches, braising, andsnleo
+Tags: woocommerce, iugu, payment
+Requires at least: 3.9
+Tested up to: 4.9
+Stable tag: 1.0.12
+License: GPLv2 or later
+License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
 Receba pagamentos por cartão de crédito e boleto bancário na sua loja WooCommerce com a iugu.
 
@@ -88,6 +88,9 @@ Para produtos digitais, por padrão, o WooCommerce só permite o acesso do compr
 
 == Changelog ==
 
+= 1.0.12 - 2017/11/30 =
+* **Correção**: Incluída dependência do plugin que estava em falta na versão 1.0.11. Obrigado, @diasnt!
+
 = 1.0.11 - 2017/11/29 =
 * **Melhoria**: Erros da API da iugu agora são exibidos na página do checkout em vez do antigo erro padrão de pagamento, que dizia muito sem dizer nada.
 * **Correção**: Plugin não enviava o *Bairro* do cliente, informação obrigatória para a criação de boletos registrados, impedindo a compra.
@@ -138,6 +141,9 @@ Para produtos digitais, por padrão, o WooCommerce só permite o acesso do compr
 
 
 == Upgrade Notice ==
+
+= 1.0.12 =
+Incluímos uma dependência do plugin que estava em falta na versão 1.0.11. Obrigado, @diasnt!
 
 = 1.0.11  =
 Atualizamos o plugin para enviar a informação de **Bairro** do cliente, dado essencial para a criação de boletos registrados.
