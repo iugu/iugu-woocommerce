@@ -5,7 +5,7 @@
  * Description: Iugu payment gateway for WooCommerce.
  * Author: iugu
  * Author URI: https://iugu.com/
- * Version: 1.0.12
+ * Version: 1.0.13
  * License: GPLv2 or later
  * Text Domain: iugu-woocommerce
  * Domain Path: languages/
@@ -27,7 +27,8 @@ class WC_Iugu {
 	 *
 	 * @var string
 	 */
-	const VERSION = '1.0.12';
+	const CLIENT_NAME = 'plugin-iugu-woocommerce';
+	const CLIENT_VERSION = '1.0.13';
 
 	/**
 	 * Instance of this class.
@@ -89,6 +90,7 @@ class WC_Iugu {
 	 * Includes.
 	 */
 	private function includes() {
+		include_once 'includes/utils/chromephp.php';
 		include_once 'includes/class-wc-iugu-api.php';
 		include_once 'includes/class-wc-iugu-bank-slip-gateway.php';
 		include_once 'includes/class-wc-iugu-credit-card-gateway.php';
