@@ -88,9 +88,6 @@ Para produtos digitais, por padrão, o WooCommerce só permite o acesso do compr
 
 == Changelog ==
 
-= 1.0.13 - 2017/12/4 =
-* **Adição**: As chamadas de API da iugu agora recebem a versão do plugin utilizada para facilitar o debugging e o suporte.
-
 = 1.0.12 - 2017/11/30 =
 * **Correção**: Incluída dependência do plugin que estava em falta na versão 1.0.11. Obrigado, @diasnt!
 
@@ -144,8 +141,6 @@ Para produtos digitais, por padrão, o WooCommerce só permite o acesso do compr
 
 
 == Upgrade Notice ==
-
-// WRITE UPGRADE NOTICE FOR v1.0.13
 
 = 1.0.12 =
 Incluímos uma dependência do plugin que estava em falta na versão 1.0.11. Obrigado, @diasnt!
