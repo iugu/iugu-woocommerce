@@ -284,7 +284,7 @@ class WC_Iugu_API {
 		);
 
 		if ( ! empty( $data ) ) {
-			$params['body'] = $data;
+			$params['body'] = $data . '&client_name=' . WC_Iugu::CLIENT_NAME . '&client_version=' . WC_Iugu::CLIENT_VERSION;
 		}
 
 		if ( ! empty( $headers ) ) {
