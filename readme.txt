@@ -145,13 +145,8 @@ Para produtos digitais, por padrão, o WooCommerce só permite o acesso do compr
 
 == Upgrade Notice ==
 
-// WRITE UPGRADE NOTICE FOR v1.0.13
-
-= 1.0.12 =
-Incluímos uma dependência do plugin que estava em falta na versão 1.0.11. Obrigado, @diasnt!
-
-= 1.0.11  =
-Atualizamos o plugin para enviar a informação de **Bairro** do cliente, dado essencial para a criação de boletos registrados.
+= 1.0.13 =
+Coisa rápida: incluímos a versão do iugu WooCommerce nas chamadas da nossa API para ajudar o desenvolvimento e o suporte do plugin. 
 
 
 == Suporte ==
