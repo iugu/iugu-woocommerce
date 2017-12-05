@@ -23,7 +23,7 @@ if ( ! class_exists( 'WC_Iugu' ) ) :
 class WC_Iugu {
 
 	/**
-	 * Plugin name and version.
+	 * Plugin version.
 	 *
 	 * @var string
 	 */
