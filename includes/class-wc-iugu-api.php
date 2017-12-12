@@ -888,7 +888,7 @@ class WC_Iugu_API {
 					$error = is_array( $error ) ? $error : array( $error );
 
 					foreach ( $error as $_error ) {
-						$this->add_error( $name . ' ' . $_error . '.');
+						$this->add_error( $this->convert_API_param($name) . ' ' . $_error . '.');
 					}
 				}
 			}
@@ -1049,5 +1049,35 @@ class WC_Iugu_API {
 		}
 
 		wp_die( __( 'The request failed!', 'iugu-woocommerce' ), __( 'The request failed!', 'iugu-woocommerce' ), array( 'response' => 200 ) );
+	}
+
+	/**
+	 * Convert iugu API parameters from the most common error responses
+	 * to make them more human-readabale and match fields' names
+	 * on the checkout page if necessary.
+	 *
+	 * @param string $param
+	 *
+	 * @return string
+	*/
+
+	protected function convert_API_param( $param ) {
+		$param = end( explode( '.', $param ) );
+
+		$map = array(
+			'email' => 'Email address',
+			'cpf_cnpj' => 'CPF/CNPJ',
+			'street' => 'Street address',
+			'district' => 'Neighborhood',
+			'city' => 'Town / City',
+			'state' => 'State / County',
+			'zip_code' => 'Postcode / ZIP'
+		);
+
+		if ( array_key_exists($param, $map) ) {
+			return $map[$param];
+		}
+
+		return ucfirst( str_replace( '_', ' ', $param ) );
 	}
 }
