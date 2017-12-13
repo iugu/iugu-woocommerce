@@ -3,7 +3,7 @@ Contributors: iugu, claudiosanches, braising, andsnleo
 Tags: woocommerce, iugu, payment
 Requires at least: 3.9
 Tested up to: 4.9
-Stable tag: 1.0.13
+Stable tag: 1.0.14
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -88,6 +88,9 @@ Para produtos digitais, por padrão, o WooCommerce só permite o acesso do compr
 
 == Changelog ==
 
+= 1.0.14 =
+* **Melhoria**: Erros da API da iugu mais claros na página de checkout.
+
 = 1.0.13 - 2017/12/4 =
 * **Adição**: As chamadas de API da iugu agora recebem a versão do plugin utilizada para facilitar o debugging e o suporte.
 
@@ -146,7 +149,7 @@ Para produtos digitais, por padrão, o WooCommerce só permite o acesso do compr
 == Upgrade Notice ==
 
 = 1.0.13 =
-Coisa rápida: incluímos a versão do iugu WooCommerce nas chamadas da nossa API para ajudar o desenvolvimento e o suporte do plugin. 
+Coisa rápida: incluímos a versão do iugu WooCommerce nas chamadas da nossa API para ajudar o desenvolvimento e o suporte do plugin.
 
 
 == Suporte ==
