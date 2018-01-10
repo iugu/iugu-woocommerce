@@ -90,7 +90,6 @@ class WC_Iugu {
 	 * Includes.
 	 */
 	private function includes() {
-		include_once 'includes/utils/chromephp.php';
 		include_once 'includes/class-wc-iugu-api.php';
 		include_once 'includes/class-wc-iugu-bank-slip-gateway.php';
 		include_once 'includes/class-wc-iugu-credit-card-gateway.php';
