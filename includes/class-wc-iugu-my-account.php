@@ -26,7 +26,7 @@ class WC_Iugu_My_Account {
 	 * @deprecated 1.1.0
 	 */
 	public function legacy_my_orders_bank_slip_link( $actions, $order ) {
-		if ( 'iugu-bank-slip' !== $order->payment_method ) {
+		if ( 'iugu-bank-slip' !== $order->get_payment_method() ) {
 			return $actions;
 		}
 
@@ -34,7 +34,7 @@ class WC_Iugu_My_Account {
 			return $actions;
 		}
 
-		$data = get_post_meta( $order->id, '_iugu_wc_transaction_data', true );
+		$data = get_post_meta( $order->get_id(), '_iugu_wc_transaction_data', true );
 		if ( ! empty( $data['pdf'] ) ) {
 			$actions[] = array(
 				'url'  => $data['pdf'],
