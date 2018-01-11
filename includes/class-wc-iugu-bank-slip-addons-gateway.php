@@ -165,13 +165,13 @@ class WC_Iugu_Bank_Slip_Addons_Gateway extends WC_Iugu_Bank_Slip_Gateway {
 				'pdf' => $charge['pdf']
 			)
 		);
-		update_post_meta( $order->id, '_iugu_wc_transaction_data', $payment_data );
-		update_post_meta( $order->id, __( 'Iugu Bank Slip URL', 'iugu-woocommerce' ), $payment_data['pdf'] );
-		update_post_meta( $order->id, '_transaction_id', sanitize_text_field( $charge['invoice_id'] ) );
+		update_post_meta( $order->get_id(), '_iugu_wc_transaction_data', $payment_data );
+		update_post_meta( $order->get_id(), __( 'Iugu Bank Slip URL', 'iugu-woocommerce' ), $payment_data['pdf'] );
+		update_post_meta( $order->get_id(), '_transaction_id', sanitize_text_field( $charge['invoice_id'] ) );
 
 		// Save only in old versions.
 		if ( defined( 'WC_VERSION' ) && version_compare( WC_VERSION, '2.1.12', '<=' ) ) {
-			update_post_meta( $order->id, __( 'Iugu Transaction details', 'iugu-woocommerce' ), 'https://iugu.com/a/invoices/' . sanitize_text_field( $charge['invoice_id'] ) );
+			update_post_meta( $order->get_id(), __( 'Iugu Transaction details', 'iugu-woocommerce' ), 'https://iugu.com/a/invoices/' . sanitize_text_field( $charge['invoice_id'] ) );
 		}
 
 		$order_note = __( 'Iugu: The customer generated a bank slip, awaiting payment confirmation.', 'iugu-woocommerce' );
@@ -223,13 +223,13 @@ class WC_Iugu_Bank_Slip_Addons_Gateway extends WC_Iugu_Bank_Slip_Gateway {
 					'pdf' => $charge['pdf']
 				)
 			);
-			update_post_meta( $order->id, '_iugu_wc_transaction_data', $payment_data );
-			update_post_meta( $order->id, __( 'Iugu Bank Slip URL', 'iugu-woocommerce' ), $payment_data['pdf'] );
-			update_post_meta( $order->id, '_transaction_id', sanitize_text_field( $charge['invoice_id'] ) );
+			update_post_meta( $order->get_id(), '_iugu_wc_transaction_data', $payment_data );
+			update_post_meta( $order->get_id(), __( 'Iugu Bank Slip URL', 'iugu-woocommerce' ), $payment_data['pdf'] );
+			update_post_meta( $order->get_id(), '_transaction_id', sanitize_text_field( $charge['invoice_id'] ) );
 
 			// Save only in old versions.
 			if ( defined( 'WC_VERSION' ) && version_compare( WC_VERSION, '2.1.12', '<=' ) ) {
-				update_post_meta( $order->id, __( 'Iugu Transaction details', 'iugu-woocommerce' ), 'https://iugu.com/a/invoices/' . sanitize_text_field( $charge['invoice_id'] ) );
+				update_post_meta( $order->get_id(), __( 'Iugu Transaction details', 'iugu-woocommerce' ), 'https://iugu.com/a/invoices/' . sanitize_text_field( $charge['invoice_id'] ) );
 			}
 
 			$order->update_status( 'on-hold', __( 'Iugu: The customer generated a bank slip, awaiting payment confirmation.', 'iugu-woocommerce' ) );

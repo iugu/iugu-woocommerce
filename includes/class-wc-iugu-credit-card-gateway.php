@@ -368,11 +368,11 @@ class WC_Iugu_Credit_Card_Gateway extends WC_Payment_Gateway {
 
 			$data = $order->get_meta( '_iugu_wc_transaction_data' );
 		} else {
-			if ( $sent_to_admin || ! $order->has_status( array( 'processing', 'on-hold' ) ) || $this->id !== $order->payment_method ) {
+			if ( $sent_to_admin || ! $order->has_status( array( 'processing', 'on-hold' ) ) || $this->id !== $order->get_payment_method() ) {
 				return;
 			}
 
-			$data = get_post_meta( $order->id, '_iugu_wc_transaction_data', true );
+			$data = get_post_meta( $order->get_id(), '_iugu_wc_transaction_data', true );
 		}
 
 		if ( isset( $data['installments'] ) ) {

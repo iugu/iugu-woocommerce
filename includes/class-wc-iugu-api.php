@@ -119,7 +119,7 @@ class WC_Iugu_API {
 	public function get_transaction_rate() {
 		$rate = isset( $this->gateway->transaction_rate ) ? $this->gateway->transaction_rate : 7;
 
-		return woocommerce_format_decimal( $rate );
+		return wc_format_decimal( $rate );
 	}
 
 	/**
@@ -348,7 +348,7 @@ class WC_Iugu_API {
 	 * @return string
 	 */
 	protected function get_phone_number( $order ) {
-		$phone_number = $this->only_numbers( $order->billing_phone );
+		$phone_number = $this->only_numbers( $order->get_billing_phone() );
 
 		return array(
 			'area_code' => substr( $phone_number, 0, 2 ),
@@ -368,12 +368,12 @@ class WC_Iugu_API {
 		$person_type    = intval( $wcbcf_settings['person_type'] );
 
 		if ( 0 !== $person_type ) {
-			if ( ( 1 === $person_type && 1 === intval( $order->billing_persontype ) ) || 2 === $person_type ) {
-				return $this->only_numbers( $order->billing_cpf );
+			if ( ( 1 === $person_type && 1 === intval( $order->get_meta( '_billing_persontype' ) ) ) || 2 === $person_type ) {
+				return $this->only_numbers( $order->get_meta( '_billing_cpf' ) );
 			}
 
-			if ( ( 1 === $person_type && 2 === intval( $order->billing_persontype ) ) || 3 === $person_type ) {
-				return $this->only_numbers( $order->billing_cnpj );
+			if ( ( 1 === $person_type && 2 === intval( $order->get_meta( '_billing_persontype' ) ) ) || 3 === $person_type ) {
+				return $this->only_numbers( $order->get_meta( '_billing_cnpj' ) );
 			}
 		}
 
@@ -389,8 +389,9 @@ class WC_Iugu_API {
 	 */
 	protected function is_a_company( $order ) {
 		$wcbcf_settings = get_option( 'wcbcf_settings' );
+		$person_type = intval( $wcbcf_settings['person_type'] );
 
-		if ( ( '1' === $wcbcf_settings['person_type'] && '2' === $order->billing_persontype ) || '3' === $wcbcf_settings['person_type'] ) {
+		if ( ( $person_type === 1 && intval( $order->get_meta( '_billing_persontype' ) ) === 2 ) || $person_type === 3 ) {
 			return true;
 		}
 
@@ -419,7 +420,7 @@ class WC_Iugu_API {
 		$items        = array();
 		$phone_number = $this->get_phone_number( $order );
 		$data         = array(
-			'email'            => $order->billing_email,
+			'email'            => $order->get_billing_email(),
 			'due_date'         => $this->get_invoice_due_date(),
 			'return_url'       => $this->gateway->get_return_url( $order ),
 			'expired_url'      => str_replace( '&#038;', '&', $order->get_cancel_order_url() ),
@@ -429,21 +430,21 @@ class WC_Iugu_API {
 			'custom_variables' => array(
 				array(
 					'name'  => 'order_id',
-					'value' => $order->id
+					'value' => $order->get_id()
 				)
 			),
 			'payer'      => array(
-				'name'         => $order->billing_first_name . ' ' . $order->billing_last_name,
+				'name'         => $order->get_formatted_billing_full_name(),
 				'phone_prefix' => $phone_number['area_code'],
 				'phone'        => $phone_number['number'],
-				'email'        => $order->billing_email,
+				'email'        => $order->get_billing_email(),
 				'address'      => array(
-					'street'   => $order->billing_address_1,
-					'number'   => $order->billing_number,
-					'city'     => $order->billing_city,
-					'state'    => $order->billing_state,
-					'country'  => isset( WC()->countries->countries[ $order->billing_country ] ) ? WC()->countries->countries[ $order->billing_country ] : $order->billing_country,
-					'zip_code' => $this->only_numbers( $order->billing_postcode )
+					'street'   => $order->get_billing_address_1(),
+					'number'   => $order->get_meta( '_billing_number' ),
+					'city'     => $order->get_billing_city(),
+					'state'    => $order->get_billing_state(),
+					'country'  => isset( WC()->countries->countries[ $order->get_billing_country() ] ) ? WC()->countries->countries[ $order->get_billing_country() ] : $order->get_billing_country(),
+					'zip_code' => $this->only_numbers( $order->get_billing_postcode() )
 				)
 			),
 		);
@@ -453,11 +454,11 @@ class WC_Iugu_API {
 		}
 
 		if ( $this->is_a_company( $order ) ) {
-			$data['payer']['name'] = $order->billing_company;
+			$data['payer']['name'] = $order->get_billing_company();
 		}
 
-		if ( ! empty( $order->billing_neighborhood ) ) {
-			$data['payer']['address']['district'] = $order->billing_neighborhood;
+		if ( ! empty( $order->get_meta( '_billing_neighborhood' ) ) ) {
+			$data['payer']['address']['district'] = $order->get_meta( '_billing_neighborhood' );
 		}
 
 		// Force only one item.
@@ -479,9 +480,9 @@ class WC_Iugu_API {
 						}
 
 						$item_name = $order_item['name'];
-						$item_meta = new WC_Order_Item_Meta( $order_item['item_meta'] );
+						$item_meta = new WC_Order_Item_Product( $order_item['item_meta'] );
 
-						if ( $meta = $item_meta->display( true, true ) ) {
+						if ( $meta = $item_meta->get_formatted_meta_data() ){
 							$item_name .= ' - ' . $meta;
 						}
 
@@ -754,8 +755,8 @@ class WC_Iugu_API {
 		}
 
 		$data = array(
-			'email'          => $order->billing_email,
-			'name'           => trim( $order->billing_first_name . ' ' . $order->billing_last_name ),
+			'email'          => $order->get_billing_email(),
+			'name'           => trim( $order->get_formatted_billing_full_name() ),
 			'set_as_default' => true
 		);
 
@@ -908,7 +909,7 @@ class WC_Iugu_API {
 				)
 			);
 
-			update_post_meta( $order->id, __( 'Iugu Bank Slip URL', 'iugu-woocommerce' ), $payment_data['pdf'] );
+			update_post_meta( $order->get_id(), __( 'Iugu Bank Slip URL', 'iugu-woocommerce' ), $payment_data['pdf'] );
 		} else {
 			$payment_data = array_map(
 				'sanitize_text_field',
@@ -918,12 +919,12 @@ class WC_Iugu_API {
 			);
 		}
 
-		update_post_meta( $order->id, '_iugu_wc_transaction_data', $payment_data );
-		update_post_meta( $order->id, '_transaction_id', sanitize_text_field( $charge['invoice_id'] ) );
+		update_post_meta( $order->get_id(), '_iugu_wc_transaction_data', $payment_data );
+		update_post_meta( $order->get_id(), '_transaction_id', sanitize_text_field( $charge['invoice_id'] ) );
 
 		// Save only in old versions.
 		if ( defined( 'WC_VERSION' ) && version_compare( WC_VERSION, '2.1.12', '<=' ) ) {
-			update_post_meta( $order->id, __( 'Iugu Transaction details', 'iugu-woocommerce' ), 'https://iugu.com/a/invoices/' . sanitize_text_field( $charge['invoice_id'] ) );
+			update_post_meta( $order->get_id(), __( 'Iugu Transaction details', 'iugu-woocommerce' ), 'https://iugu.com/a/invoices/' . sanitize_text_field( $charge['invoice_id'] ) );
 		}
 
 		$this->empty_card();

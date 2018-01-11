@@ -198,7 +198,7 @@ class WC_Iugu_Bank_Slip_Gateway extends WC_Payment_Gateway {
 			echo wpautop( wptexturize( $description ) );
 		}
 
-		woocommerce_get_template(
+		wc_get_template(
 			'bank-slip/checkout-instructions.php',
 			array(),
 			'woocommerce/iugu/',
@@ -228,7 +228,7 @@ class WC_Iugu_Bank_Slip_Gateway extends WC_Payment_Gateway {
 		$data = get_post_meta( $order_id, '_iugu_wc_transaction_data', true );
 
 		if ( isset( $data['pdf'] ) ) {
-			woocommerce_get_template(
+			wc_get_template(
 				'bank-slip/payment-instructions.php',
 				array(
 					'pdf' => $data['pdf']
@@ -249,15 +249,15 @@ class WC_Iugu_Bank_Slip_Gateway extends WC_Payment_Gateway {
 	 * @return string                Payment instructions.
 	 */
 	public function email_instructions( $order, $sent_to_admin, $plain_text = false ) {
-		if ( $sent_to_admin || ! in_array( $order->status, array( 'processing', 'on-hold' ) ) || $this->id !== $order->payment_method ) {
+		if ( $sent_to_admin || ! in_array( $order->get_status(), array( 'processing', 'on-hold' ) ) || $this->id !== $order->get_payment_method() ) {
 			return;
 		}
 
-		$data = get_post_meta( $order->id, '_iugu_wc_transaction_data', true );
+		$data = get_post_meta( $order->get_id(), '_iugu_wc_transaction_data', true );
 
 		if ( isset( $data['pdf'] ) ) {
 			if ( $plain_text ) {
-				woocommerce_get_template(
+				wc_get_template(
 					'bank-slip/emails/plain-instructions.php',
 					array(
 						'pdf' => $data['pdf']
@@ -266,7 +266,7 @@ class WC_Iugu_Bank_Slip_Gateway extends WC_Payment_Gateway {
 					WC_Iugu::get_templates_path()
 				);
 			} else {
-				woocommerce_get_template(
+				wc_get_template(
 					'bank-slip/emails/html-instructions.php',
 					array(
 						'pdf' => $data['pdf']
