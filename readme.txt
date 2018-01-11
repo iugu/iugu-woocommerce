@@ -3,7 +3,7 @@ Contributors: iugu, claudiosanches, braising, andsnleo
 Tags: woocommerce, iugu, payment
 Requires at least: 3.9
 Tested up to: 4.9
-Stable tag: 1.0.14
+Stable tag: 2.0.0
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -17,7 +17,7 @@ A iugu disponibiliza toda a infraestrutura necessária para que você possa tran
 
 O **WooCommerce iugu** é compatível com:
 
-* [WooCommerce 2.1+](https://wordpress.org/plugins/woocommerce/)
+* [WooCommerce 3.0+](https://wordpress.org/plugins/woocommerce/)
 * [WooCommerce Subscriptions](http://www.woothemes.com/products/woocommerce-subscriptions/): para pagamentos recorrentes/assinaturas.
 * [WooCommerce Pre-orders](http://www.woothemes.com/products/woocommerce-pre-orders/): para pré-venda de produtos.
 * [WooCommerce Extra Checkout Fields for Brazil](https://br.wordpress.org/plugins/woocommerce-extra-checkout-fields-for-brazil/): permite enviar dados do cliente como **CPF** ou **CNPJ**, além dos campos **número** e **bairro** do endereço.
@@ -25,7 +25,7 @@ O **WooCommerce iugu** é compatível com:
 = Requerimentos =
 
 * [Wordpress v3.9 ou superior](https://wordpress.org).
-* [WooCommerce v2.1 ou superior](https://br.wordpress.org/plugins/woocommerce/).
+* [WooCommerce v3.0 ou superior](https://br.wordpress.org/plugins/woocommerce/).
 * [WooCommerce Extra Checkout Fields for Brazil](https://br.wordpress.org/plugins/woocommerce-extra-checkout-fields-for-brazil/).
 * Conta ativa na [iugu](https://iugu.com/) com boleto bancário e/ou cartão de crédito habilitados como métodos de pagamento. Entenda [*O que é necessário para começar a usar iugu?*](https://support.iugu.com/hc/pt-br/articles/201531709).
 
@@ -88,69 +88,17 @@ Para produtos digitais, por padrão, o WooCommerce só permite o acesso do compr
 
 == Changelog ==
 
-= 1.0.14 =
-* **Melhoria**: Erros da API da iugu mais claros na página de checkout.
+= 2.0.0 =
+* Melhoria: Removidas as funções deprecadas do WooCommerce.
+* Correção: Função responsável por identificar se o cliente é uma empresa não funcionava apropriadamente.
 
-= 1.0.13 - 2017/12/4 =
-* **Adição**: As chamadas de API da iugu agora recebem a versão do plugin utilizada para facilitar o debugging e o suporte.
-
-= 1.0.12 - 2017/11/30 =
-* **Correção**: Incluída dependência do plugin que estava em falta na versão 1.0.11. Obrigado, @diasnt!
-
-= 1.0.11 - 2017/11/29 =
-* **Melhoria**: Erros da API da iugu agora são exibidos na página do checkout em vez do antigo erro padrão de pagamento, que dizia muito sem dizer nada.
-* **Correção**: Plugin não enviava o *Bairro* do cliente, informação obrigatória para a criação de boletos registrados, impedindo a compra.
-
-= 1.0.10 - 2016/06/30 =
-* **Correção**: ID de pagamento das assinaturas de cartão de crédito.
-* **Melhoria**: Funcionamento para pessoa jurídica, enviando o nome da empresa.
-
-= 1.0.9 - 2016/06/18 =
-* **Correção**: Campo de número de telefone.
-
-= 1.0.8 - 2016/06/17 =
-* **Correção**: Suporte para WooCommerce 2.6+.
-* **Novidade**: Suporte para WooCommerce Subscriptions 2.0+.
-* **Correção**: Suporte para assinaturas.
-* **Correção** Exibição de CPF/CPNJ em boletos.
-
-= 1.0.7 - 2016/02/09 =
-* **Melhoria**: Geração das faturas, garantindo que sejam papgas apenas com cartão de crédito ou boleto, sem poder mudar a forma de pagamento.
-
-= 1.0.6 - 2015/05/01 =
-* **Melhoria**: Conversão de valores para centavos antes de enviá-los para a API da iugu.
-* **Melhoria**: Campo de "Nome impresso no cartão" do formulário de cartão de crédito.
-* **Correção**: Carregamento do JavaScript das opções de cartão de crédito quando instalado o WooCommerce Subscriptions.
-* **Correção**: HTML das instruções do cartão de crédito após o pagamento.
-
-= 1.0.5 - 2015/04/09 =
-* **Correção**: Opção de repasse de juros quando desativada.
-
-= 1.0.4 - 2015/03/25 =
-* **Correção**: Parcelas exibidas na versões 2.1.x do WooCommerce.
-
-= 1.0.3 - 2015/03/24 =
-* **Melhoria**: Fluxo de pagamento com cartão de crédito.
-* **Correção**: Mudança de status quando o cartão é recusado.
-* **Melhoria**: Opções padrões do plugin.
-* **Correção**: URLs das notificações.
-* **Melhoria**: Link de *Configurações* na página de plugins.
-
-= 1.0.2 - 2015/03/12 =
-* **Melhoria**: Renovação de assinaturas no WooCommerce Subscription.
-
-= 1.0.1 - 2015/03/08 =
-* **Adição**: Opção para configurar a taxa de transação que é utilizada no repasse de juros do parcelamento.
-
-= 1.0.0 - 2015/03/08 =
-* Lançamento da versão inicial.
+Veja o [changelog completo no Github](https://github.com/iugu/iugu-woocommerce/wiki).
 
 
 == Upgrade Notice ==
 
-= 1.0.13 =
-Coisa rápida: incluímos a versão do iugu WooCommerce nas chamadas da nossa API para ajudar o desenvolvimento e o suporte do plugin.
-
+= 2.0.0 =
+Removemos as funções obsoletas do WooCommerce para lançar uma versão _major_ (2.0.0) compatível apenas com o WooCommerce 3.0 ou superior. Portanto, atualize o seu plugin do WC se necessário.
 
 == Suporte ==
 
