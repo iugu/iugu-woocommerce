@@ -52,7 +52,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 						break;
 					}
 					?>
-					<option value="<?php echo $i; ?>"><?php echo esc_attr( sprintf( __( '%dx of %s %s (Total: %s)', 'iugu-woocommerce' ), $i, sanitize_text_field( woocommerce_price( $installment_total ) ), $interest_text, sanitize_text_field( woocommerce_price( $total_to_pay ) ) ) ); ?></option>
+					<option value="<?php echo $i; ?>"><?php echo esc_attr( sprintf( __( '%dx of %s %s (Total: %s)', 'iugu-woocommerce' ), $i, sanitize_text_field( wc_price( $installment_total ) ), $interest_text, sanitize_text_field( wc_price( $total_to_pay ) ) ) ); ?></option>
 				<?php endfor; ?>
 			</select>
 		</p>

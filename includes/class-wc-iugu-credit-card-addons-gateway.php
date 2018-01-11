@@ -192,7 +192,7 @@ class WC_Iugu_Credit_Card_Addons_Gateway extends WC_Iugu_Credit_Card_Gateway {
 
 		// Also store it on the subscriptions being purchased in the order.
 		foreach( wcs_get_subscriptions_for_order( $order_id ) as $subscription ) {
-			update_post_meta( $subscription->id, '_iugu_customer_payment_method_id', $payment_method_id );
+			update_post_meta( $subscription->get_id(), '_iugu_customer_payment_method_id', $payment_method_id );
 		}
 	}
 
@@ -281,7 +281,7 @@ class WC_Iugu_Credit_Card_Addons_Gateway extends WC_Iugu_Credit_Card_Gateway {
 	 * @param WC_Order $renewal_order The order which recorded the successful payment (to make up for the failed automatic payment).
 	 */
 	public function update_failing_payment_method( $subscription, $renewal_order ) {
-		update_post_meta( $subscription->id, '_iugu_customer_payment_method_id', get_post_meta( $renewal_order->id, '_iugu_customer_payment_method_id', true ) );
+		update_post_meta( $subscription->get_id(), '_iugu_customer_payment_method_id', get_post_meta( $renewal_order->id, '_iugu_customer_payment_method_id', true ) );
 	}
 
 	/**
@@ -296,7 +296,7 @@ class WC_Iugu_Credit_Card_Addons_Gateway extends WC_Iugu_Credit_Card_Gateway {
 		$payment_meta[ $this->id ] = array(
 			'post_meta' => array(
 				'_iugu_customer_payment_method_id' => array(
-					'value' => get_post_meta( $subscription->id, '_iugu_customer_payment_method_id', true ),
+					'value' => get_post_meta( $subscription->get_id(), '_iugu_customer_payment_method_id', true ),
 					'label' => 'Iugu Payment Method ID',
 				),
 			),

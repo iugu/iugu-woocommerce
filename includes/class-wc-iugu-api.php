@@ -389,8 +389,9 @@ class WC_Iugu_API {
 	 */
 	protected function is_a_company( $order ) {
 		$wcbcf_settings = get_option( 'wcbcf_settings' );
+		$person_type = intval( $wcbcf_settings['person_type'] );
 
-		if ( ( '1' === $wcbcf_settings['person_type'] && '2' === $order->billing_persontype ) || '3' === $wcbcf_settings['person_type'] ) {
+		if ( ( $person_type === 1 && intval( $order->get_meta( '_billing_persontype' ) ) === 2 ) || $person_type === 3 ) {
 			return true;
 		}
 
