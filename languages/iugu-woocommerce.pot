@@ -1,41 +1,37 @@
-# Copyright (C) 2016 Iugu
+# Copyright (C) 2018 iugu
 # This file is distributed under the GPLv2 or later.
 msgid ""
 msgstr ""
-"Project-Id-Version: Iugu WooCommerce 1.0.10\n"
+"Project-Id-Version: WooCommerce iugu 2.0.0\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/iugu-woocommerce\n"
-"POT-Creation-Date: 2016-06-30 04:49:50+00:00\n"
+"POT-Creation-Date: 2018-01-23 09:54:13+00:00\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"PO-Revision-Date: 2016-MO-DA HO:MI+ZONE\n"
-"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
-"Language-Team: LANGUAGE <LL@li.org>\n"
-"X-Generator: grunt-wp-i18n 0.5.3\n"
+"PO-Revision-Date: 2018-MO-DA HO:MI+ZONE\n"
+"Last-Translator: Anderson Leonardo <andsnleo@gmail.com>\n"
+"Language-Team: PT_BR <tech@iugu.com>\n"
+"X-Generator: grunt-wp-i18n1.0.1\n"
 
-#: includes/class-wc-iugu-api.php:462
+#: includes/class-wc-iugu-api.php:467
 msgid "Order %s"
 msgstr ""
 
-#: includes/class-wc-iugu-api.php:536
+#: includes/class-wc-iugu-api.php:541
 msgid "Shipping via %s"
 msgstr ""
 
-#: includes/class-wc-iugu-api.php:609
-msgid "Invalid zip code."
-msgstr ""
-
-#: includes/class-wc-iugu-api.php:697 includes/class-wc-iugu-api.php:721
+#: includes/class-wc-iugu-api.php:742
 msgid ""
 "An error has occurred while processing your payment, please try again. Or "
 "contact us for assistance."
 msgstr ""
 
-#: includes/class-wc-iugu-api.php:818
+#: includes/class-wc-iugu-api.php:839
 msgid "Payment method created for order %s"
 msgstr ""
 
-#: includes/class-wc-iugu-api.php:886
+#: includes/class-wc-iugu-api.php:912
 #: includes/class-wc-iugu-bank-slip-addons-gateway-deprecated.php:165
 #: includes/class-wc-iugu-bank-slip-addons-gateway-deprecated.php:226
 #: includes/class-wc-iugu-bank-slip-addons-gateway.php:169
@@ -43,7 +39,7 @@ msgstr ""
 msgid "Iugu Bank Slip URL"
 msgstr ""
 
-#: includes/class-wc-iugu-api.php:901
+#: includes/class-wc-iugu-api.php:927
 #: includes/class-wc-iugu-bank-slip-addons-gateway-deprecated.php:170
 #: includes/class-wc-iugu-bank-slip-addons-gateway-deprecated.php:231
 #: includes/class-wc-iugu-bank-slip-addons-gateway.php:174
@@ -55,7 +51,7 @@ msgstr ""
 msgid "Iugu Transaction details"
 msgstr ""
 
-#: includes/class-wc-iugu-api.php:907 includes/class-wc-iugu-api.php:945
+#: includes/class-wc-iugu-api.php:933 includes/class-wc-iugu-api.php:971
 #: includes/class-wc-iugu-bank-slip-addons-gateway-deprecated.php:173
 #: includes/class-wc-iugu-bank-slip-addons-gateway-deprecated.php:234
 #: includes/class-wc-iugu-bank-slip-addons-gateway.php:177
@@ -63,55 +59,55 @@ msgstr ""
 msgid "Iugu: The customer generated a bank slip, awaiting payment confirmation."
 msgstr ""
 
-#: includes/class-wc-iugu-api.php:910
+#: includes/class-wc-iugu-api.php:936
 #: includes/class-wc-iugu-credit-card-addons-gateway-deprecated.php:337
 #: includes/class-wc-iugu-credit-card-addons-gateway.php:374
 msgid "Iugu: Invoice paid successfully by credit card."
 msgstr ""
 
-#: includes/class-wc-iugu-api.php:913
+#: includes/class-wc-iugu-api.php:939
 #: includes/class-wc-iugu-credit-card-addons-gateway-deprecated.php:334
 #: includes/class-wc-iugu-credit-card-addons-gateway.php:371
 msgid "Iugu: Credit card declined."
 msgstr ""
 
-#: includes/class-wc-iugu-api.php:947
+#: includes/class-wc-iugu-api.php:973
 msgid "Iugu: Invoice paid by credit card, waiting for operator confirmation."
 msgstr ""
 
-#: includes/class-wc-iugu-api.php:956
+#: includes/class-wc-iugu-api.php:982
 msgid "Iugu: Invoice paid successfully."
 msgstr ""
 
-#: includes/class-wc-iugu-api.php:965
+#: includes/class-wc-iugu-api.php:991
 msgid "Iugu: Invoice canceled."
 msgstr ""
 
-#: includes/class-wc-iugu-api.php:970
+#: includes/class-wc-iugu-api.php:996
 msgid "Iugu: Invoice partially paid."
 msgstr ""
 
-#: includes/class-wc-iugu-api.php:975
+#: includes/class-wc-iugu-api.php:1001
 msgid "Iugu: Invoice refunded."
 msgstr ""
 
-#: includes/class-wc-iugu-api.php:977
+#: includes/class-wc-iugu-api.php:1003
 msgid "Invoice for order %s was refunded"
 msgstr ""
 
-#: includes/class-wc-iugu-api.php:978
+#: includes/class-wc-iugu-api.php:1004
 msgid "Invoice refunded"
 msgstr ""
 
-#: includes/class-wc-iugu-api.php:979
+#: includes/class-wc-iugu-api.php:1005
 msgid "Order %s has been marked as refunded by Iugu."
 msgstr ""
 
-#: includes/class-wc-iugu-api.php:985
+#: includes/class-wc-iugu-api.php:1011
 msgid "Iugu: Invoice expired."
 msgstr ""
 
-#: includes/class-wc-iugu-api.php:1026
+#: includes/class-wc-iugu-api.php:1052
 #: includes/class-wc-iugu-bank-slip-addons-gateway-deprecated.php:309
 #: includes/class-wc-iugu-bank-slip-addons-gateway.php:310
 msgid "The request failed!"
@@ -419,6 +415,13 @@ msgstr ""
 msgid "is invalid"
 msgstr ""
 
+#: includes/class-wc-iugu-my-account.php:41
+#: includes/class-wc-iugu-my-account.php:64
+#: templates/bank-slip/emails/html-instructions.php:17
+#: templates/bank-slip/payment-instructions.php:16
+msgid "Pay the bank slip"
+msgstr ""
+
 #: includes/views/html-notice-account-id-missing.php:13
 #: includes/views/html-notice-api-token-missing.php:13
 #: includes/views/html-notice-currency-not-supported.php:13
@@ -455,15 +458,15 @@ msgstr ""
 msgid "WooCommerce"
 msgstr ""
 
-#: iugu-woocommerce.php:152
+#: iugu-woocommerce.php:154
 msgid "System Status &gt; Logs"
 msgstr ""
 
-#: iugu-woocommerce.php:187
+#: iugu-woocommerce.php:189
 msgid "Credit Card Settings"
 msgstr ""
 
-#: iugu-woocommerce.php:189
+#: iugu-woocommerce.php:191
 msgid "Bank Slip Settings"
 msgstr ""
 
@@ -490,11 +493,6 @@ msgstr ""
 msgid ""
 "Please use the link below to view your bank slip, you can print and pay in "
 "your internet banking or in a lottery retailer:"
-msgstr ""
-
-#: templates/bank-slip/emails/html-instructions.php:17
-#: templates/bank-slip/payment-instructions.php:16
-msgid "Pay the bank slip"
 msgstr ""
 
 #: templates/bank-slip/emails/html-instructions.php:17
@@ -564,9 +562,9 @@ msgid "Iugu payment gateway for WooCommerce."
 msgstr ""
 
 #. Author of the plugin/theme
-msgid "Iugu"
+msgid "iugu"
 msgstr ""
 
 #. Author URI of the plugin/theme
-msgid "http://iugu.com/"
+msgid "https://iugu.com/"
 msgstr ""
