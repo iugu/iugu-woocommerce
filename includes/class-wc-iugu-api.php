@@ -1,6 +1,6 @@
 <?php
 /**
- * WC Iugu API Class.
+ * WC iugu API Class.
  */
 class WC_Iugu_API {
 
@@ -89,7 +89,7 @@ class WC_Iugu_API {
 	}
 
 	/**
-	 * Get Iugu credit card interest rates.
+	 * Get iugu credit card interest rates.
 	 *
 	 * @return array
 	 */
@@ -263,7 +263,7 @@ class WC_Iugu_API {
 	}
 
 	/**
-	 * Do requests in the Iugu API.
+	 * Do requests in the iugu API.
 	 *
 	 * @param  string $endpoint API Endpoint.
 	 * @param  string $method   Request method.
@@ -570,7 +570,7 @@ class WC_Iugu_API {
 		$invoice_data = $this->get_invoice_data( $order );
 
 		if ( 'yes' == $this->gateway->debug ) {
-			$this->gateway->log->add( $this->gateway->id, 'Creating an invoice on Iugu for order ' . $order->get_order_number() . ' with the following data: ' . print_r( $invoice_data, true ) );
+			$this->gateway->log->add( $this->gateway->id, 'Creating an invoice on iugu for order ' . $order->get_order_number() . ' with the following data: ' . print_r( $invoice_data, true ) );
 		}
 
 		$invoice_data = $this->build_api_params( $invoice_data );
@@ -619,7 +619,7 @@ class WC_Iugu_API {
 	 */
 	public function get_invoice_status( $invoice_id ) {
 		if ( 'yes' == $this->gateway->debug ) {
-			$this->gateway->log->add( $this->gateway->id, 'Getting invoice status from Iugu. Invoice ID: ' . $invoice_id );
+			$this->gateway->log->add( $this->gateway->id, 'Getting invoice status from iugu. Invoice ID: ' . $invoice_id );
 		}
 
 		$response = $this->do_request( 'invoices/' . $invoice_id, 'GET' );
@@ -739,11 +739,11 @@ class WC_Iugu_API {
 			$this->gateway->log->add( $this->gateway->id, 'Error while doing the charge for order ' . $order->get_order_number() . ': ' . print_r( $response, true ) );
 		}
 
-		return array( 'errors' => array( __( 'An error has occurred while processing your payment, please try again. Or contact us for assistance.', 'iugu-woocommerce' ) ) );
+		return array( 'errors' => array( __( 'An error has occurred while processing your payment. Please, try again or contact us for assistance.', 'iugu-woocommerce' ) ) );
 	}
 
 	/**
-	 * Create customer in Iugu API.
+	 * Create customer in iugu API.
 	 *
 	 * @param  WC_Order $order Order data.
 	 *
@@ -808,7 +808,7 @@ class WC_Iugu_API {
 			}
 		}
 
-		// Create customer in Iugu.
+		// Create customer in iugu.
 		$customer_id = $this->create_customer( $order );
 
 		// Save the customer ID.
@@ -909,7 +909,7 @@ class WC_Iugu_API {
 				)
 			);
 
-			update_post_meta( $order->get_id(), __( 'Iugu Bank Slip URL', 'iugu-woocommerce' ), $payment_data['pdf'] );
+			update_post_meta( $order->get_id(), __( 'iugu bank slip URL', 'iugu-woocommerce' ), $payment_data['pdf'] );
 		} else {
 			$payment_data = array_map(
 				'sanitize_text_field',
@@ -924,19 +924,19 @@ class WC_Iugu_API {
 
 		// Save only in old versions.
 		if ( defined( 'WC_VERSION' ) && version_compare( WC_VERSION, '2.1.12', '<=' ) ) {
-			update_post_meta( $order->get_id(), __( 'Iugu Transaction details', 'iugu-woocommerce' ), 'https://iugu.com/a/invoices/' . sanitize_text_field( $charge['invoice_id'] ) );
+			update_post_meta( $order->get_id(), __( 'iugu transaction details', 'iugu-woocommerce' ), 'https://iugu.com/a/invoices/' . sanitize_text_field( $charge['invoice_id'] ) );
 		}
 
 		$this->empty_card();
 
 		if ( 'bank-slip' == $this->method ) {
-			$order->update_status( 'on-hold', __( 'Iugu: The customer generated a bank slip, awaiting payment confirmation.', 'iugu-woocommerce' ) );
+			$order->update_status( 'on-hold', __( 'iugu: The customer generated a bank slip. Awaiting payment confirmation.', 'iugu-woocommerce' ) );
 		} else {
 			if ( true == $charge['success'] ) {
-				$order->add_order_note( __( 'Iugu: Invoice paid successfully by credit card.', 'iugu-woocommerce' ) );
+				$order->add_order_note( __( 'iugu: Invoice paid successfully by credit card.', 'iugu-woocommerce' ) );
 				$order->payment_complete();
 			} else {
-				$order->update_status( 'failed', __( 'Iugu: Credit card declined.', 'iugu-woocommerce' ) );
+				$order->update_status( 'failed', __( 'iugu: Credit card declined.', 'iugu-woocommerce' ) );
 			}
 		}
 
@@ -961,16 +961,16 @@ class WC_Iugu_API {
 		$order_updated  = false;
 
 		if ( 'yes' == $this->gateway->debug ) {
-			$this->gateway->log->add( $this->gateway->id, 'Iugu payment status for order ' . $order->get_order_number() . ' is now: ' . $invoice_status );
+			$this->gateway->log->add( $this->gateway->id, 'iugu payment status for order ' . $order->get_order_number() . ' is now: ' . $invoice_status );
 		}
 
 		switch ( $invoice_status ) {
 			case 'pending' :
 				if ( ! in_array( $order_status, array( 'on-hold', 'processing', 'completed' ) ) ) {
 					if ( 'bank-slip' == $this->method ) {
-						$order->update_status( 'on-hold', __( 'Iugu: The customer generated a bank slip, awaiting payment confirmation.', 'iugu-woocommerce' ) );
+						$order->update_status( 'on-hold', __( 'iugu: The customer generated a bank slip. Awaiting payment confirmation.', 'iugu-woocommerce' ) );
 					} else {
-						$order->update_status( 'on-hold', __( 'Iugu: Invoice paid by credit card, waiting for operator confirmation.', 'iugu-woocommerce' ) );
+						$order->update_status( 'on-hold', __( 'iugu: Invoice paid by credit card. Waiting for operator confirmation.', 'iugu-woocommerce' ) );
 					}
 
 					$order_updated = true;
@@ -979,7 +979,7 @@ class WC_Iugu_API {
 				break;
 			case 'paid' :
 				if ( ! in_array( $order_status, array( 'processing', 'completed' ) ) ) {
-					$order->add_order_note( __( 'Iugu: Invoice paid successfully.', 'iugu-woocommerce' ) );
+					$order->add_order_note( __( 'iugu: Invoice paid successfully.', 'iugu-woocommerce' ) );
 
 					// Changing the order for processing and reduces the stock.
 					$order->payment_complete();
@@ -988,27 +988,27 @@ class WC_Iugu_API {
 
 				break;
 			case 'canceled' :
-				$order->update_status( 'cancelled', __( 'Iugu: Invoice canceled.', 'iugu-woocommerce' ) );
+				$order->update_status( 'cancelled', __( 'iugu: Invoice canceled.', 'iugu-woocommerce' ) );
 				$order_updated = true;
 
 				break;
 			case 'partially_paid' :
-				$order->update_status( 'on-hold', __( 'Iugu: Invoice partially paid.', 'iugu-woocommerce' ) );
+				$order->update_status( 'on-hold', __( 'iugu: Invoice partially paid.', 'iugu-woocommerce' ) );
 				$order_updated = true;
 
 				break;
 			case 'refunded' :
-				$order->update_status( 'refunded', __( 'Iugu: Invoice refunded.', 'iugu-woocommerce' ) );
+				$order->update_status( 'refunded', __( 'iugu: Invoice refunded.', 'iugu-woocommerce' ) );
 				$this->send_email(
 					sprintf( __( 'Invoice for order %s was refunded', 'iugu-woocommerce' ), $order->get_order_number() ),
 					__( 'Invoice refunded', 'iugu-woocommerce' ),
-					sprintf( __( 'Order %s has been marked as refunded by Iugu.', 'iugu-woocommerce' ), $order->get_order_number() )
+					sprintf( __( 'Order %s has been marked as refunded by iugu.', 'iugu-woocommerce' ), $order->get_order_number() )
 				);
 				$order_updated = true;
 
 				break;
 			case 'expired' :
-				$order->update_status( 'failed', __( 'Iugu: Invoice expired.', 'iugu-woocommerce' ) );
+				$order->update_status( 'failed', __( 'iugu: Invoice expired.', 'iugu-woocommerce' ) );
 				$order_updated = true;
 
 				break;
@@ -1066,13 +1066,13 @@ class WC_Iugu_API {
 		$param = end( explode( '.', $param ) );
 
 		$map = array(
-			'email' => 'Email address',
+			'email' => __( 'Email address', 'iugu-woocommerce' ),
 			'cpf_cnpj' => 'CPF/CNPJ',
-			'street' => 'Street address',
-			'district' => 'Neighborhood',
-			'city' => 'Town / City',
-			'state' => 'State / County',
-			'zip_code' => 'Postcode / ZIP'
+			'street' => __( 'Street address', 'iugu-woocommerce' ),
+			'district' => __( 'Neighborhood', 'iugu-woocommerce' ),
+			'city' => __( 'Town / City', 'iugu-woocommerce' ),
+			'state' => __( 'State / County', 'iugu-woocommerce' ),
+			'zip_code' => __( 'Postcode / ZIP', 'iugu-woocommerce' )
 		);
 
 		if ( array_key_exists($param, $map) ) {

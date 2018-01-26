@@ -1,6 +1,6 @@
 <?php
 /**
- * Iugu My Account actions
+ * iugu My Account actions
  */
 
 if ( ! defined( 'ABSPATH' ) ) {

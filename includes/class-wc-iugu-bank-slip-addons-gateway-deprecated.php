@@ -4,14 +4,14 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 
 /**
- * Iugu Payment Bank Slip Addons Gateway class.
+ * iugu Payment Bank Slip Addons Gateway class.
  *
  * Integration with WooCommerce Subscriptions and Pre-orders.
  *
  * @class   WC_Iugu_Bank_Slip_Addons_Gateway_Deprecated
  * @extends WC_Iugu_Bank_Slip_Gateway
  * @version 1.0.0
- * @author  Iugu
+ * @author  iugu
  */
 class WC_Iugu_Bank_Slip_Addons_Gateway_Deprecated extends WC_Iugu_Bank_Slip_Gateway {
 
@@ -162,15 +162,15 @@ class WC_Iugu_Bank_Slip_Addons_Gateway_Deprecated extends WC_Iugu_Bank_Slip_Gate
 			)
 		);
 		update_post_meta( $order->get_id(), '_iugu_wc_transaction_data', $payment_data );
-		update_post_meta( $order->get_id(), __( 'Iugu Bank Slip URL', 'iugu-woocommerce' ), $payment_data['pdf'] );
+		update_post_meta( $order->get_id(), __( 'iugu bank slip URL', 'iugu-woocommerce' ), $payment_data['pdf'] );
 		update_post_meta( $order->get_id(), '_transaction_id', sanitize_text_field( $charge['invoice_id'] ) );
 
 		// Save only in old versions.
 		if ( defined( 'WC_VERSION' ) && version_compare( WC_VERSION, '2.1.12', '<=' ) ) {
-			update_post_meta( $order->get_id(), __( 'Iugu Transaction details', 'iugu-woocommerce' ), 'https://iugu.com/a/invoices/' . sanitize_text_field( $charge['invoice_id'] ) );
+			update_post_meta( $order->get_id(), __( 'iugu transaction details', 'iugu-woocommerce' ), 'https://iugu.com/a/invoices/' . sanitize_text_field( $charge['invoice_id'] ) );
 		}
 
-		$order_note = __( 'Iugu: The customer generated a bank slip, awaiting payment confirmation.', 'iugu-woocommerce' );
+		$order_note = __( 'iugu: The customer generated a bank slip. Awaiting confirmation.', 'iugu-woocommerce' );
 		if ( 'pending' == $order->get_status() ) {
 			$order->update_status( 'on-hold', $order_note );
 		} else {
@@ -223,17 +223,17 @@ class WC_Iugu_Bank_Slip_Addons_Gateway_Deprecated extends WC_Iugu_Bank_Slip_Gate
 				)
 			);
 			update_post_meta( $order->get_id(), '_iugu_wc_transaction_data', $payment_data );
-			update_post_meta( $order->get_id(), __( 'Iugu Bank Slip URL', 'iugu-woocommerce' ), $payment_data['pdf'] );
+			update_post_meta( $order->get_id(), __( 'iugu bank slip URL', 'iugu-woocommerce' ), $payment_data['pdf'] );
 			update_post_meta( $order->get_id(), '_transaction_id', sanitize_text_field( $charge['invoice_id'] ) );
 
 			// Save only in old versions.
 			if ( defined( 'WC_VERSION' ) && version_compare( WC_VERSION, '2.1.12', '<=' ) ) {
-				update_post_meta( $order->get_id(), __( 'Iugu Transaction details', 'iugu-woocommerce' ), 'https://iugu.com/a/invoices/' . sanitize_text_field( $charge['invoice_id'] ) );
+				update_post_meta( $order->get_id(), __( 'iugu transaction details', 'iugu-woocommerce' ), 'https://iugu.com/a/invoices/' . sanitize_text_field( $charge['invoice_id'] ) );
 			}
 
-			$order->update_status( 'on-hold', __( 'Iugu: The customer generated a bank slip, awaiting payment confirmation.', 'iugu-woocommerce' ) );
+			$order->update_status( 'on-hold', __( 'iugu: The customer generated a bank slip. Awaiting payment confirmation.', 'iugu-woocommerce' ) );
 		} catch ( Exception $e ) {
-			$order_note = sprintf( __( 'Iugu: Pre-order payment failed (%s).', 'iugu-woocommerce' ), $e->getMessage() );
+			$order_note = sprintf( __( 'iugu: Pre-order payment failed (%s).', 'iugu-woocommerce' ), $e->getMessage() );
 
 			// Mark order as failed if not already set,
 			// otherwise, make sure we add the order note so we can detect when someone fails to check out multiple times
@@ -259,14 +259,14 @@ class WC_Iugu_Bank_Slip_Addons_Gateway_Deprecated extends WC_Iugu_Bank_Slip_Gate
 		$order_updated  = false;
 
 		if ( 'paid' == $invoice_status ) {
-			$order->add_order_note( __( 'Iugu: Subscription paid successfully.', 'iugu-woocommerce' ) );
+			$order->add_order_note( __( 'iugu: Subscription paid successfully.', 'iugu-woocommerce' ) );
 
 			// Payment complete
 			$order->payment_complete();
 
 			$order_updated = true;
 		} elseif ( in_array( $invoice_status, array( 'canceled', 'refunded', 'expired' ) ) ) {
-			$order->add_order_note( __( 'Iugu: Subscription payment failed.', 'iugu-woocommerce' ) );
+			$order->add_order_note( __( 'iugu: Subscription payment failed.', 'iugu-woocommerce' ) );
 
 			WC_Subscriptions_Manager::process_subscription_payment_failure_on_order( $order );
 			$order_updated = true;

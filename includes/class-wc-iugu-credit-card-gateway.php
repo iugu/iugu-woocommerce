@@ -4,7 +4,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 
 /**
- * Iugu Payment Credit Card Gateway class.
+ * iugu Payment Credit Card Gateway class.
  *
  * Extended by individual payment gateways to handle payments.
  *
@@ -21,8 +21,8 @@ class WC_Iugu_Credit_Card_Gateway extends WC_Payment_Gateway {
 
 		$this->id                   = 'iugu-credit-card';
 		$this->icon                 = apply_filters( 'iugu_woocommerce_credit_card_icon', '' );
-		$this->method_title         = __( 'Iugu - Credit Card', 'iugu-woocommerce' );
-		$this->method_description   = __( 'Accept payments by credit card using the Iugu.', 'iugu-woocommerce' );
+		$this->method_title         = __( 'iugu - Credit card', 'iugu-woocommerce' );
+		$this->method_description   = __( 'Accept credit card payments using iugu.', 'iugu-woocommerce' );
 		$this->has_fields           = true;
 		$this->view_transaction_url = 'https://iugu.com/a/invoices/%s';
 		$this->supports             = array(
@@ -108,31 +108,30 @@ class WC_Iugu_Credit_Card_Gateway extends WC_Payment_Gateway {
 			'enabled' => array(
 				'title'   => __( 'Enable/Disable', 'iugu-woocommerce' ),
 				'type'    => 'checkbox',
-				'label'   => __( 'Enable Iugu Credit Card', 'iugu-woocommerce' ),
+				'label'   => __( 'Enable credit card payments with iugu', 'iugu-woocommerce' ),
 				'default' => 'no'
 			),
 			'title' => array(
 				'title'       => __( 'Title', 'iugu-woocommerce' ),
 				'type'        => 'text',
-				'description' => __( 'This controls the title which the user sees during checkout.', 'iugu-woocommerce' ),
-				'desc_tip'    => true,
-				'default'     => __( 'Credit Card', 'iugu-woocommerce' )
+				'description' => __( 'Payment method title seen on the checkout page.', 'iugu-woocommerce' ),
+				'default'     => __( 'Credit card', 'iugu-woocommerce' )
 			),
 			'description' => array(
 				'title'       => __( 'Description', 'iugu-woocommerce' ),
 				'type'        => 'textarea',
-				'description' => __( 'This controls the description which the user sees during checkout.', 'iugu-woocommerce' ),
-				'default'     => __( 'Pay with credit card.', 'iugu-woocommerce' )
+				'description' => __( 'Payment method description seen on the checkout page.', 'iugu-woocommerce' ),
+				'default'     => __( 'Pay with credit card', 'iugu-woocommerce' )
 			),
 			'integration' => array(
-				'title'       => __( 'Integration Settings', 'iugu-woocommerce' ),
+				'title'       => __( 'Integration settings', 'iugu-woocommerce' ),
 				'type'        => 'title',
 				'description' => ''
 			),
 			'account_id' => array(
 				'title'             => __( 'Account ID', 'iugu-woocommerce' ),
 				'type'              => 'text',
-				'description'       => sprintf( __( 'Please enter your Account ID. This is needed in order to take payment. Is possible found the Account ID in %s.', 'iugu-woocommerce' ), '<a href="https://app.iugu.com/account" target="_blank">' . __( 'Iugu Account Settings', 'iugu-woocommerce' ) . '</a>' ),
+				'description'       => sprintf( __( 'Your iugu account\'s unique ID, found in %s.', 'iugu-woocommerce' ), '<a href="https://app.iugu.com/account" target="_blank">' . __( 'iugu Account Settings', 'iugu-woocommerce' ) . '</a>' ),
 				'default'           => '',
 				'custom_attributes' => array(
 					'required' => 'required'
@@ -141,22 +140,21 @@ class WC_Iugu_Credit_Card_Gateway extends WC_Payment_Gateway {
 			'api_token' => array(
 				'title'            => __( 'API Token', 'iugu-woocommerce' ),
 				'type'              => 'text',
-				'description'       => sprintf( __( 'Please enter your API Token. This is needed in order to take payment. Is possible generate a new API Token in %s.', 'iugu-woocommerce' ), '<a href="https://app.iugu.com/account" target="_blank">' . __( 'Iugu Account Settings', 'iugu-woocommerce' ) . '</a>' ),
+				'description'       => sprintf( __( 'For real payments, use a LIVE API token. When iugu sandbox is enabled, use a TEST API token. API tokens can be found/created in %s.', 'iugu-woocommerce' ), '<a href="https://app.iugu.com/account" target="_blank">' . __( 'iugu Account Settings', 'iugu-woocommerce' ) . '</a>' ),
 				'default'           => '',
 				'custom_attributes' => array(
 					'required' => 'required'
 				)
 			),
 			'payment' => array(
-				'title'       => __( 'Payment Options', 'iugu-woocommerce' ),
+				'title'       => __( 'Payment options', 'iugu-woocommerce' ),
 				'type'        => 'title',
 				'description' => ''
 			),
 			'installments' => array(
-				'title'             => __( 'Number of credit card Installments', 'iugu-woocommerce' ),
+				'title'             => __( 'Installments limit', 'iugu-woocommerce' ),
 				'type'              => 'number',
-				'description'       => __( 'The maximum number of installments allowed for credit cards. Put a number bigger than 1 to enable the field. This cannot be greater than the number allowed in your Iugu account.', 'iugu-woocommerce' ),
-				'desc_tip'          => true,
+				'description'       => __( 'The maximum number of installments allowed for credit card payments. This can\'t be greater than the setting allowed in your iugu account.', 'iugu-woocommerce' ),
 				'default'           => '1',
 				'custom_attributes' => array(
 					'step' => '1',
@@ -165,24 +163,24 @@ class WC_Iugu_Credit_Card_Gateway extends WC_Payment_Gateway {
 				)
 			),
 			'smallest_installment' => array(
-				'title'       => __( 'Smallest Installment', 'iugu-woocommerce' ),
+				'title'       => __( 'Smallest installment value', 'iugu-woocommerce' ),
 				'type'        => 'text',
-				'description' => __( 'Smallest value of each installment, cannot be less than 5.', 'iugu-woocommerce' ),
-				'desc_tip'    => true,
-				'default'     => '5'
+				'description' => __( 'Smallest value of each installment. Value can\'t be lower than 5.', 'iugu-woocommerce' ),
+				'default'     => '5',
 			),
 			'pass_interest' => array(
-				'title'       => __( 'Pass interest rate', 'iugu-woocommerce' ),
+				'title'       => __( 'Pass on interest', 'iugu-woocommerce' ),
 				'type'        => 'checkbox',
-				'label'       => __( 'Pass on the Installments interest to the customer.', 'iugu-woocommerce' ),
-				'description' => __( 'This option is only for display and should represent what was configured on your Iugu account.', 'iugu-woocommerce' ),
+				'label'       => __( 'Pass on the installments\' interest to the customer. (Please, be aware that this option only applies for iugu accounts created before 2016.)', 'iugu-woocommerce' ),
+				'description' => __( 'This option is only for display and should mimic your iugu account\'s settings.', 'iugu-woocommerce' ),
 				'desc_tip'    => true,
 				'default'     => 'no'
 			),
 			'free_interest' => array(
 				'title'             => __( 'Free interest', 'iugu-woocommerce' ),
 				'type'              => 'number',
-				'description'       => __( 'Indicate how many installments shall not bear interest, use 0 to disable this option.', 'iugu-woocommerce' ) . ' ' . __( 'This option is only for display and should represent what was configured on your Iugu account.', 'iugu-woocommerce' ),
+				'label'							=> __( 'Indicate how many installments shall not bear any interest. Enter 0 to disable this option.', 'iugu-woocommerce' ),
+				'description'       => __( 'This option is only for display and should mimic your iugu account\'s settings.', 'iugu-woocommerce' ),
 				'desc_tip'          => true,
 				'default'           => '0',
 				'custom_attributes' => array(
@@ -192,9 +190,9 @@ class WC_Iugu_Credit_Card_Gateway extends WC_Payment_Gateway {
 				)
 			),
 			'transaction_rate' => array(
-				'title'             => __( 'Rate per transaction', 'iugu-woocommerce' ),
+				'title'             => __( 'Transaction rate', 'iugu-woocommerce' ),
 				'type'              => 'number',
-				'description'       => __( 'Enter here the transaction rate that is set up in your plan in Iugu.', 'iugu-woocommerce' ) . ' ' . __( 'This option is only for display and should represent what was configured on your Iugu account.', 'iugu-woocommerce' ),
+				'description'       => __( 'Enter the transaction rate set up in your iugu plan.', 'iugu-woocommerce' ) . ' ' . __( 'This option is only for display and should mimic your iugu account\'s settings.', 'iugu-woocommerce' ),
 				'desc_tip'          => true,
 				'default'           => '7',
 				'custom_attributes' => array(
@@ -202,34 +200,34 @@ class WC_Iugu_Credit_Card_Gateway extends WC_Payment_Gateway {
 				)
 			),
 			'behavior' => array(
-				'title'       => __( 'Integration Behavior', 'iugu-woocommerce' ),
+				'title'       => __( 'Integration behavior', 'iugu-woocommerce' ),
 				'type'        => 'title',
 				'description' => ''
 			),
 			'send_only_total' => array(
 				'title'   => __( 'Send only the order total', 'iugu-woocommerce' ),
 				'type'    => 'checkbox',
-				'label'   => __( 'If this option is enabled will only send the order total, not the list of items.', 'iugu-woocommerce' ),
+				'label'   => __( 'When enabled, the customer only gets the order total, not the list of purchased items.', 'iugu-woocommerce' ),
 				'default' => 'no'
 			),
 			'testing' => array(
-				'title'       => __( 'Gateway Testing', 'iugu-woocommerce' ),
+				'title'       => __( 'Gateway testing', 'iugu-woocommerce' ),
 				'type'        => 'title',
 				'description' => ''
 			),
 			'sandbox' => array(
-				'title'       => __( 'Iugu Sandbox', 'iugu-woocommerce' ),
+				'title'       => __( 'iugu sandbox', 'iugu-woocommerce' ),
 				'type'        => 'checkbox',
-				'label'       => __( 'Enable Iugu Sandbox', 'iugu-woocommerce' ),
+				'label'       => __( 'Enable iugu sandbox', 'iugu-woocommerce' ),
 				'default'     => 'no',
-				'description' => sprintf( __( 'Iugu Sandbox can be used to test the payments. <strong>Note:</strong> you must use the development API Token that can be created in %s.', 'iugu-woocommerce' ), '<a href="https://iugu.com/settings/account" target="_blank">' . __( 'Iugu Account Settings', 'iugu-woocommerce' ) . '</a>' )
+				'description' => sprintf( __( 'Used to test payments. Don\'t forget to use a TEST API token, which can be found/created in %s.', 'iugu-woocommerce' ), '<a href="https://iugu.com/settings/account" target="_blank">' . __( 'iugu account settings', 'iugu-woocommerce' ) . '</a>' )
 			),
 			'debug' => array(
-				'title'       => __( 'Debug Log', 'iugu-woocommerce' ),
+				'title'       => __( 'Debugging', 'iugu-woocommerce' ),
 				'type'        => 'checkbox',
 				'label'       => __( 'Enable logging', 'iugu-woocommerce' ),
 				'default'     => 'no',
-				'description' => sprintf( __( 'Log Iugu events, such as API requests, you can check this log in %s.', 'iugu-woocommerce' ), WC_Iugu::get_log_view( $this->id ) )
+				'description' => sprintf( __( 'Log iugu events, such as API requests, for debugging purposes. The log can be found in %s.', 'iugu-woocommerce' ), WC_Iugu::get_log_view( $this->id ) )
 			)
 		);
 	}
@@ -252,11 +250,11 @@ class WC_Iugu_Credit_Card_Gateway extends WC_Payment_Gateway {
 				array(
 					'account_id'                    => $this->account_id,
 					'is_sandbox'                    => $this->sandbox,
-					'i18n_number_field'             => __( 'Card Number', 'iugu-woocommerce' ),
-					'i18n_verification_value_field' => __( 'Security Code', 'iugu-woocommerce' ),
-					'i18n_expiration_field'         => __( 'Card Expiry Date', 'iugu-woocommerce' ),
-					'i18n_first_name_field'         => __( 'First Name', 'iugu-woocommerce' ),
-					'i18n_last_name_field'          => __( 'Last Name', 'iugu-woocommerce' ),
+					'i18n_number_field'             => __( 'Card number', 'iugu-woocommerce' ),
+					'i18n_verification_value_field' => __( 'Security code', 'iugu-woocommerce' ),
+					'i18n_expiration_field'         => __( 'Expiry date', 'iugu-woocommerce' ),
+					'i18n_first_name_field'         => __( 'First name', 'iugu-woocommerce' ),
+					'i18n_last_name_field'          => __( 'Last name', 'iugu-woocommerce' ),
 					'i18n_is_invalid'               => __( 'is invalid', 'iugu-woocommerce' )
 				)
 			);
@@ -310,7 +308,7 @@ class WC_Iugu_Credit_Card_Gateway extends WC_Payment_Gateway {
 				$this->log->add( $this->id, 'Error doing the charge for order ' . $order->get_order_number() . ': Missing the "iugu_token".' );
 			}
 
-			$this->api->add_error( '<strong>' . esc_attr( $this->title ) . '</strong>: ' . __( 'Please make sure your card details have been entered correctly and that your browser supports JavaScript.', 'iugu-woocommerce' ) );
+			$this->api->add_error( '<strong>' . esc_attr( $this->title ) . '</strong>: ' . __( 'Please, make sure your credit card details have been entered correctly and that your browser supports JavaScript.', 'iugu-woocommerce' ) );
 
 			return array(
 				'result'   => 'fail',

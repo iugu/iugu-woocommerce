@@ -17,5 +17,5 @@ if ( current_user_can( 'install_plugins' ) ) {
 ?>
 
 <div class="error">
-	<p><strong><?php _e( 'Iugu Disabled', 'iugu-woocommerce' ); ?></strong>: <?php printf( __( 'Iugu WooCommerce requires the latest version of the %s to works.', 'iugu-woocommerce' ), '<a href="' . esc_url( $url ) . '">' . __( 'WooCommerce Extra Checkout Fields for Brazil', 'iugu-woocommerce' ) . '</a>' ); ?></p>
+	<p><strong><?php _e( 'iugu disabled', 'iugu-woocommerce' ); ?></strong>: <?php printf( __( 'WooCommerce iugu requires the latest version of %s to work!', 'iugu-woocommerce' ), '<a href="' . esc_url( $url ) . '">' . __( 'WooCommerce Extra Checkout Fields for Brazil', 'iugu-woocommerce' ) . '</a>' ); ?></p>
 </div>

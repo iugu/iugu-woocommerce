@@ -1,6 +1,6 @@
 <?php
 /**
- * Plugin Name: Iugu WooCommerce
+ * Plugin Name: WooCommerce iugu
  * Plugin URI: https://github.com/iugu/iugu-woocommerce
  * Description: Iugu payment gateway for WooCommerce.
  * Author: iugu
