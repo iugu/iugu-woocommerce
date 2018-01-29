@@ -2,40 +2,16 @@ msgid ""
 msgstr ""
 "Project-Id-Version: WooCommerce iugu 2.0.0\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/iugu-woocommerce\n"
-"POT-Creation-Date: 2018-01-26 16:04+0000\n"
+"POT-Creation-Date: 2018-01-29 09:40+0000\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"PO-Revision-Date: 2018-01-26 16:08+0000\n"
+"PO-Revision-Date: 2018-01-29 09:40+0000\n"
 "Last-Translator: anderson <anderson@iugu.com>\n"
 "Language-Team: Portuguese (Brazil)\n"
 "X-Generator: Loco - https://localise.biz/\n"
 "Language: pt-BR\n"
 "Plural-Forms: nplurals=2; plural=n != 1"
-
-#: includes/views/html-notice-ecfb-missing.php:20
-msgid "WooCommerce Extra Checkout Fields for Brazil"
-msgstr "WooCommerce Extra Checkout Fields for Brazil"
-
-#: includes/views/html-notice-woocommerce-missing.php:20
-msgid "WooCommerce"
-msgstr "WooCommerce"
-
-#. Plugin Name of the plugin/theme
-msgid "WooCommerce iugu"
-msgstr "WooCommerce iugu"
-
-#. Plugin URI of the plugin/theme
-msgid "https://github.com/iugu/iugu-woocommerce"
-msgstr "https://github.com/iugu/iugu-woocommerce"
-
-#. Author of the plugin/theme
-msgid "iugu"
-msgstr "iugu"
-
-#. Author URI of the plugin/theme
-msgid "https://iugu.com/"
-msgstr "https://iugu.com/"
 
 #: includes/class-wc-iugu-api.php:467
 msgid "Order %s"
@@ -436,10 +412,10 @@ msgstr "Repasse de juros"
 #: includes/class-wc-iugu-credit-card-gateway.php:174
 msgid ""
 "Pass on the installments' interest to the customer. (Please, be aware that "
-"this option only applies for iugu accounts created before 2016.)"
+"this option currently only applies to iugu accounts created before 2017.)"
 msgstr ""
 "Repasse os juros da sua antecipação de recebíveis para o cliente. (Esta "
-"opção só se aplica para contas iugu criadas antes de 2016.)"
+"opção atualmente só se aplica para contas iugu criadas antes de 2017.)"
 
 #: includes/class-wc-iugu-credit-card-gateway.php:175
 #: includes/class-wc-iugu-credit-card-gateway.php:183
@@ -531,6 +507,14 @@ msgstr ""
 #: includes/views/html-notice-woocommerce-missing.php:20
 msgid "WooCommerce iugu requires the latest version of %s to work!"
 msgstr "O WooCommerce iugu requer a última versão do %s para funcionar!"
+
+#: includes/views/html-notice-ecfb-missing.php:20
+msgid "WooCommerce Extra Checkout Fields for Brazil"
+msgstr "WooCommerce Extra Checkout Fields for Brazil"
+
+#: includes/views/html-notice-woocommerce-missing.php:20
+msgid "WooCommerce"
+msgstr "WooCommerce"
 
 #: iugu-woocommerce.php:154
 msgid "System Status &gt; Logs"
@@ -630,6 +614,22 @@ msgstr "com juros"
 msgid "%dx of %s %s (Total: %s)"
 msgstr "%sx de %s %s (Total: %s)"
 
+#. Plugin Name of the plugin/theme
+msgid "WooCommerce iugu"
+msgstr "WooCommerce iugu"
+
+#. Plugin URI of the plugin/theme
+msgid "https://github.com/iugu/iugu-woocommerce"
+msgstr "https://github.com/iugu/iugu-woocommerce"
+
 #. Description of the plugin/theme
 msgid "Iugu payment gateway for WooCommerce."
 msgstr "Gateway de pagamento da iugu para o WooCommerce."
+
+#. Author of the plugin/theme
+msgid "iugu"
+msgstr "iugu"
+
+#. Author URI of the plugin/theme
+msgid "https://iugu.com/"
+msgstr "https://iugu.com/"

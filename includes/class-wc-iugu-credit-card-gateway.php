@@ -171,7 +171,7 @@ class WC_Iugu_Credit_Card_Gateway extends WC_Payment_Gateway {
 			'pass_interest' => array(
 				'title'       => __( 'Pass on interest', 'iugu-woocommerce' ),
 				'type'        => 'checkbox',
-				'label'       => __( 'Pass on the installments\' interest to the customer. (Please, be aware that this option only applies for iugu accounts created before 2016.)', 'iugu-woocommerce' ),
+				'label'       => __( 'Pass on the installments\' interest to the customer. (Please, be aware that this option currently only applies to iugu accounts created before 2017.)', 'iugu-woocommerce' ),
 				'description' => __( 'This option is only for display and should mimic your iugu account\'s settings.', 'iugu-woocommerce' ),
 				'desc_tip'    => true,
 				'default'     => 'no'
