@@ -1,4 +1,8 @@
 .DS_Store
 .editorconfig
+.jshintrc
+Gruntfile.js
+package-lock.json
+package.json
 node_modules/
 readme.txt
