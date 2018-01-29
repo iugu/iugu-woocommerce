@@ -151,7 +151,7 @@ class WC_Iugu {
 	 */
 	public static function get_log_view( $gateway_id ) {
 		if ( defined( 'WC_VERSION' ) && version_compare( WC_VERSION, '2.2', '>=' ) ) {
-			return '<a href="' . esc_url( admin_url( 'admin.php?page=wc-status&tab=logs&log_file=' . esc_attr( $gateway_id ) . '-' . sanitize_file_name( wp_hash( $gateway_id ) ) . '.log' ) ) . '">' . __( 'System Status &gt; Logs', 'iugu-woocommerce' ) . '</a>';
+			return '<a href="' . esc_url( admin_url( 'admin.php?page=wc-status&tab=logs&log_file=' . esc_attr( $gateway_id ) . '-' . sanitize_file_name( wp_hash( $gateway_id ) ) . '.log' ) ) . '">' . __( 'System status &gt; logs', 'iugu-woocommerce' ) . '</a>';
 		}
 
 		return '<code>woocommerce/logs/' . esc_attr( $gateway_id ) . '-' . sanitize_file_name( wp_hash( $gateway_id ) ) . '.txt</code>';
@@ -186,9 +186,9 @@ class WC_Iugu {
 			$bank_slip   = 'wc_iugu_bank_slip_gateway';
 		}
 
-		$plugin_links[] = '<a href="' . esc_url( $settings_url . $credit_card ) . '">' . __( 'Credit Card Settings', 'iugu-woocommerce' ) . '</a>';
+		$plugin_links[] = '<a href="' . esc_url( $settings_url . $credit_card ) . '">' . __( 'Credit card settings', 'iugu-woocommerce' ) . '</a>';
 
-		$plugin_links[] = '<a href="' . esc_url( $settings_url . $bank_slip ) . '">' . __( 'Bank Slip Settings', 'iugu-woocommerce' ) . '</a>';
+		$plugin_links[] = '<a href="' . esc_url( $settings_url . $bank_slip ) . '">' . __( 'Bank slip settings', 'iugu-woocommerce' ) . '</a>';
 
 		return array_merge( $plugin_links, $links );
 	}
