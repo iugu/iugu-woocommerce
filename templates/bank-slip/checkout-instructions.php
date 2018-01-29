@@ -13,5 +13,5 @@ if ( ! defined( 'ABSPATH' ) ) {
 ?>
 
 <div id="iugu-bank-slip-instructions">
-	<p><?php _e( 'After clicking "Place order" you will have access to banking bank slip which you can print and pay in your internet banking or in a lottery retailer.', 'iugu-woocommerce' ); ?><br /><?php _e( 'Note: The order will be confirmed only after the payment approval.', 'iugu-woocommerce' ); ?></p>
+	<p><?php _e( 'After clicking on "Place order", you will have access to the bank slip, which you can print and pay on your internet banking or in a lottery retailer.', 'iugu-woocommerce' ); ?><br /><?php _e( 'Note: The order will be confirmed only after the payment approval.', 'iugu-woocommerce' ); ?></p>
 </div>

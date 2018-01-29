@@ -15,7 +15,7 @@ _e( 'Payment', 'iugu-woocommerce' );
 
 echo "\n\n";
 
-_e( 'Please use the link below to view your bank slip, you can print and pay in your internet banking or in a lottery retailer:', 'iugu-woocommerce' );
+_e( 'Use the link below to view your bank slip. You can print and pay it on your internet banking or in a lottery retailer.', 'iugu-woocommerce' );
 
 echo "\n";
 

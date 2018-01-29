@@ -4,14 +4,14 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 
 /**
- * Iugu Payment Bank Slip Gateway class.
+ * iugu Payment Bank Slip Gateway class.
  *
  * Extended by individual payment gateways to handle payments.
  *
  * @class   WC_Iugu_Bank_Slip_Gateway
  * @extends WC_Payment_Gateway
  * @version 1.0.0
- * @author  Iugu
+ * @author  iugu
  */
 class WC_Iugu_Bank_Slip_Gateway extends WC_Payment_Gateway {
 
@@ -23,8 +23,8 @@ class WC_Iugu_Bank_Slip_Gateway extends WC_Payment_Gateway {
 
 		$this->id                   = 'iugu-bank-slip';
 		$this->icon                 = apply_filters( 'iugu_woocommerce_bank_slip_icon', '' );
-		$this->method_title         = __( 'Iugu - Bank Slip', 'iugu-woocommerce' );
-		$this->method_description   = __( 'Accept payments by bank slip using the Iugu.', 'iugu-woocommerce' );
+		$this->method_title         = __( 'iugu - Bank slip', 'iugu-woocommerce' );
+		$this->method_description   = __( 'Accept bank slip payments using iugu.', 'iugu-woocommerce' );
 		$this->has_fields           = true;
 		$this->view_transaction_url = 'https://iugu.com/a/invoices/%s';
 		$this->supports             = array(
@@ -102,31 +102,30 @@ class WC_Iugu_Bank_Slip_Gateway extends WC_Payment_Gateway {
 			'enabled' => array(
 				'title'   => __( 'Enable/Disable', 'iugu-woocommerce' ),
 				'type'    => 'checkbox',
-				'label'   => __( 'Enable Iugu Bank Slip', 'iugu-woocommerce' ),
+				'label'   => __( 'Enable bank slip payments with iugu', 'iugu-woocommerce' ),
 				'default' => 'no'
 			),
 			'title' => array(
 				'title'       => __( 'Title', 'iugu-woocommerce' ),
 				'type'        => 'text',
-				'description' => __( 'This controls the title which the user sees during checkout.', 'iugu-woocommerce' ),
-				'desc_tip'    => true,
-				'default'     => __( 'Bank Slip', 'iugu-woocommerce' )
+				'description' => __( 'Payment method title seen on the checkout page.', 'iugu-woocommerce' ),
+				'default'     => __( 'Bank slip', 'iugu-woocommerce' )
 			),
 			'description' => array(
 				'title'       => __( 'Description', 'iugu-woocommerce' ),
 				'type'        => 'textarea',
-				'description' => __( 'This controls the description which the user sees during checkout.', 'iugu-woocommerce' ),
+				'description' => __( 'Payment method description seen on the checkout page.', 'iugu-woocommerce' ),
 				'default'     => __( 'Pay with bank slip', 'iugu-woocommerce' )
 			),
 			'integration' => array(
-				'title'       => __( 'Integration Settings', 'iugu-woocommerce' ),
+				'title'       => __( 'Integration settings', 'iugu-woocommerce' ),
 				'type'        => 'title',
 				'description' => ''
 			),
 			'account_id' => array(
 				'title'             => __( 'Account ID', 'iugu-woocommerce' ),
 				'type'              => 'text',
-				'description'       => sprintf( __( 'Please enter your Account ID. This is needed in order to take payment. Is possible found the Account ID in %s.', 'iugu-woocommerce' ), '<a href="https://app.iugu.com/account" target="_blank">' . __( 'Iugu Account Settings', 'iugu-woocommerce' ) . '</a>' ),
+				'description'       => sprintf( __( 'Your iugu account\'s unique ID, found in %s.', 'iugu-woocommerce' ), '<a href="https://app.iugu.com/account" target="_blank">' . __( 'iugu account settings', 'iugu-woocommerce' ) . '</a>' ),
 				'default'           => '',
 				'custom_attributes' => array(
 					'required' => 'required'
@@ -135,22 +134,21 @@ class WC_Iugu_Bank_Slip_Gateway extends WC_Payment_Gateway {
 			'api_token' => array(
 				'title'            => __( 'API Token', 'iugu-woocommerce' ),
 				'type'              => 'text',
-				'description'       => sprintf( __( 'Please enter your API Token. This is needed in order to take payment. Is possible generate a new API Token in %s.', 'iugu-woocommerce' ), '<a href="https://app.iugu.com/account" target="_blank">' . __( 'Iugu Account Settings', 'iugu-woocommerce' ) . '</a>' ),
+				'description'       => sprintf( __( 'For real payments, use a LIVE API token. When iugu sandbox is enabled, use a TEST API token. API tokens can be found/created in %s.', 'iugu-woocommerce' ), '<a href="https://app.iugu.com/account" target="_blank">' . __( 'iugu Account Settings', 'iugu-woocommerce' ) . '</a>' ),
 				'default'           => '',
 				'custom_attributes' => array(
 					'required' => 'required'
 				)
 			),
 			'payment' => array(
-				'title'       => __( 'Payment Options', 'iugu-woocommerce' ),
+				'title'       => __( 'Payment options', 'iugu-woocommerce' ),
 				'type'        => 'title',
 				'description' => ''
 			),
 			'deadline' => array(
-				'title'             => __( 'Deadline to pay the bank slip', 'iugu-woocommerce' ),
+				'title'             => __( 'Default payment deadline', 'iugu-woocommerce' ),
 				'type'              => 'number',
 				'description'       => __( 'Number of days the customer will have to pay the bank slip.', 'iugu-woocommerce' ),
-				'desc_tip'          => true,
 				'default'           => '5',
 				'custom_attributes' => array(
 					'step' => '1',
@@ -158,34 +156,34 @@ class WC_Iugu_Bank_Slip_Gateway extends WC_Payment_Gateway {
 				)
 			),
 			'behavior' => array(
-				'title'       => __( 'Integration Behavior', 'iugu-woocommerce' ),
+				'title'       => __( 'Integration behavior', 'iugu-woocommerce' ),
 				'type'        => 'title',
 				'description' => ''
 			),
 			'send_only_total' => array(
 				'title'   => __( 'Send only the order total', 'iugu-woocommerce' ),
 				'type'    => 'checkbox',
-				'label'   => __( 'If this option is enabled will only send the order total, not the list of items.', 'iugu-woocommerce' ),
+				'label'   => __( 'When enabled, the customer only gets the order total, not the list of purchased items.', 'iugu-woocommerce' ),
 				'default' => 'no'
 			),
 			'testing' => array(
-				'title'       => __( 'Gateway Testing', 'iugu-woocommerce' ),
+				'title'       => __( 'Gateway testing', 'iugu-woocommerce' ),
 				'type'        => 'title',
 				'description' => ''
 			),
 			'sandbox' => array(
-				'title'       => __( 'Iugu Sandbox', 'iugu-woocommerce' ),
+				'title'       => __( 'iugu sandbox', 'iugu-woocommerce' ),
 				'type'        => 'checkbox',
-				'label'       => __( 'Enable Iugu Sandbox', 'iugu-woocommerce' ),
+				'label'       => __( 'Enable iugu sandbox', 'iugu-woocommerce' ),
 				'default'     => 'no',
-				'description' => sprintf( __( 'Iugu Sandbox can be used to test the payments. <strong>Note:</strong> you must use the development API Token that can be created in %s.', 'iugu-woocommerce' ), '<a href="https://iugu.com/settings/account" target="_blank">' . __( 'Iugu Account Settings', 'iugu-woocommerce' ) . '</a>' )
+				'description' => sprintf( __( 'Used to test payments. Don\'t forget to use a TEST API token, which can be found/created in %s.', 'iugu-woocommerce' ), '<a href="https://iugu.com/settings/account" target="_blank">' . __( 'iugu Account Settings', 'iugu-woocommerce' ) . '</a>' )
 			),
 			'debug' => array(
-				'title'       => __( 'Debug Log', 'iugu-woocommerce' ),
+				'title'       => __( 'Debugging', 'iugu-woocommerce' ),
 				'type'        => 'checkbox',
 				'label'       => __( 'Enable logging', 'iugu-woocommerce' ),
 				'default'     => 'no',
-				'description' => sprintf( __( 'Log Iugu events, such as API requests, you can check this log in %s.', 'iugu-woocommerce' ), WC_Iugu::get_log_view( $this->id ) )
+				'description' => sprintf( __( 'Log iugu events, such as API requests, for debugging purposes. The log can be found in %s.', 'iugu-woocommerce' ), WC_Iugu::get_log_view( $this->id ) )
 			)
 		);
 	}

@@ -10,6 +10,6 @@ if ( ! defined( 'ABSPATH' ) ) {
 ?>
 
 <div class="error">
-	<p><strong><?php _e( 'Iugu Disabled', 'iugu-woocommerce' ); ?></strong>: <?php _e( 'You should inform your API Token.', 'iugu-woocommerce' ); ?>
+	<p><strong><?php _e( 'iugu disabled', 'iugu-woocommerce' ); ?></strong>: <?php _e( 'Please, inform a valid API token.', 'iugu-woocommerce' ); ?>
 	</p>
 </div>
