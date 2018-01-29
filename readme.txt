@@ -3,7 +3,7 @@ Contributors: iugu, claudiosanches, braising, andsnleo
 Tags: woocommerce, iugu, payment
 Requires at least: 3.9
 Tested up to: 4.9
-Stable tag: 2.0.0
+Stable tag: 2.0.1
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -88,6 +88,9 @@ Para produtos digitais, por padrão, o WooCommerce só permite o acesso do compr
 
 == Changelog ==
 
+= 2.0.1 =
+* Adição: Tradução do plugin para o português.
+
 = 2.0.0 =
 * Melhoria: Removidas as funções deprecadas do WooCommerce.
 * Correção: Função responsável por identificar se o cliente é uma empresa não funcionava apropriadamente.
@@ -97,8 +100,8 @@ Veja o [changelog completo no Github](https://github.com/iugu/iugu-woocommerce/w
 
 == Upgrade Notice ==
 
-= 2.0.0 =
-Removemos as funções obsoletas do WooCommerce para lançar uma versão _major_ (2.0.0) compatível apenas com o WooCommerce 3.0 ou superior. Portanto, atualize o seu plugin do WC se necessário.
+= 2.0.1 =
+Melhoramos todos os textos do plugin e o traduzimos inteiramente para o português.
 
 == Suporte ==
 
