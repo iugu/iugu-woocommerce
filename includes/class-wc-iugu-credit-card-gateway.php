@@ -131,7 +131,7 @@ class WC_Iugu_Credit_Card_Gateway extends WC_Payment_Gateway {
 			'account_id' => array(
 				'title'             => __( 'Account ID', 'iugu-woocommerce' ),
 				'type'              => 'text',
-				'description'       => sprintf( __( 'Your iugu account\'s unique ID, found in %s.', 'iugu-woocommerce' ), '<a href="https://app.iugu.com/account" target="_blank">' . __( 'iugu Account Settings', 'iugu-woocommerce' ) . '</a>' ),
+				'description'       => sprintf( __( 'Your iugu account\'s unique ID, found in %s.', 'iugu-woocommerce' ), '<a href="https://app.iugu.com/account" target="_blank">' . __( 'iugu account settings', 'iugu-woocommerce' ) . '</a>' ),
 				'default'           => '',
 				'custom_attributes' => array(
 					'required' => 'required'
@@ -140,7 +140,7 @@ class WC_Iugu_Credit_Card_Gateway extends WC_Payment_Gateway {
 			'api_token' => array(
 				'title'            => __( 'API Token', 'iugu-woocommerce' ),
 				'type'              => 'text',
-				'description'       => sprintf( __( 'For real payments, use a LIVE API token. When iugu sandbox is enabled, use a TEST API token. API tokens can be found/created in %s.', 'iugu-woocommerce' ), '<a href="https://app.iugu.com/account" target="_blank">' . __( 'iugu Account Settings', 'iugu-woocommerce' ) . '</a>' ),
+				'description'       => sprintf( __( 'For real payments, use a LIVE API token. When iugu sandbox is enabled, use a TEST API token. API tokens can be found/created in %s.', 'iugu-woocommerce' ), '<a href="https://app.iugu.com/account" target="_blank">' . __( 'iugu account settings', 'iugu-woocommerce' ) . '</a>' ),
 				'default'           => '',
 				'custom_attributes' => array(
 					'required' => 'required'

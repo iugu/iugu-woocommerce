@@ -134,7 +134,7 @@ class WC_Iugu_Bank_Slip_Gateway extends WC_Payment_Gateway {
 			'api_token' => array(
 				'title'            => __( 'API Token', 'iugu-woocommerce' ),
 				'type'              => 'text',
-				'description'       => sprintf( __( 'For real payments, use a LIVE API token. When iugu sandbox is enabled, use a TEST API token. API tokens can be found/created in %s.', 'iugu-woocommerce' ), '<a href="https://app.iugu.com/account" target="_blank">' . __( 'iugu Account Settings', 'iugu-woocommerce' ) . '</a>' ),
+				'description'       => sprintf( __( 'For real payments, use a LIVE API token. When iugu sandbox is enabled, use a TEST API token. API tokens can be found/created in %s.', 'iugu-woocommerce' ), '<a href="https://app.iugu.com/account" target="_blank">' . __( 'iugu account settings', 'iugu-woocommerce' ) . '</a>' ),
 				'default'           => '',
 				'custom_attributes' => array(
 					'required' => 'required'
@@ -176,7 +176,7 @@ class WC_Iugu_Bank_Slip_Gateway extends WC_Payment_Gateway {
 				'type'        => 'checkbox',
 				'label'       => __( 'Enable iugu sandbox', 'iugu-woocommerce' ),
 				'default'     => 'no',
-				'description' => sprintf( __( 'Used to test payments. Don\'t forget to use a TEST API token, which can be found/created in %s.', 'iugu-woocommerce' ), '<a href="https://iugu.com/settings/account" target="_blank">' . __( 'iugu Account Settings', 'iugu-woocommerce' ) . '</a>' )
+				'description' => sprintf( __( 'Used to test payments. Don\'t forget to use a TEST API token, which can be found/created in %s.', 'iugu-woocommerce' ), '<a href="https://iugu.com/settings/account" target="_blank">' . __( 'iugu account settings', 'iugu-woocommerce' ) . '</a>' )
 			),
 			'debug' => array(
 				'title'       => __( 'Debugging', 'iugu-woocommerce' ),

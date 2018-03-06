@@ -170,7 +170,7 @@ class WC_Iugu_Bank_Slip_Addons_Gateway_Deprecated extends WC_Iugu_Bank_Slip_Gate
 			update_post_meta( $order->get_id(), __( 'iugu transaction details', 'iugu-woocommerce' ), 'https://iugu.com/a/invoices/' . sanitize_text_field( $charge['invoice_id'] ) );
 		}
 
-		$order_note = __( 'iugu: The customer generated a bank slip. Awaiting confirmation.', 'iugu-woocommerce' );
+		$order_note = __( 'iugu: The customer generated a bank slip. Awaiting payment confirmation.', 'iugu-woocommerce' );
 		if ( 'pending' == $order->get_status() ) {
 			$order->update_status( 'on-hold', $order_note );
 		} else {
