@@ -970,7 +970,7 @@ class WC_Iugu_API {
 					if ( 'bank-slip' == $this->method ) {
 						$order->update_status( 'on-hold', __( 'iugu: The customer generated a bank slip. Awaiting payment confirmation.', 'iugu-woocommerce' ) );
 					} else {
-						$order->update_status( 'on-hold', __( 'iugu: Invoice paid by credit card. Waiting for operator confirmation.', 'iugu-woocommerce' ) );
+						$order->update_status( 'on-hold', __( 'iugu: Invoice paid by credit card. Waiting for the acquirer confirmation.', 'iugu-woocommerce' ) );
 					}
 
 					$order_updated = true;

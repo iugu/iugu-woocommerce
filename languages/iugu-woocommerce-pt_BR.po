@@ -1,29 +1,19 @@
+# Copyright (C) 2018 iugu
+# This file is distributed under the GPLv2 or later.
 msgid ""
 msgstr ""
-"Project-Id-Version: WooCommerce iugu 2.0.1\n"
+"Project-Id-Version: WooCommerce iugu 2.0.2\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/iugu-woocommerce\n"
-"POT-Creation-Date: 2018-01-29 10:47+0000\n"
+"POT-Creation-Date: 2018-03-06 11:19:11+00:00\n"
+"PO-Revision-Date: 2018-03-06 09:42-0300\n"
+"Last-Translator: \n"
+"Language-Team: iugu\n"
+"Language: pt_BR\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"PO-Revision-Date: 2018-01-29 10:47+0000\n"
-"Last-Translator: anderson <anderson@iugu.com>\n"
-"Language-Team: Portuguese (Brazil)\n"
-"X-Generator: Loco - https://localise.biz/\n"
-"Language: pt-BR\n"
-"Plural-Forms: nplurals=2; plural=n != 1"
-
-#: iugu-woocommerce.php:154
-msgid "System status &gt; logs"
-msgstr "Status do sistema &gt; logs"
-
-#: iugu-woocommerce.php:189
-msgid "Credit card settings"
-msgstr "Configurações de cartão de crédito"
-
-#: iugu-woocommerce.php:191
-msgid "Bank slip settings"
-msgstr "Configurações de boleto bancário"
+"X-Generator: Poedit 2.0.4\n"
+"Plural-Forms: nplurals=2; plural=(n > 1);\n"
 
 #: includes/class-wc-iugu-api.php:467
 msgid "Order %s"
@@ -38,8 +28,8 @@ msgid ""
 "An error has occurred while processing your payment. Please, try again or "
 "contact us for assistance."
 msgstr ""
-"Houve um erro enquanto processávamos seu pagamento. Tente de novo ou entre "
-"em contato conosco."
+"Houve um erro enquanto processávamos seu pagamento. Por favor, tente "
+"novamente ou entre em contato conosco para obter ajuda."
 
 #: includes/class-wc-iugu-api.php:839
 msgid "Payment method created for order %s"
@@ -51,7 +41,7 @@ msgstr "Método de pagamento criado para o pedido %s"
 #: includes/class-wc-iugu-bank-slip-addons-gateway.php:169
 #: includes/class-wc-iugu-bank-slip-addons-gateway.php:227
 msgid "iugu bank slip URL"
-msgstr "URL do boleto bancário da iugu"
+msgstr "iugu - URL do boleto bancário"
 
 #: includes/class-wc-iugu-api.php:927
 #: includes/class-wc-iugu-bank-slip-addons-gateway-deprecated.php:170
@@ -63,9 +53,10 @@ msgstr "URL do boleto bancário da iugu"
 #: includes/class-wc-iugu-credit-card-addons-gateway.php:249
 #: includes/class-wc-iugu-credit-card-addons-gateway.php:367
 msgid "iugu transaction details"
-msgstr "Detalhes da transação da iugu"
+msgstr "iugu - Detalhes da transação"
 
 #: includes/class-wc-iugu-api.php:933 includes/class-wc-iugu-api.php:971
+#: includes/class-wc-iugu-bank-slip-addons-gateway-deprecated.php:173
 #: includes/class-wc-iugu-bank-slip-addons-gateway-deprecated.php:234
 #: includes/class-wc-iugu-bank-slip-addons-gateway.php:177
 #: includes/class-wc-iugu-bank-slip-addons-gateway.php:235
@@ -88,9 +79,11 @@ msgid "iugu: Credit card declined."
 msgstr "iugu: Cartão de crédito recusado."
 
 #: includes/class-wc-iugu-api.php:973
-msgid "iugu: Invoice paid by credit card. Waiting for operator confirmation."
+msgid ""
+"iugu: Invoice paid by credit card. Waiting for the acquirer confirmation."
 msgstr ""
-"iugu: Fatura paga com cartão de crédito. Esperando a confirmação do operador."
+"iugu: Fatura paga com cartão de crédito. Aguardando a confirmação da "
+"adquirente."
 
 #: includes/class-wc-iugu-api.php:982
 msgid "iugu: Invoice paid successfully."
@@ -110,7 +103,7 @@ msgstr "iugu: Fatura reembolsada."
 
 #: includes/class-wc-iugu-api.php:1003
 msgid "Invoice for order %s was refunded"
-msgstr "A fatura do pedido %s foi reembolsada."
+msgstr "A fatura do pedido %s foi reembolsada"
 
 #: includes/class-wc-iugu-api.php:1004
 msgid "Invoice refunded"
@@ -118,7 +111,7 @@ msgstr "Fatura reembolsada"
 
 #: includes/class-wc-iugu-api.php:1005
 msgid "Order %s has been marked as refunded by iugu."
-msgstr "O pedido %s foi marcado como reembolsado pela iugu."
+msgstr "A iugu marcou o pedido %s como reembolsado."
 
 #: includes/class-wc-iugu-api.php:1011
 msgid "iugu: Invoice expired."
@@ -144,7 +137,7 @@ msgstr "Bairro"
 
 #: includes/class-wc-iugu-api.php:1073
 msgid "Town / City"
-msgstr "São Paulo"
+msgstr "Cidade"
 
 #: includes/class-wc-iugu-api.php:1074
 msgid "State / County"
@@ -153,10 +146,6 @@ msgstr "Estado"
 #: includes/class-wc-iugu-api.php:1075
 msgid "Postcode / ZIP"
 msgstr "CEP"
-
-#: includes/class-wc-iugu-bank-slip-addons-gateway-deprecated.php:173
-msgid "iugu: The customer generated a bank slip. Awaiting confirmation."
-msgstr "iugu: O cliente gerou um boleto bancário. Aguardando confirmação."
 
 #: includes/class-wc-iugu-bank-slip-addons-gateway-deprecated.php:236
 #: includes/class-wc-iugu-bank-slip-addons-gateway.php:237
@@ -236,9 +225,13 @@ msgid "Your iugu account's unique ID, found in %s."
 msgstr "O ID único da sua conta iugu, encontrado em %s."
 
 #: includes/class-wc-iugu-bank-slip-gateway.php:128
+#: includes/class-wc-iugu-bank-slip-gateway.php:137
+#: includes/class-wc-iugu-bank-slip-gateway.php:179
+#: includes/class-wc-iugu-credit-card-gateway.php:134
+#: includes/class-wc-iugu-credit-card-gateway.php:143
 #: includes/class-wc-iugu-credit-card-gateway.php:223
 msgid "iugu account settings"
-msgstr "Configurações da conta iugu"
+msgstr "iugu - Configurações da conta"
 
 #: includes/class-wc-iugu-bank-slip-gateway.php:135
 #: includes/class-wc-iugu-credit-card-gateway.php:141
@@ -252,15 +245,8 @@ msgid ""
 "TEST API token. API tokens can be found/created in %s."
 msgstr ""
 "Para pagamentos reais, use um token de API LIVE. Quando o iugu sandbox "
-"estiver ativo, use um token de API TEST. Tokens de API podem ser "
-"encontrados/criados em %s."
-
-#: includes/class-wc-iugu-bank-slip-gateway.php:137
-#: includes/class-wc-iugu-bank-slip-gateway.php:179
-#: includes/class-wc-iugu-credit-card-gateway.php:134
-#: includes/class-wc-iugu-credit-card-gateway.php:143
-msgid "iugu Account Settings"
-msgstr "Configurações de conta iugu"
+"estiver ativo, use um token de API TEST. Tokens de API podem ser encontrados/"
+"criados em %s."
 
 #: includes/class-wc-iugu-bank-slip-gateway.php:144
 #: includes/class-wc-iugu-credit-card-gateway.php:150
@@ -448,7 +434,7 @@ msgid ""
 "Indicate how many installments shall not bear any interest. Enter 0 to "
 "disable this option."
 msgstr ""
-"Quantas parcelas não devem ter juros. Use o valor 0 para desativar a opção. "
+"Quantas parcelas não devem ter juros. Use o valor 0 para desativar a opção."
 
 #: includes/class-wc-iugu-credit-card-gateway.php:193
 msgid "Transaction rate"
@@ -504,7 +490,7 @@ msgid "Please, inform a valid API token."
 msgstr "Por favor, informe um token de API válido."
 
 #: includes/views/html-notice-api-token-missing.php:13
-msgid "You should inform your Account ID."
+msgid "You should inform your account ID."
 msgstr "Você deve informar o ID da sua conta iugu."
 
 #: includes/views/html-notice-currency-not-supported.php:13
@@ -527,6 +513,18 @@ msgstr "WooCommerce Extra Checkout Fields for Brazil"
 #: includes/views/html-notice-woocommerce-missing.php:20
 msgid "WooCommerce"
 msgstr "WooCommerce"
+
+#: iugu-woocommerce.php:154
+msgid "System status &gt; logs"
+msgstr "Status do sistema &gt; Logs"
+
+#: iugu-woocommerce.php:189
+msgid "Credit card settings"
+msgstr "Configurações de cartão de crédito"
+
+#: iugu-woocommerce.php:191
+msgid "Bank slip settings"
+msgstr "Configurações de boleto bancário"
 
 #: templates/bank-slip/checkout-instructions.php:16
 msgid ""
