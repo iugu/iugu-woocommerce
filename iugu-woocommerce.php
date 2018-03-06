@@ -2,7 +2,7 @@
 /**
  * Plugin Name: WooCommerce iugu
  * Plugin URI: https://github.com/iugu/iugu-woocommerce
- * Description: Iugu payment gateway for WooCommerce.
+ * Description: iugu payment gateway for WooCommerce.
  * Author: iugu
  * Author URI: https://iugu.com/
  * Version: 2.0.2

@@ -584,7 +584,7 @@ msgid "https://github.com/iugu/iugu-woocommerce"
 msgstr ""
 
 #. Description of the plugin/theme
-msgid "Iugu payment gateway for WooCommerce."
+msgid "iugu payment gateway for WooCommerce."
 msgstr ""
 
 #. Author of the plugin/theme
