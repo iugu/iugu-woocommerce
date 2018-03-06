@@ -3,7 +3,7 @@ Contributors: iugu, claudiosanches, braising, andsnleo
 Tags: woocommerce, iugu, payment
 Requires at least: 3.9
 Tested up to: 4.9
-Stable tag: 2.0.1
+Stable tag: 2.0.2
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -88,6 +88,9 @@ Para produtos digitais, por padrão, o WooCommerce só permite o acesso do compr
 
 == Changelog ==
 
+= 2.0.2 =
+* Correção: Algumas traduções para o português não funcionavam.
+
 = 2.0.1 =
 * Adição: Tradução do plugin para o português.
 
@@ -100,8 +103,9 @@ Veja o [changelog completo no Github](https://github.com/iugu/iugu-woocommerce/w
 
 == Upgrade Notice ==
 
-= 2.0.1 =
-Melhoramos todos os textos do plugin e o traduzimos inteiramente para o português.
+= 2.0.2 =
+Alguns usuários reportaram que tiveram problemas com algumas das traduções para o português liberadas na v2.0.1. Tentamos dar um jeito nisso nesta versão. Se, ainda assim, você não ver as   traduções direitinho, é só mandar um email para anderson@iugu.com.
+
 
 == Suporte ==
 
@@ -109,8 +113,8 @@ Melhoramos todos os textos do plugin e o traduzimos inteiramente para o portugu�
 * [Issues no Github](https://github.com/iugu/iugu-woocommerce/issues)
 * [Fórum de suporte no Wordpress](https://wordpress.org/support/plugin/iugu-woocommerce)
 * Atendimento da iugu:
-  * Email: [suporte@iugu.com](mailto:suporte@iugu.com)
-  * Chat online: Disponível para clientes iugu em [app.iugu.com](https://app.iugu.com) (seg. à sex., das 9h às 17h).
+* Email: [suporte@iugu.com](mailto:suporte@iugu.com)
+* Chat online: Disponível para clientes iugu em [app.iugu.com](https://app.iugu.com) (seg. à sex., das 9h às 17h).
 
 = Compartilhando os logs =
 1. Na administração do plugin do WooCommerce, acesse as configurações de cartão de crédito ou de boleto da iugu, ative o **Log de depuração** e tente realizar o pagamento novamente. Caso o log já esteja ativado, procure o número do pedido feito pelo comprador.
