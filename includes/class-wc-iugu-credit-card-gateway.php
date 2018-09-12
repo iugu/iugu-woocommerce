@@ -255,6 +255,7 @@ class WC_Iugu_Credit_Card_Gateway extends WC_Payment_Gateway {
 					'i18n_expiration_field'         => __( 'Expiry date', 'iugu-woocommerce' ),
 					'i18n_first_name_field'         => __( 'First name', 'iugu-woocommerce' ),
 					'i18n_last_name_field'          => __( 'Last name', 'iugu-woocommerce' ),
+					'i18n_installments_field'       => __( 'Installments', 'iugu-woocommerce' ),
 					'i18n_is_invalid'               => __( 'is invalid', 'iugu-woocommerce' )
 				)
 			);
