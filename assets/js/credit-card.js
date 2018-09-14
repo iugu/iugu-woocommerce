@@ -52,12 +52,14 @@
 			var $form          = $( form ),
 				cardExpiry     = $form.find( '#iugu-card-expiry' ).val().replace( ' ', '' ),
 				creditCardForm = $( '#iugu-credit-card-fields', $form ),
+				installments   = $('#iugu-card-installments').val(),
 				errorHtml      = '';
 
 			// Fixed card expiry for iugu.
 			$form.find( '#iugu-card-expiry' ).val( cardExpiry );
 
 			Iugu.createPaymentToken( form, function( data ) {
+				if(installments < 1) { if(!data.errors) { data.errors = {}; } data.errors.installments = 'is_invalid'; }
 				if ( data.errors ) {
 
 					$( '.woocommerce-error', creditCardForm ).remove();

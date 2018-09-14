@@ -34,6 +34,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 		<p class="form-row form-row-wide">
 			<label for="iugu-card-installments"><?php _e( 'Installments', 'iugu-woocommerce' ); ?> <span class="required">*</span></label>
 			<select id="iugu-card-installments" name="iugu_card_installments" style="font-size: 1.5em; padding: 4px; width: 100%;">
+				<option value=""><?php echo __('Select', 'iugu-woocommerce'); ?></option>
 				<?php for ( $i = 1; $i <= $installments; $i++ ) :
 					$total_to_pay      = $order_total;
 					$installment_total = $total_to_pay / $i;
