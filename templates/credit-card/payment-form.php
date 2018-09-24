@@ -30,7 +30,6 @@ if ( ! defined( 'ABSPATH' ) ) {
 		<label for="iugu-card-cvc"><?php _e( 'Security code', 'iugu-woocommerce' ); ?> <span class="required">*</span></label>
 		<input id="iugu-card-cvc" class="input-text wc-credit-card-form-card-cvc" type="text" autocomplete="off" placeholder="<?php _e( 'CVC', 'iugu-woocommerce' ); ?>" style="font-size: 1.5em; padding: 8px;" data-iugu="verification_value" />
 	</p>
-	<?php if ( 1 < $installments ) : ?>
 		<p class="form-row form-row-wide">
 			<label for="iugu-card-installments"><?php _e( 'Installments', 'iugu-woocommerce' ); ?> <span class="required">*</span></label>
 			<select id="iugu-card-installments" name="iugu_card_installments" style="font-size: 1.5em; padding: 4px; width: 100%;">
@@ -49,7 +48,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 					}
 
 					// Stop when the installment total is less than the smallest installment configure.
-					if ( $installment_total < $smallest_installment ) {
+					if ( $i > 1 && $installment_total < $smallest_installment ) {
 						break;
 					}
 					?>
@@ -57,6 +56,5 @@ if ( ! defined( 'ABSPATH' ) ) {
 				<?php endfor; ?>
 			</select>
 		</p>
-	<?php endif; ?>
 	<div class="clear"></div>
 </fieldset>
