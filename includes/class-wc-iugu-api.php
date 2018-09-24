@@ -576,21 +576,17 @@ class WC_Iugu_API {
 		$invoice_data = $this->build_api_params( $invoice_data );
 		$response     = $this->do_request( 'invoices', 'POST', $invoice_data );
 
-		$response_code = $response['response']['code'];
-		$response_message = $response['response']['message'];
-		$response_body = json_decode( $response['body'], true );
-		$response_errors = isset( $response_body['errors'] ) ? $response_body['errors'] : '';
-
 		if ( is_wp_error( $response ) ) {
 			if ( 'yes' == $this->gateway->debug ) {
 				$this->gateway->log->add( $this->gateway->id, 'WP_Error while trying to generate an invoice: ' . $response->get_error_message() );
 			}
 
-		} elseif ( 200 == $response_code && 'OK' == $response_message) {
+		} elseif ( 200 == $response['response']['code'] && 'OK' == $response['response']['message']) {
 			if ( 'yes' == $this->gateway->debug ) {
 				$this->gateway->log->add( $this->gateway->id, 'Invoice created successfully!' );
 			}
 
+			$response_body = json_decode( $response['body'], true );
 			return array(
 				'id' => $response_body['id'],
 			);
@@ -601,13 +597,6 @@ class WC_Iugu_API {
 			$this->gateway->log->add( $this->gateway->id, 'Error while generating the invoice for order ' . $order->get_order_number() . ': ' . print_r( $response, true ) );
 		}
 
-		return array(
-			'response' => array(
-				'code' => $response_code,
-				'message' => $response_message,
-				'errors' => $response_errors,
-			),
-		);
 	}
 
 	/**
