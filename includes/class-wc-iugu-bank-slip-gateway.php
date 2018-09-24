@@ -143,7 +143,7 @@ class WC_Iugu_Bank_Slip_Gateway extends WC_Payment_Gateway {
 			'ignore_due_email' => array(
 				'title'            => __( 'Ignore due email', 'iugu-woocommerce' ),
 				'type'              => 'checkbox',
-				'label'       => __( 'When checked, Iugu will not send emails billing emails to the payer', 'iugu-woocommerce' ),
+				'label'       => __( 'When checked, Iugu will not send billing emails to the payer', 'iugu-woocommerce' ),
 				'default'           => 'no'
 			),
 			'payment' => array(

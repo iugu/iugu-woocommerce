@@ -1,25 +1,38 @@
-# Translation of WooCommerce iugu in Portuguese (Brazil)
-# This file is distributed under the same license as the WooCommerce iugu package.
+#, fuzzy
 msgid ""
 msgstr ""
-"PO-Revision-Date: 2018-03-06 13:58+0000\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=2; plural=(n > 1);\n"
-"X-Generator: Loco https://localise.biz/\n"
-"Language: pt-BR\n"
+"Plural-Forms: nplurals=INTEGER; plural=EXPRESSION\n"
+"X-Generator: Loco - https://localise.biz/\n"
+"Language: \n"
 "Project-Id-Version: WooCommerce iugu\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-03-06 11:19:11+00:00\n"
+"POT-Creation-Date: 2018-09-24 18:43+0000\n"
 "Last-Translator: anderson <anderson@iugu.com>\n"
 "Language-Team: Portuguese (Brazil)"
 
+#: iugu-woocommerce.php:154
+msgid "System status &gt; logs"
+msgstr ""
+
+#: iugu-woocommerce.php:189
+msgid "Credit card settings"
+msgstr ""
+
+#: iugu-woocommerce.php:191
+msgid "Bank slip settings"
+msgstr ""
+
 #: includes/class-wc-iugu-api.php:467
+#, php-format
 msgid "Order %s"
 msgstr ""
 
 #: includes/class-wc-iugu-api.php:541
+#, php-format
 msgid "Shipping via %s"
 msgstr ""
 
@@ -30,51 +43,54 @@ msgid ""
 msgstr ""
 
 #: includes/class-wc-iugu-api.php:839
+#, php-format
 msgid "Payment method created for order %s"
 msgstr ""
 
 #: includes/class-wc-iugu-api.php:912
-#: includes/class-wc-iugu-bank-slip-addons-gateway-deprecated.php:165
-#: includes/class-wc-iugu-bank-slip-addons-gateway-deprecated.php:226
 #: includes/class-wc-iugu-bank-slip-addons-gateway.php:169
 #: includes/class-wc-iugu-bank-slip-addons-gateway.php:227
+#: includes/class-wc-iugu-bank-slip-addons-gateway-deprecated.php:165
+#: includes/class-wc-iugu-bank-slip-addons-gateway-deprecated.php:226
 msgid "iugu bank slip URL"
 msgstr ""
 
 #: includes/class-wc-iugu-api.php:927
-#: includes/class-wc-iugu-bank-slip-addons-gateway-deprecated.php:170
-#: includes/class-wc-iugu-bank-slip-addons-gateway-deprecated.php:231
+#: includes/class-wc-iugu-credit-card-addons-gateway.php:249
+#: includes/class-wc-iugu-credit-card-addons-gateway.php:367
 #: includes/class-wc-iugu-bank-slip-addons-gateway.php:174
 #: includes/class-wc-iugu-bank-slip-addons-gateway.php:232
 #: includes/class-wc-iugu-credit-card-addons-gateway-deprecated.php:235
 #: includes/class-wc-iugu-credit-card-addons-gateway-deprecated.php:330
-#: includes/class-wc-iugu-credit-card-addons-gateway.php:249
-#: includes/class-wc-iugu-credit-card-addons-gateway.php:367
+#: includes/class-wc-iugu-bank-slip-addons-gateway-deprecated.php:170
+#: includes/class-wc-iugu-bank-slip-addons-gateway-deprecated.php:231
 msgid "iugu transaction details"
 msgstr ""
 
 #: includes/class-wc-iugu-api.php:933 includes/class-wc-iugu-api.php:971
-#: includes/class-wc-iugu-bank-slip-addons-gateway-deprecated.php:173
-#: includes/class-wc-iugu-bank-slip-addons-gateway-deprecated.php:234
 #: includes/class-wc-iugu-bank-slip-addons-gateway.php:177
 #: includes/class-wc-iugu-bank-slip-addons-gateway.php:235
-msgid "iugu: The customer generated a bank slip. Awaiting payment confirmation."
+#: includes/class-wc-iugu-bank-slip-addons-gateway-deprecated.php:173
+#: includes/class-wc-iugu-bank-slip-addons-gateway-deprecated.php:234
+msgid ""
+"iugu: The customer generated a bank slip. Awaiting payment confirmation."
 msgstr ""
 
 #: includes/class-wc-iugu-api.php:936
-#: includes/class-wc-iugu-credit-card-addons-gateway-deprecated.php:337
 #: includes/class-wc-iugu-credit-card-addons-gateway.php:374
+#: includes/class-wc-iugu-credit-card-addons-gateway-deprecated.php:337
 msgid "iugu: Invoice paid successfully by credit card."
 msgstr ""
 
 #: includes/class-wc-iugu-api.php:939
-#: includes/class-wc-iugu-credit-card-addons-gateway-deprecated.php:334
 #: includes/class-wc-iugu-credit-card-addons-gateway.php:371
+#: includes/class-wc-iugu-credit-card-addons-gateway-deprecated.php:334
 msgid "iugu: Credit card declined."
 msgstr ""
 
 #: includes/class-wc-iugu-api.php:973
-msgid "iugu: Invoice paid by credit card. Waiting for the acquirer confirmation."
+msgid ""
+"iugu: Invoice paid by credit card. Waiting for the acquirer confirmation."
 msgstr ""
 
 #: includes/class-wc-iugu-api.php:982
@@ -94,6 +110,7 @@ msgid "iugu: Invoice refunded."
 msgstr ""
 
 #: includes/class-wc-iugu-api.php:1003
+#, php-format
 msgid "Invoice for order %s was refunded"
 msgstr ""
 
@@ -102,6 +119,7 @@ msgid "Invoice refunded"
 msgstr ""
 
 #: includes/class-wc-iugu-api.php:1005
+#, php-format
 msgid "Order %s has been marked as refunded by iugu."
 msgstr ""
 
@@ -109,9 +127,11 @@ msgstr ""
 msgid "iugu: Invoice expired."
 msgstr ""
 
-#: includes/class-wc-iugu-api.php:1052
-#: includes/class-wc-iugu-bank-slip-addons-gateway-deprecated.php:309
+#: includes/class-wc-iugu-api.php:1052 includes/class-wc-iugu-api.php:1052
 #: includes/class-wc-iugu-bank-slip-addons-gateway.php:310
+#: includes/class-wc-iugu-bank-slip-addons-gateway.php:310
+#: includes/class-wc-iugu-bank-slip-addons-gateway-deprecated.php:309
+#: includes/class-wc-iugu-bank-slip-addons-gateway-deprecated.php:309
 msgid "The request failed!"
 msgstr ""
 
@@ -139,21 +159,55 @@ msgstr ""
 msgid "Postcode / ZIP"
 msgstr ""
 
-#: includes/class-wc-iugu-bank-slip-addons-gateway-deprecated.php:236
+#: includes/class-wc-iugu-my-account.php:41
+#: includes/class-wc-iugu-my-account.php:64
+#: templates/bank-slip/payment-instructions.php:16
+#: templates/bank-slip/emails/html-instructions.php:17
+msgid "Pay the bank slip"
+msgstr ""
+
+#: includes/class-wc-iugu-credit-card-addons-gateway.php:55
+#: includes/class-wc-iugu-credit-card-addons-gateway.php:112
+#: includes/class-wc-iugu-credit-card-addons-gateway-deprecated.php:53
+#: includes/class-wc-iugu-credit-card-addons-gateway-deprecated.php:118
+#: includes/class-wc-iugu-credit-card-gateway.php:318
+msgid ""
+"Please, make sure your credit card details have been entered correctly and "
+"that your browser supports JavaScript."
+msgstr ""
+
+#: includes/class-wc-iugu-credit-card-addons-gateway.php:65
+#: includes/class-wc-iugu-credit-card-addons-gateway.php:124
+#: includes/class-wc-iugu-credit-card-addons-gateway-deprecated.php:65
+#: includes/class-wc-iugu-credit-card-addons-gateway-deprecated.php:130
+msgid ""
+"An error occurred while trying to save your data. Please, contact us to get "
+"help."
+msgstr ""
+
+#: includes/class-wc-iugu-credit-card-addons-gateway.php:234
+#: includes/class-wc-iugu-credit-card-addons-gateway.php:352
+#: includes/class-wc-iugu-credit-card-addons-gateway-deprecated.php:220
+#: includes/class-wc-iugu-credit-card-addons-gateway-deprecated.php:315
+msgid "Customer payment method not found!"
+msgstr ""
+
+#: includes/class-wc-iugu-credit-card-addons-gateway.php:253
+#: includes/class-wc-iugu-credit-card-addons-gateway-deprecated.php:239
+msgid "iugu: Subscription paid successfully by credit card."
+msgstr ""
+
+#: includes/class-wc-iugu-credit-card-addons-gateway.php:258
+#: includes/class-wc-iugu-credit-card-addons-gateway-deprecated.php:244
+msgid "iugu: Subscription payment failed. Credit card declined."
+msgstr ""
+
+#: includes/class-wc-iugu-credit-card-addons-gateway.php:377
 #: includes/class-wc-iugu-bank-slip-addons-gateway.php:237
 #: includes/class-wc-iugu-credit-card-addons-gateway-deprecated.php:340
-#: includes/class-wc-iugu-credit-card-addons-gateway.php:377
+#: includes/class-wc-iugu-bank-slip-addons-gateway-deprecated.php:236
+#, php-format
 msgid "iugu: Pre-order payment failed (%s)."
-msgstr ""
-
-#: includes/class-wc-iugu-bank-slip-addons-gateway-deprecated.php:262
-#: includes/class-wc-iugu-bank-slip-addons-gateway.php:263
-msgid "iugu: Subscription paid successfully."
-msgstr ""
-
-#: includes/class-wc-iugu-bank-slip-addons-gateway-deprecated.php:269
-#: includes/class-wc-iugu-bank-slip-addons-gateway.php:270
-msgid "iugu: Subscription payment failed."
 msgstr ""
 
 #: includes/class-wc-iugu-bank-slip-gateway.php:26
@@ -213,15 +267,16 @@ msgstr ""
 
 #: includes/class-wc-iugu-bank-slip-gateway.php:128
 #: includes/class-wc-iugu-credit-card-gateway.php:134
+#, php-format
 msgid "Your iugu account's unique ID, found in %s."
 msgstr ""
 
 #: includes/class-wc-iugu-bank-slip-gateway.php:128
 #: includes/class-wc-iugu-bank-slip-gateway.php:137
-#: includes/class-wc-iugu-bank-slip-gateway.php:179
+#: includes/class-wc-iugu-bank-slip-gateway.php:185
 #: includes/class-wc-iugu-credit-card-gateway.php:134
 #: includes/class-wc-iugu-credit-card-gateway.php:143
-#: includes/class-wc-iugu-credit-card-gateway.php:223
+#: includes/class-wc-iugu-credit-card-gateway.php:229
 msgid "iugu account settings"
 msgstr ""
 
@@ -232,114 +287,101 @@ msgstr ""
 
 #: includes/class-wc-iugu-bank-slip-gateway.php:137
 #: includes/class-wc-iugu-credit-card-gateway.php:143
+#, php-format
 msgid ""
-"For real payments, use a LIVE API token. When iugu sandbox is enabled, use "
-"a TEST API token. API tokens can be found/created in %s."
+"For real payments, use a LIVE API token. When iugu sandbox is enabled, use a "
+"TEST API token. API tokens can be found/created in %s."
 msgstr ""
 
 #: includes/class-wc-iugu-bank-slip-gateway.php:144
 #: includes/class-wc-iugu-credit-card-gateway.php:150
+msgid "Ignore due email"
+msgstr ""
+
+#: includes/class-wc-iugu-bank-slip-gateway.php:146
+#: includes/class-wc-iugu-credit-card-gateway.php:152
+msgid "When checked, Iugu will not send billing emails to the payer"
+msgstr ""
+
+#: includes/class-wc-iugu-bank-slip-gateway.php:150
+#: includes/class-wc-iugu-credit-card-gateway.php:156
 msgid "Payment options"
 msgstr ""
 
-#: includes/class-wc-iugu-bank-slip-gateway.php:149
+#: includes/class-wc-iugu-bank-slip-gateway.php:155
 msgid "Default payment deadline"
 msgstr ""
 
-#: includes/class-wc-iugu-bank-slip-gateway.php:151
+#: includes/class-wc-iugu-bank-slip-gateway.php:157
 msgid "Number of days the customer will have to pay the bank slip."
 msgstr ""
 
-#: includes/class-wc-iugu-bank-slip-gateway.php:159
-#: includes/class-wc-iugu-credit-card-gateway.php:203
+#: includes/class-wc-iugu-bank-slip-gateway.php:165
+#: includes/class-wc-iugu-credit-card-gateway.php:209
 msgid "Integration behavior"
 msgstr ""
 
-#: includes/class-wc-iugu-bank-slip-gateway.php:164
-#: includes/class-wc-iugu-credit-card-gateway.php:208
+#: includes/class-wc-iugu-bank-slip-gateway.php:170
+#: includes/class-wc-iugu-credit-card-gateway.php:214
 msgid "Send only the order total"
 msgstr ""
 
-#: includes/class-wc-iugu-bank-slip-gateway.php:166
-#: includes/class-wc-iugu-credit-card-gateway.php:210
+#: includes/class-wc-iugu-bank-slip-gateway.php:172
+#: includes/class-wc-iugu-credit-card-gateway.php:216
 msgid ""
 "When enabled, the customer only gets the order total, not the list of "
 "purchased items."
 msgstr ""
 
-#: includes/class-wc-iugu-bank-slip-gateway.php:170
-#: includes/class-wc-iugu-credit-card-gateway.php:214
+#: includes/class-wc-iugu-bank-slip-gateway.php:176
+#: includes/class-wc-iugu-credit-card-gateway.php:220
 msgid "Gateway testing"
 msgstr ""
 
-#: includes/class-wc-iugu-bank-slip-gateway.php:175
-#: includes/class-wc-iugu-credit-card-gateway.php:219
+#: includes/class-wc-iugu-bank-slip-gateway.php:181
+#: includes/class-wc-iugu-credit-card-gateway.php:225
 msgid "iugu sandbox"
 msgstr ""
 
-#: includes/class-wc-iugu-bank-slip-gateway.php:177
-#: includes/class-wc-iugu-credit-card-gateway.php:221
+#: includes/class-wc-iugu-bank-slip-gateway.php:183
+#: includes/class-wc-iugu-credit-card-gateway.php:227
 msgid "Enable iugu sandbox"
 msgstr ""
 
-#: includes/class-wc-iugu-bank-slip-gateway.php:179
-#: includes/class-wc-iugu-credit-card-gateway.php:223
+#: includes/class-wc-iugu-bank-slip-gateway.php:185
+#: includes/class-wc-iugu-credit-card-gateway.php:229
+#, php-format
 msgid ""
 "Used to test payments. Don't forget to use a TEST API token, which can be "
 "found/created in %s."
 msgstr ""
 
-#: includes/class-wc-iugu-bank-slip-gateway.php:182
-#: includes/class-wc-iugu-credit-card-gateway.php:226
+#: includes/class-wc-iugu-bank-slip-gateway.php:188
+#: includes/class-wc-iugu-credit-card-gateway.php:232
 msgid "Debugging"
 msgstr ""
 
-#: includes/class-wc-iugu-bank-slip-gateway.php:184
-#: includes/class-wc-iugu-credit-card-gateway.php:228
+#: includes/class-wc-iugu-bank-slip-gateway.php:190
+#: includes/class-wc-iugu-credit-card-gateway.php:234
 msgid "Enable logging"
 msgstr ""
 
-#: includes/class-wc-iugu-bank-slip-gateway.php:186
-#: includes/class-wc-iugu-credit-card-gateway.php:230
+#: includes/class-wc-iugu-bank-slip-gateway.php:192
+#: includes/class-wc-iugu-credit-card-gateway.php:236
+#, php-format
 msgid ""
 "Log iugu events, such as API requests, for debugging purposes. The log can "
 "be found in %s."
 msgstr ""
 
-#: includes/class-wc-iugu-credit-card-addons-gateway-deprecated.php:53
-#: includes/class-wc-iugu-credit-card-addons-gateway-deprecated.php:118
-#: includes/class-wc-iugu-credit-card-addons-gateway.php:55
-#: includes/class-wc-iugu-credit-card-addons-gateway.php:112
-#: includes/class-wc-iugu-credit-card-gateway.php:311
-msgid ""
-"Please, make sure your credit card details have been entered correctly and "
-"that your browser supports JavaScript."
+#: includes/class-wc-iugu-bank-slip-addons-gateway.php:263
+#: includes/class-wc-iugu-bank-slip-addons-gateway-deprecated.php:262
+msgid "iugu: Subscription paid successfully."
 msgstr ""
 
-#: includes/class-wc-iugu-credit-card-addons-gateway-deprecated.php:65
-#: includes/class-wc-iugu-credit-card-addons-gateway-deprecated.php:130
-#: includes/class-wc-iugu-credit-card-addons-gateway.php:65
-#: includes/class-wc-iugu-credit-card-addons-gateway.php:124
-msgid ""
-"An error occurred while trying to save your data. Please, contact us to get "
-"help."
-msgstr ""
-
-#: includes/class-wc-iugu-credit-card-addons-gateway-deprecated.php:220
-#: includes/class-wc-iugu-credit-card-addons-gateway-deprecated.php:315
-#: includes/class-wc-iugu-credit-card-addons-gateway.php:234
-#: includes/class-wc-iugu-credit-card-addons-gateway.php:352
-msgid "Customer payment method not found!"
-msgstr ""
-
-#: includes/class-wc-iugu-credit-card-addons-gateway-deprecated.php:239
-#: includes/class-wc-iugu-credit-card-addons-gateway.php:253
-msgid "iugu: Subscription paid successfully by credit card."
-msgstr ""
-
-#: includes/class-wc-iugu-credit-card-addons-gateway-deprecated.php:244
-#: includes/class-wc-iugu-credit-card-addons-gateway.php:258
-msgid "iugu: Subscription payment failed. Credit card declined."
+#: includes/class-wc-iugu-bank-slip-addons-gateway.php:270
+#: includes/class-wc-iugu-bank-slip-addons-gateway-deprecated.php:269
+msgid "iugu: Subscription payment failed."
 msgstr ""
 
 #: includes/class-wc-iugu-credit-card-gateway.php:24
@@ -362,184 +404,95 @@ msgstr ""
 msgid "Pay with credit card"
 msgstr ""
 
-#: includes/class-wc-iugu-credit-card-gateway.php:155
+#: includes/class-wc-iugu-credit-card-gateway.php:161
 msgid "Installments limit"
 msgstr ""
 
-#: includes/class-wc-iugu-credit-card-gateway.php:157
+#: includes/class-wc-iugu-credit-card-gateway.php:163
 msgid ""
 "The maximum number of installments allowed for credit card payments. This "
 "can't be greater than the setting allowed in your iugu account."
 msgstr ""
 
-#: includes/class-wc-iugu-credit-card-gateway.php:166
+#: includes/class-wc-iugu-credit-card-gateway.php:172
 msgid "Smallest installment value"
 msgstr ""
 
-#: includes/class-wc-iugu-credit-card-gateway.php:168
+#: includes/class-wc-iugu-credit-card-gateway.php:174
 msgid "Smallest value of each installment. Value can't be lower than 5."
 msgstr ""
 
-#: includes/class-wc-iugu-credit-card-gateway.php:172
+#: includes/class-wc-iugu-credit-card-gateway.php:178
 msgid "Pass on interest"
 msgstr ""
 
-#: includes/class-wc-iugu-credit-card-gateway.php:174
+#: includes/class-wc-iugu-credit-card-gateway.php:180
 msgid ""
 "Pass on the installments' interest to the customer. (Please, be aware that "
 "this option currently only applies to iugu accounts created before 2017.)"
 msgstr ""
 
-#: includes/class-wc-iugu-credit-card-gateway.php:175
-#: includes/class-wc-iugu-credit-card-gateway.php:183
-#: includes/class-wc-iugu-credit-card-gateway.php:195
+#: includes/class-wc-iugu-credit-card-gateway.php:181
+#: includes/class-wc-iugu-credit-card-gateway.php:189
+#: includes/class-wc-iugu-credit-card-gateway.php:201
 msgid ""
 "This option is only for display and should mimic your iugu account's "
 "settings."
 msgstr ""
 
-#: includes/class-wc-iugu-credit-card-gateway.php:180
+#: includes/class-wc-iugu-credit-card-gateway.php:186
 msgid "Free interest"
 msgstr ""
 
-#: includes/class-wc-iugu-credit-card-gateway.php:182
+#: includes/class-wc-iugu-credit-card-gateway.php:188
 msgid ""
 "Indicate how many installments shall not bear any interest. Enter 0 to "
 "disable this option."
 msgstr ""
 
-#: includes/class-wc-iugu-credit-card-gateway.php:193
+#: includes/class-wc-iugu-credit-card-gateway.php:199
 msgid "Transaction rate"
 msgstr ""
 
-#: includes/class-wc-iugu-credit-card-gateway.php:195
+#: includes/class-wc-iugu-credit-card-gateway.php:201
 msgid "Enter the transaction rate set up in your iugu plan."
 msgstr ""
 
-#: includes/class-wc-iugu-credit-card-gateway.php:253
+#: includes/class-wc-iugu-credit-card-gateway.php:259
 #: templates/credit-card/payment-form.php:17
 msgid "Card number"
 msgstr ""
 
-#: includes/class-wc-iugu-credit-card-gateway.php:254
+#: includes/class-wc-iugu-credit-card-gateway.php:260
 #: templates/credit-card/payment-form.php:30
 msgid "Security code"
 msgstr ""
 
-#: includes/class-wc-iugu-credit-card-gateway.php:255
+#: includes/class-wc-iugu-credit-card-gateway.php:261
 msgid "Expiry date"
 msgstr ""
 
-#: includes/class-wc-iugu-credit-card-gateway.php:256
+#: includes/class-wc-iugu-credit-card-gateway.php:262
 msgid "First name"
 msgstr ""
 
-#: includes/class-wc-iugu-credit-card-gateway.php:257
+#: includes/class-wc-iugu-credit-card-gateway.php:263
 msgid "Last name"
 msgstr ""
 
-#: includes/class-wc-iugu-credit-card-gateway.php:258
+#: includes/class-wc-iugu-credit-card-gateway.php:264
+#: templates/credit-card/payment-form.php:34
+msgid "Installments"
+msgstr ""
+
+#: includes/class-wc-iugu-credit-card-gateway.php:265
 msgid "is invalid"
 msgstr ""
 
-#: includes/class-wc-iugu-my-account.php:41
-#: includes/class-wc-iugu-my-account.php:64
-#: templates/bank-slip/emails/html-instructions.php:17
-#: templates/bank-slip/payment-instructions.php:16
-msgid "Pay the bank slip"
-msgstr ""
-
-#: includes/views/html-notice-account-id-missing.php:13
-#: includes/views/html-notice-api-token-missing.php:13
-#: includes/views/html-notice-currency-not-supported.php:13
-#: includes/views/html-notice-ecfb-missing.php:20
-#: includes/views/html-notice-woocommerce-missing.php:20
-msgid "iugu disabled"
-msgstr ""
-
-#: includes/views/html-notice-account-id-missing.php:13
-msgid "Please, inform a valid API token."
-msgstr ""
-
-#: includes/views/html-notice-api-token-missing.php:13
-msgid "You should inform your account ID."
-msgstr ""
-
-#: includes/views/html-notice-currency-not-supported.php:13
-msgid ""
-"Currency <code>%s</code> is not supported. WooCommerce iugu only works with "
-"Brazilian real (BRL)."
-msgstr ""
-
-#: includes/views/html-notice-ecfb-missing.php:20
-#: includes/views/html-notice-woocommerce-missing.php:20
-msgid "WooCommerce iugu requires the latest version of %s to work!"
-msgstr ""
-
-#: includes/views/html-notice-ecfb-missing.php:20
-msgid "WooCommerce Extra Checkout Fields for Brazil"
-msgstr ""
-
-#: includes/views/html-notice-woocommerce-missing.php:20
-msgid "WooCommerce"
-msgstr ""
-
-#: iugu-woocommerce.php:154
-msgid "System status &gt; logs"
-msgstr ""
-
-#: iugu-woocommerce.php:189
-msgid "Credit card settings"
-msgstr ""
-
-#: iugu-woocommerce.php:191
-msgid "Bank slip settings"
-msgstr ""
-
-#: templates/bank-slip/checkout-instructions.php:16
-msgid ""
-"After clicking on \"Place order\", you will have access to the bank slip, "
-"which you can print and pay on your internet banking or in a lottery "
-"retailer."
-msgstr ""
-
-#: templates/bank-slip/checkout-instructions.php:16
-msgid "Note: The order will be confirmed only after the payment approval."
-msgstr ""
-
-#: templates/bank-slip/emails/html-instructions.php:15
-#: templates/bank-slip/emails/plain-instructions.php:14
-#: templates/credit-card/emails/html-instructions.php:15
-#: templates/credit-card/emails/plain-instructions.php:14
-msgid "Payment"
-msgstr ""
-
-#: templates/bank-slip/emails/html-instructions.php:17
-#: templates/bank-slip/emails/plain-instructions.php:18
-msgid ""
-"Use the link below to view your bank slip. You can print and pay it on your "
-"internet banking or in a lottery retailer."
-msgstr ""
-
-#: templates/bank-slip/emails/html-instructions.php:17
-#: templates/bank-slip/emails/plain-instructions.php:26
-#: templates/bank-slip/payment-instructions.php:16
-msgid ""
-"After we receive the bank slip payment confirmation, your order will be "
-"processed."
-msgstr ""
-
-#: templates/bank-slip/payment-instructions.php:16
-msgid "Please click in the following button to view your bank slip."
-msgstr ""
-
-#: templates/bank-slip/payment-instructions.php:16
-msgid "You can print and pay it on your internet banking or in a lottery retailer."
-msgstr ""
-
+#: templates/credit-card/payment-instructions.php:17
 #: templates/credit-card/emails/html-instructions.php:17
 #: templates/credit-card/emails/plain-instructions.php:18
-#: templates/credit-card/payment-instructions.php:17
+#, php-format
 msgid "Payment successfully made using credit card in %s."
 msgstr ""
 
@@ -559,8 +512,8 @@ msgstr ""
 msgid "CVC"
 msgstr ""
 
-#: templates/credit-card/payment-form.php:35
-msgid "Installments"
+#: templates/credit-card/payment-form.php:36
+msgid "Select"
 msgstr ""
 
 #: templates/credit-card/payment-form.php:40
@@ -572,19 +525,99 @@ msgid "with interest"
 msgstr ""
 
 #: templates/credit-card/payment-form.php:55
+#, php-format
 msgid "%dx of %s %s (Total: %s)"
+msgstr ""
+
+#: templates/bank-slip/checkout-instructions.php:16
+msgid ""
+"After clicking on \"Place order\", you will have access to the bank slip, "
+"which you can print and pay on your internet banking or in a lottery "
+"retailer."
+msgstr ""
+
+#: templates/bank-slip/checkout-instructions.php:16
+msgid "Note: The order will be confirmed only after the payment approval."
+msgstr ""
+
+#: templates/bank-slip/payment-instructions.php:16
+msgid "Please click in the following button to view your bank slip."
+msgstr ""
+
+#: templates/bank-slip/payment-instructions.php:16
+msgid ""
+"You can print and pay it on your internet banking or in a lottery retailer."
+msgstr ""
+
+#: templates/bank-slip/payment-instructions.php:16
+#: templates/bank-slip/emails/html-instructions.php:17
+#: templates/bank-slip/emails/plain-instructions.php:26
+msgid ""
+"After we receive the bank slip payment confirmation, your order will be "
+"processed."
+msgstr ""
+
+#: includes/views/html-notice-account-id-missing.php:13
+#: includes/views/html-notice-ecfb-missing.php:20
+#: includes/views/html-notice-currency-not-supported.php:13
+#: includes/views/html-notice-woocommerce-missing.php:20
+#: includes/views/html-notice-api-token-missing.php:13
+msgid "iugu disabled"
+msgstr ""
+
+#: includes/views/html-notice-account-id-missing.php:13
+msgid "Please, inform a valid API token."
+msgstr ""
+
+#: includes/views/html-notice-ecfb-missing.php:20
+#: includes/views/html-notice-woocommerce-missing.php:20
+#, php-format
+msgid "WooCommerce iugu requires the latest version of %s to work!"
+msgstr ""
+
+#: includes/views/html-notice-ecfb-missing.php:20
+msgid "WooCommerce Extra Checkout Fields for Brazil"
+msgstr ""
+
+#: includes/views/html-notice-currency-not-supported.php:13
+#, php-format
+msgid ""
+"Currency <code>%s</code> is not supported. WooCommerce iugu only works with "
+"Brazilian real (BRL)."
+msgstr ""
+
+#: includes/views/html-notice-woocommerce-missing.php:20
+msgid "WooCommerce"
+msgstr ""
+
+#: includes/views/html-notice-api-token-missing.php:13
+msgid "You should inform your account ID."
+msgstr ""
+
+#: templates/credit-card/emails/html-instructions.php:15
+#: templates/credit-card/emails/plain-instructions.php:14
+#: templates/bank-slip/emails/html-instructions.php:15
+#: templates/bank-slip/emails/plain-instructions.php:14
+msgid "Payment"
+msgstr ""
+
+#: templates/bank-slip/emails/html-instructions.php:17
+#: templates/bank-slip/emails/plain-instructions.php:18
+msgid ""
+"Use the link below to view your bank slip. You can print and pay it on your "
+"internet banking or in a lottery retailer."
 msgstr ""
 
 #. Plugin Name of the plugin/theme
 msgid "WooCommerce iugu"
 msgstr ""
 
-#. Plugin URI of the plugin/theme
-msgid "https://github.com/iugu/iugu-woocommerce"
-msgstr ""
-
 #. Description of the plugin/theme
 msgid "iugu payment gateway for WooCommerce."
+msgstr ""
+
+#. Plugin URI of the plugin/theme
+msgid "https://github.com/iugu/iugu-woocommerce"
 msgstr ""
 
 #. Author of the plugin/theme
