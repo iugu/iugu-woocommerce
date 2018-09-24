@@ -294,7 +294,8 @@ class WC_Iugu_Credit_Card_Gateway extends WC_Payment_Gateway {
 				'smallest_installment' => 5 <= $this->smallest_installment ? $this->smallest_installment : 5,
 				'free_interest'        => 'yes' == $this->pass_interest ? intval( $this->free_interest ) : 12,
 				'transaction_rate'     => $this->api->get_transaction_rate(),
-				'rates'                => $this->api->get_interest_rate()
+				'rates'                => $this->api->get_interest_rate(),
+				'payment_methods'      => $this->api->get_payment_methods(get_user_meta( get_current_user_id(), '_iugu_customer_id', true ))
 			),
 			'woocommerce/iugu/',
 			WC_Iugu::get_templates_path()
@@ -309,11 +310,25 @@ class WC_Iugu_Credit_Card_Gateway extends WC_Payment_Gateway {
 	 * @return array         Redirect.
 	 */
 	public function process_payment( $order_id ) {
-		if ( ! isset( $_POST['iugu_token'] ) ) {
-			$order = wc_get_order( $order_id );
+		$order = wc_get_order( $order_id );
 
+		// Tratamento do salvamento do cartão.
+		if(isset( $_POST['iugu_token']) && isset( $_POST['iugu_save_card']) && $_POST['iugu_save_card'] == 'on') {
+			// Temos token, e o usuário quer salvar o cartão. Então vamos salvar e colocar seu ID em $_POST, e remover o token, pois ele não pode ser reutilizado.
+			$_POST['customer_payment_method_id'] = $this->api->create_customer_payment_method($order, $_POST['iugu_token']);
+			unset($_POST['iugu_token']);
+		}
+		// Processamento do pagamento.
+		if (isset( $_POST['iugu_token'])) {
+			// Temos iugu token, então o pagamento será feito com um novo cartão. Devemos remover "customer_payment_method_id" do POST, se existir.
+			if(isset($_POST['customer_payment_method_id'])) unset($_POST['customer_payment_method_id']);
+		}
+		else if(!isset($_POST['customer_payment_method_id']))
+		{
+			// Não temos nem iugu_token e nem customer_payment_method_id, não há como concluir o pagamento.
 			if ( 'yes' === $this->debug ) {
-				$this->log->add( $this->id, 'Error doing the charge for order ' . $order->get_order_number() . ': Missing the "iugu_token".' );
+				$this->log->add( $this->id, 'Error doing the charge for order ' . 
+					$order->get_order_number() . ': Missing the "iugu_token" and "customer_payment_method_id".' );
 			}
 
 			$this->api->add_error( '<strong>' . esc_attr( $this->title ) . '</strong>: ' . __( 'Please, make sure your credit card details have been entered correctly and that your browser supports JavaScript.', 'iugu-woocommerce' ) );
@@ -324,7 +339,11 @@ class WC_Iugu_Credit_Card_Gateway extends WC_Payment_Gateway {
 			);
 		}
 
-		return $this->api->process_payment( $order_id );
+		$api_return = $this->api->process_payment( $order_id );
+
+		if($api_return['result'] == 'success') $this->api->set_default_payment_method($order, $_POST['customer_payment_method_id']);
+
+		return $api_return;
 	}
 
 	/**
