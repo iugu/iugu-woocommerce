@@ -49,14 +49,15 @@ class WC_Iugu_Bank_Slip_Gateway extends WC_Payment_Gateway {
 		$this->init_settings();
 
 		// Options.
-		$this->title           = $this->get_option( 'title' );
-		$this->description     = $this->get_option( 'description' );
-		$this->account_id      = $this->get_option( 'account_id' );
-		$this->api_token       = $this->get_option( 'api_token' );
-		$this->deadline        = $this->get_option( 'deadline' );
-		$this->send_only_total = $this->get_option( 'send_only_total', 'no' );
-		$this->sandbox         = $this->get_option( 'sandbox', 'no' );
-		$this->debug           = $this->get_option( 'debug' );
+		$this->title            = $this->get_option( 'title' );
+		$this->description      = $this->get_option( 'description' );
+		$this->account_id       = $this->get_option( 'account_id' );
+		$this->api_token        = $this->get_option( 'api_token' );
+		$this->ignore_due_email = $this->get_option( 'ignore_due_email' );
+		$this->deadline         = $this->get_option( 'deadline' );
+		$this->send_only_total  = $this->get_option( 'send_only_total', 'no' );
+		$this->sandbox          = $this->get_option( 'sandbox', 'no' );
+		$this->debug            = $this->get_option( 'debug' );
 
 		// Active logs.
 		if ( 'yes' == $this->debug ) {
