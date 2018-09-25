@@ -52,6 +52,7 @@ class WC_Iugu_Credit_Card_Gateway extends WC_Payment_Gateway {
 		$this->description          = $this->get_option( 'description' );
 		$this->account_id           = $this->get_option( 'account_id' );
 		$this->api_token            = $this->get_option( 'api_token' );
+		$this->ignore_due_email     = $this->get_option( 'ignore_due_email' );
 		$this->installments         = $this->get_option( 'installments' );
 		$this->pass_interest        = $this->get_option( 'pass_interest' );
 		$this->smallest_installment = $this->get_option( 'smallest_installment', 5 );
@@ -145,6 +146,12 @@ class WC_Iugu_Credit_Card_Gateway extends WC_Payment_Gateway {
 				'custom_attributes' => array(
 					'required' => 'required'
 				)
+			),
+			'ignore_due_email' => array(
+				'title'            => __( 'Ignore due email', 'iugu-woocommerce' ),
+				'type'              => 'checkbox',
+				'label'       => __( 'When checked, Iugu will not send billing emails to the payer', 'iugu-woocommerce' ),
+				'default'           => 'no'
 			),
 			'payment' => array(
 				'title'       => __( 'Payment options', 'iugu-woocommerce' ),

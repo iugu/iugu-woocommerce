@@ -425,7 +425,7 @@ class WC_Iugu_API {
 			'return_url'       => $this->gateway->get_return_url( $order ),
 			'expired_url'      => str_replace( '&#038;', '&', $order->get_cancel_order_url() ),
 			'notification_url' => $this->get_wc_request_url(),
-			'ignore_due_email' => true,
+			'ignore_due_email' => $this->gateway->ignore_due_email == 'yes' ? true : false,
 			'payable_with'     => 'credit-card' === $this->method ? 'credit_card' : 'bank_slip',
 			'custom_variables' => array(
 				array(
