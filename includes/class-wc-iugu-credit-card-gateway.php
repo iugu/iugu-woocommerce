@@ -295,7 +295,8 @@ class WC_Iugu_Credit_Card_Gateway extends WC_Payment_Gateway {
 				'free_interest'        => 'yes' == $this->pass_interest ? intval( $this->free_interest ) : 12,
 				'transaction_rate'     => $this->api->get_transaction_rate(),
 				'rates'                => $this->api->get_interest_rate(),
-				'payment_methods'      => $this->api->get_payment_methods(get_user_meta( get_current_user_id(), '_iugu_customer_id', true ))
+				'payment_methods'      => $this->api->get_payment_methods(get_user_meta( get_current_user_id(), '_iugu_customer_id', true )),
+				'default_method'       => $this->api->get_customer_payment_method_id()
 			),
 			'woocommerce/iugu/',
 			WC_Iugu::get_templates_path()
@@ -341,7 +342,12 @@ class WC_Iugu_Credit_Card_Gateway extends WC_Payment_Gateway {
 
 		$api_return = $this->api->process_payment( $order_id );
 
-		if($api_return['result'] == 'success') $this->api->set_default_payment_method($order, $_POST['customer_payment_method_id']);
+		// Se a chamada foi bem sucedida, a forma de pagamento torna-se a default.
+		// Se foi mal sucedida, e apenas se o usuário tentou salvar esta forma de pagamento, ela será excluída.
+		if($api_return['success'] == true) 
+			$this->api->set_default_payment_method($order, $_POST['customer_payment_method_id']);
+		else if(isset( $_POST['iugu_save_card']) && $_POST['iugu_save_card'] == 'on')
+			$this->api->remove_payment_method($order, $_POST['customer_payment_method_id']);
 
 		return $api_return;
 	}

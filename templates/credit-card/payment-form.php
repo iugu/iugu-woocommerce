@@ -21,7 +21,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 			<?php 
 				foreach($payment_methods as $payment_method)
 				{
-					echo '<option value="'.$payment_method['id'].'"">'.
+					echo '<option value="'.$payment_method['id'].'" '.($payment_method['id'] == $default_method ? 'selected' : '').'>'.
 									$payment_method['data']['brand'].' '.$payment_method['data']['display_number'].
 							 '</option>';
 				}
@@ -52,7 +52,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 		</p>
 		<div class="clear"></div>
 		<p>
-			<input type="checkbox" id="iugu-save-card" name="iugu_save_card"> <label for="iugu-save-card">Deseja salvar este cartão?</label>
+			<input type="checkbox" id="iugu-save-card" name="iugu_save_card"> <label for="iugu-save-card"><?php _e('Save this credit card', 'iugu-woocommerce'); ?></label>
 		</p>
 
 	</div>

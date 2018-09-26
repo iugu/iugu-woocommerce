@@ -291,7 +291,7 @@ class WC_Iugu_API {
 			$params['headers'] = $headers;
 		}
 
-		return wp_remote_post( $this->get_api_url() . $endpoint, $params );
+		return wp_remote_request( $this->get_api_url() . $endpoint, $params );
 	}
 
 	/**
@@ -787,7 +787,8 @@ class WC_Iugu_API {
 	 */
 	public function set_default_payment_method( $order, $payment_id ) {
 		$customer_id = get_user_meta( $order->get_user_id(), '_iugu_customer_id', true );
-		$response    = $this->do_request( 'customers/'.$customer_id, 'PUT', array('default_payment_method_id' => $payment_id) );
+		$data = $this->build_api_params(array('default_payment_method_id' => $payment_id));
+		$response    = $this->do_request( 'customers/'.$customer_id, 'PUT', $data );
 
 		if ( is_wp_error( $response ) ) {
 			if ( 'yes' == $this->gateway->debug ) {
@@ -800,6 +801,27 @@ class WC_Iugu_API {
 		}
 	}
 
+	/**
+	 * Remove customer payment method in iugu API.
+	 *
+	 * @param  WC_Order $order Order data.
+	 * @param  string $payment_id.
+	 *
+	 */
+	public function remove_payment_method( $order, $payment_id ) {
+		$customer_id = get_user_meta( $order->get_user_id(), '_iugu_customer_id', true );
+		$response    = $this->do_request( 'customers/'.$customer_id.'/payment_methods/'.$payment_id, 'DELETE', array() );
+
+		if ( is_wp_error( $response ) ) {
+			if ( 'yes' == $this->gateway->debug ) {
+				$this->gateway->log->add( $this->gateway->id, 'WP_Error while trying to remove payment method: ' . $response->get_error_message() );
+			}
+		} elseif ( isset( $response['body'] ) && ! empty( $response['body'] ) ) {
+			if ( 'yes' == $this->gateway->debug && isset( $customer['id'] ) ) {
+				$this->gateway->log->add( $this->gateway->id, 'Payment method removed successfully!' );
+			}
+		}
+	}
 	/**
 	 * Get customer ID.
 	 *
@@ -885,6 +907,7 @@ class WC_Iugu_API {
 	 * @return array
 	*/
 	public function get_payment_methods($customer_id) {
+		if(empty($customer_id)) return array();
 		$response = $this->do_request( 'customers/' . $customer_id . '/payment_methods', 'GET');
 
 		if ( is_wp_error( $response ) ) {
@@ -898,7 +921,7 @@ class WC_Iugu_API {
 		}
 	}
 
-	 *
+	/**
 	 * @return array
 	 */
 	public function process_payment( $order_id ) {
@@ -925,7 +948,8 @@ class WC_Iugu_API {
 
 			return array(
 				'result'   => 'fail',
-				'redirect' => ''
+				'redirect' => '',
+				'success' => false
 			);
 		}
 
@@ -971,7 +995,8 @@ class WC_Iugu_API {
 
 		return array(
 			'result'   => 'success',
-			'redirect' => $this->gateway->get_return_url( $order )
+			'redirect' => $this->gateway->get_return_url( $order ),
+			'success' => $charge['success']
 		);
 	}
 
