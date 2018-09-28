@@ -1,5 +1,5 @@
 # WooCommerce iugu #
-Latest version: 2.0.2<br />
+Latest version: 2.0.3<br />
 License: GPLv2 or later
 
 Receba pagamentos por cartão de crédito e boleto bancário na sua loja WooCommerce com a iugu.
