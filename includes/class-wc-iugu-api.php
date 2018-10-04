@@ -1107,6 +1107,37 @@ class WC_Iugu_API {
 	}
 
 	/**
+	 * Refund order.
+	 *
+	 * @param  WC_Order $order Order data.
+	 * @param  string $payment_id.
+	 *
+	 */
+	public function refund_order( $order_id, $amount ) {
+		if(empty($order_id)) return false;
+		$order = wc_get_order( $order_id );
+		$total = $order->get_total();
+		if($total != $amount) throw new Exception( __( "Can't do partial refunds", 'iugu-woocommerce' ) ); 
+
+		$transaction_id = get_post_meta( $order_id, '_transaction_id', true);
+
+		$response = $this->do_request( 'invoices/'.$transaction_id.'/refund', 'POST', array() );
+
+		if ( is_wp_error( $response ) ) {
+			if ( 'yes' == $this->gateway->debug ) {
+				$this->gateway->log->add( $this->gateway->id, 'WP_Error while trying to refund order'.$order_id.': '.
+																											$response->get_error_message() );
+			}
+			return $response;
+		} else if ( isset( $response['body'] ) && ! empty( $response['body'] ) ) {
+			if ( 'yes' == $this->gateway->debug && isset( $response['body']['status'] ) && $response['body']['status'] == "refunded" ) {
+				$this->gateway->log->add( $this->gateway->id, 'Order refunded successfully!' );
+			}
+			return true;
+		}
+	}
+
+	/**
 	 * Convert iugu API parameters from the most common error responses
 	 * to make them more human-readabale and match fields' names
 	 * on the checkout page if necessary.

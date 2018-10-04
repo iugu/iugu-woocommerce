@@ -38,7 +38,6 @@ class WC_Iugu_Bank_Slip_Gateway extends WC_Payment_Gateway {
 			'subscription_payment_method_change_customer',
 			'subscription_payment_method_change_admin',
 			'subscription_date_changes',
-			'refunds',
 			'pre-orders'
 		);
 

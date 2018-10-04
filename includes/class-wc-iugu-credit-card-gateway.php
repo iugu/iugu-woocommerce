@@ -448,4 +448,9 @@ class WC_Iugu_Credit_Card_Gateway extends WC_Payment_Gateway {
 			wp_enqueue_script( 'iugu-credit-card-admin', plugins_url( 'assets/js/admin-credit-card' . $suffix . '.js', plugin_dir_path( __FILE__ ) ), array( 'jquery' ), WC_Iugu::CLIENT_VERSION, true );
 		}
 	}
+
+	public function process_refund($order_id, $amount = NULL, $reason = '')
+	{
+		return $this->api->refund_order($order_id, $amount);
+	}
 }
