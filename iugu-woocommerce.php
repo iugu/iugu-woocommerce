@@ -28,7 +28,7 @@ class WC_Iugu {
 	 * @var string
 	 */
 	const CLIENT_NAME = 'plugin-iugu-woocommerce';
-	const CLIENT_VERSION = '2.1.1';
+	const CLIENT_VERSION = '2.1.2';
 
 	/**
 	 * Instance of this class.

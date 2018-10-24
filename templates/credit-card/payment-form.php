@@ -61,6 +61,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 
 
 
+	<? if($installments > 0) { ?>
 	<p class="form-row form-row-wide">
 		<label for="iugu-card-installments"><?php _e( 'Installments', 'iugu-woocommerce' ); ?> <span class="required">*</span></label>
 		<select id="iugu-card-installments" name="iugu_card_installments" style="font-size: 1.5em; padding: 4px; width: 100%;">
@@ -88,6 +89,9 @@ if ( ! defined( 'ABSPATH' ) ) {
 		</select>
 	</p>
 
+	<? } else { ?> 
+		<input type="hidden" value="1" id="iugu-card-installments" name="iugu_card_installments">
+	<? } ?>
 
 	<div class="clear"></div>
 </fieldset>
