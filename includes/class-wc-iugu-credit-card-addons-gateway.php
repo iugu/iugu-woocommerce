@@ -52,9 +52,13 @@ class WC_Iugu_Credit_Card_Addons_Gateway extends WC_Iugu_Credit_Card_Gateway {
 				// Vamos salvar a forma de pagamento e guardar seu ID.
 				$payment_method_id = $this->api->create_customer_payment_method($order, $_POST['iugu_token']);
 			}
-			else
+			else if(isset($_POST['customer_payment_method_id'])) {
+				$payment_method_id = $_POST['customer_payment_method_id'];
+			}
+
+			if(empty($payment_method_id))
 			{
-				// Não temos iugu_token, não há como concluir o pagamento.
+				// Não temos método de pagamento definido, não há como concluir o pagamento.
 				if ( 'yes' === $this->debug ) {
 					$this->log->add( $this->id, 'Error doing the charge for order ' . 
 						$order->get_order_number() . ': Missing the "iugu_token" and "customer_payment_method_id".' );
