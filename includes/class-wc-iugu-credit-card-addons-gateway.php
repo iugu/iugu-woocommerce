@@ -47,20 +47,14 @@ class WC_Iugu_Credit_Card_Addons_Gateway extends WC_Iugu_Credit_Card_Gateway {
 		try {
 			$order = new WC_Order( $order_id );
 
-			// Tratamento do salvamento do cartão.
-			if(isset( $_POST['iugu_token']) && isset( $_POST['iugu_save_card']) && $_POST['iugu_save_card'] == 'on') {
-				// Temos token, e o usuário quer salvar o cartão. Então vamos salvar e colocar seu ID em $_POST, e remover o token, pois ele não pode ser reutilizado.
-				$_POST['customer_payment_method_id'] = $this->api->create_customer_payment_method($order, $_POST['iugu_token']);
-				unset($_POST['iugu_token']);
+			// Nas subscriptions, o cartão é sempre salvo, independente da vontade do usuário, para podermos fazer as próximas cobranças.
+			if(isset( $_POST['iugu_token'])) {
+				// Vamos salvar a forma de pagamento e guardar seu ID.
+				$payment_method_id = $this->api->create_customer_payment_method($order, $_POST['iugu_token']);
 			}
-			// Processamento do pagamento.
-			if (isset( $_POST['iugu_token'])) {
-				// Temos iugu token, então o pagamento será feito com um novo cartão. Devemos remover "customer_payment_method_id" do POST, se existir.
-				if(isset($_POST['customer_payment_method_id'])) unset($_POST['customer_payment_method_id']);
-			}
-			else if(!isset($_POST['customer_payment_method_id']))
+			else
 			{
-				// Não temos nem iugu_token e nem customer_payment_method_id, não há como concluir o pagamento.
+				// Não temos iugu_token, não há como concluir o pagamento.
 				if ( 'yes' === $this->debug ) {
 					$this->log->add( $this->id, 'Error doing the charge for order ' . 
 						$order->get_order_number() . ': Missing the "iugu_token" and "customer_payment_method_id".' );
@@ -79,13 +73,12 @@ class WC_Iugu_Credit_Card_Addons_Gateway extends WC_Iugu_Credit_Card_Gateway {
 			$payment_response = $this->process_subscription_payment( $order, $order->get_total() );
 
 			if ( isset( $payment_response ) && is_wp_error( $payment_response ) ) {
-				// Se a chamada foi mal sucedida, e apenas se o usuário tentou salvar esta forma de pagamento, ela será excluída.
-				if(isset( $_POST['iugu_save_card']) && $_POST['iugu_save_card'] == 'on')
-					$this->api->remove_payment_method($order, $_POST['customer_payment_method_id']);
+				// Se a chamada foi mal sucedida, então a forma de pagamento criada será excluída.
+				$this->api->remove_payment_method($order, $payment_method_id);
 				throw new Exception( $payment_response->get_error_message() );
 			} else {
 				// Se a chamada foi bem sucedida, a forma de pagamento torna-se a default.
-				$this->api->set_default_payment_method($order, $_POST['customer_payment_method_id']);
+				$this->api->set_default_payment_method($order, $payment_method_id);
 				// Remove cart
 				$this->api->empty_card();
 
@@ -438,6 +431,7 @@ class WC_Iugu_Credit_Card_Addons_Gateway extends WC_Iugu_Credit_Card_Gateway {
 				array(
 					'order_total'          => 0,
 					'installments'         => 0,
+					'allow_cc_save'        => $this->allow_cc_save,
 					'smallest_installment' => 0,
 					'free_interest'        => 0,
 					'transaction_rate'     => 0,

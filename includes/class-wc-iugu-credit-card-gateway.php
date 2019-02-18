@@ -56,6 +56,7 @@ class WC_Iugu_Credit_Card_Gateway extends WC_Payment_Gateway {
 		$this->installments         = $this->get_option( 'installments' );
 		$this->pass_interest        = $this->get_option( 'pass_interest' );
 		$this->smallest_installment = $this->get_option( 'smallest_installment', 5 );
+		$this->allow_cc_save        = $this->get_option( 'allow_cc_save' );
 		$this->free_interest        = $this->get_option( 'free_interest' );
 		$this->transaction_rate     = $this->get_option( 'transaction_rate', 7 );
 		$this->send_only_total      = $this->get_option( 'send_only_total', 'no' );
@@ -175,6 +176,14 @@ class WC_Iugu_Credit_Card_Gateway extends WC_Payment_Gateway {
 				'description' => __( 'Smallest value of each installment. Value can\'t be lower than 5.', 'iugu-woocommerce' ),
 				'default'     => '5',
 			),
+			'allow_cc_save' => array(
+				'title'       => __( 'Allow credit card save and reuse', 'iugu-woocommerce' ),
+				'type'        => 'checkbox',
+				'label'       => __( 'Allow credit card save and reuse', 'iugu-woocommerce' ),
+				'description' => __( 'Turn on to offer your customer the option to save credit card info for reuse in a future purchase', 'iugu-woocommerce' ),
+				'desc_tip'    => true,
+				'default'     => 'no'
+			),
 			'pass_interest' => array(
 				'title'       => __( 'Pass on interest', 'iugu-woocommerce' ),
 				'type'        => 'checkbox',
@@ -292,6 +301,7 @@ class WC_Iugu_Credit_Card_Gateway extends WC_Payment_Gateway {
 				'order_total'          => $order_total,
 				'installments'         => intval( $this->installments ),
 				'smallest_installment' => 5 <= $this->smallest_installment ? $this->smallest_installment : 5,
+				'allow_cc_save'        => $this->allow_cc_save,
 				'free_interest'        => 'yes' == $this->pass_interest ? intval( $this->free_interest ) : 12,
 				'transaction_rate'     => $this->api->get_transaction_rate(),
 				'rates'                => $this->api->get_interest_rate(),

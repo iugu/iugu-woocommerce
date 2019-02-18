@@ -1,9 +1,9 @@
 === WooCommerce iugu ===
-Contributors: iugu, claudiosanches, braising, andsnleo
+Contributors: iugu, claudiosanches, braising, andsnleo, eduardoiugu
 Tags: woocommerce, iugu, payment
 Requires at least: 3.9
 Tested up to: 4.9
-Stable tag: 2.0.2
+Stable tag: 2.1.3
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -87,6 +87,15 @@ Para produtos digitais, por padrão, o WooCommerce só permite o acesso do compr
 
 
 == Changelog ==
+
+= 2.1.3 =
+* Correção: Correções na integração com WooCommerce Subscriptions
+* Melhoria: Suporte a salvamento e reutilização de cartões de crédito
+* Melhoria: Suporte a reembolso de pagamentos feitos com cartão de crédito
+* Melhoria: Campo de parcelamento agora precisa ser selecionado a cada recarga de página
+* Melhoria: Criação de parâmetro para ligar/desligar envio de emails de cobrança pela Iugu
+* Correção: Valor de menor parcela agora pode ser maior do que o do pedido
+* Correção: Correção no tratamento de erros no acesso à API Iugu
 
 = 2.0.2 =
 * Correção: Algumas traduções para o português não funcionavam.

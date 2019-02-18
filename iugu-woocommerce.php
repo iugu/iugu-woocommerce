@@ -5,7 +5,7 @@
  * Description: iugu payment gateway for WooCommerce.
  * Author: iugu
  * Author URI: https://iugu.com/
- * Version: 2.0.2
+ * Version: 2.1.3
  * License: GPLv2 or later
  * Text Domain: iugu-woocommerce
  * Domain Path: languages/
@@ -28,7 +28,7 @@ class WC_Iugu {
 	 * @var string
 	 */
 	const CLIENT_NAME = 'plugin-iugu-woocommerce';
-	const CLIENT_VERSION = '2.1.2';
+	const CLIENT_VERSION = '2.1.3';
 
 	/**
 	 * Instance of this class.

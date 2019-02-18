@@ -15,7 +15,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 
 <fieldset id="iugu-credit-card-fields">
 
-<?php if(count($payment_methods) > 0) { ?>
+<?php if(count($payment_methods) > 0 && $allow_cc_save == 'yes') { ?>
 	<p class="form-row form-row-wide">
 		<select id="customer-payment-method-id" name="customer_payment_method_id" style="font-size: 1.5em; padding: 4px; width: 100%;">
 			<?php 
@@ -31,7 +31,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 	</p>
 <?php } ?>
 
-	<div id="new-credit-card" <?php echo count($payment_methods) > 0 ? 'style="display:none;"' : ''; ?>>
+	<div id="new-credit-card" <?php echo count($payment_methods) > 0 && $allow_cc_save == 'yes' ? 'style="display:none;"' : ''; ?>>
 
 		<p class="form-row form-row-first">
 			<label for="iugu-card-number"><?php _e( 'Card number', 'iugu-woocommerce' ); ?> <span class="required">*</span></label>
@@ -52,7 +52,9 @@ if ( ! defined( 'ABSPATH' ) ) {
 		</p>
 		<div class="clear"></div>
 		<p>
+			<?php if($allow_cc_save == 'yes') { ?>
 			<input type="checkbox" id="iugu-save-card" name="iugu_save_card"> <label for="iugu-save-card"><?php _e('Save this credit card', 'iugu-woocommerce'); ?></label>
+		  <?php } ?>
 		</p>
 
 	</div>
@@ -61,11 +63,12 @@ if ( ! defined( 'ABSPATH' ) ) {
 
 
 
-	<? if($installments > 0) { ?>
+	<?php if($installments > 0) { ?>
 	<p class="form-row form-row-wide">
 		<label for="iugu-card-installments"><?php _e( 'Installments', 'iugu-woocommerce' ); ?> <span class="required">*</span></label>
 		<select id="iugu-card-installments" name="iugu_card_installments" style="font-size: 1.5em; padding: 4px; width: 100%;">
 			<option value=""><?php echo __('Select', 'iugu-woocommerce'); ?></option>
+			echo $installments;
 			<?php for ( $i = 1; $i <= $installments; $i++ ) :
 				$total_to_pay      = $order_total;
 				$installment_total = $total_to_pay / $i;
@@ -89,9 +92,9 @@ if ( ! defined( 'ABSPATH' ) ) {
 		</select>
 	</p>
 
-	<? } else { ?> 
+	<?php } else { ?> 
 		<input type="hidden" value="1" id="iugu-card-installments" name="iugu_card_installments">
-	<? } ?>
+	<?php } ?>
 
 	<div class="clear"></div>
 </fieldset>
