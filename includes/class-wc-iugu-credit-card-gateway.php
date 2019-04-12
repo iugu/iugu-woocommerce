@@ -449,7 +449,7 @@ class WC_Iugu_Credit_Card_Gateway extends WC_Payment_Gateway {
 		}
 	}
 
-	public function process_refund($order_id, $amount = NULL, $reason = '')
+	public function process_refund($order_id, $amount = null, $reason = '')
 	{
 		return $this->api->refund_order($order_id, $amount);
 	}
