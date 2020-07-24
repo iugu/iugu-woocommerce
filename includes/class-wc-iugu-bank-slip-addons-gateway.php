@@ -281,32 +281,6 @@ class WC_Iugu_Bank_Slip_Addons_Gateway extends WC_Iugu_Bank_Slip_Gateway {
 	 * Notification handler.
 	 */
 	public function notification_handler() {
-		@ob_clean();
-
-		if ( isset( $_REQUEST['event'] ) && isset( $_REQUEST['data']['id'] ) && 'invoice.status_changed' == $_REQUEST['event'] ) {
-			global $wpdb;
-
-			header( 'HTTP/1.1 200 OK' );
-
-			$invoice_id = sanitize_text_field( $_REQUEST['data']['id'] );
-			$order_id   = $wpdb->get_var( $wpdb->prepare( "SELECT post_id FROM $wpdb->postmeta WHERE meta_key = '_transaction_id' AND meta_value = '%s'", $invoice_id ) );
-			$order_id   = intval( $order_id );
-
-			if ( $order_id ) {
-				$invoice_status = $this->api->get_invoice_status( $invoice_id );
-
-				if ( $invoice_status ) {
-					if ( $this->api->order_contains_subscription( $order_id ) ) {
-						$this->update_subscription_status( $order_id, $invoice_status );
-						exit();
-					} else {
-						$this->api->update_order_status( $order_id, $invoice_status );
-						exit();
-					}
-				}
-			}
-		}
-
-		wp_die( __( 'The request failed!', 'iugu-woocommerce' ), __( 'The request failed!', 'iugu-woocommerce' ), array( 'response' => 200 ) );
+		$this->api->notification_handler();
 	}
 }
